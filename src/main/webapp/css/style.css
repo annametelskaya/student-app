@@ -1,0 +1,53 @@
+body {
+    font-size: 18px;
+}
+
+.add_student_form, .students_table {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+input {
+    display: block;
+    font-size: 18px;
+    width: 27vw;
+}
+
+input[type=text] {
+    padding: 12px 0;
+    margin: 8px 0;
+    border: none;
+    border-bottom: 2px solid #808080;
+}
+
+input[type=text]:focus {
+    outline: none;
+    border-bottom: 3px solid #555;
+}
+
+input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 27vm;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
