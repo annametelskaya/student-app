@@ -38,7 +38,7 @@
         <div class="container content py-5">
             <div class="title text-right">
                 <h1>Marks</h1>
-                <a href="/marks/add">add</a>
+                <a href="/marks/add" class="btn btn-sm active" role="button">add</a>
             </div>
             <div class="table">
                 <div class="row">

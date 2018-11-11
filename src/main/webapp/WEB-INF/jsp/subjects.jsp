@@ -38,7 +38,7 @@
         <div class="container content py-5">
             <div class="title text-right">
                 <h1>Subjects</h1>
-                <a href="/subjects/add">add</a>
+                <a href="/subjects/add" class="btn btn-sm active" role="button">add</a>
             </div>
             <c:forEach items="${subjects}" var="subject">
                 <div class="card m-1" style="width: 18em; display: inline-block">

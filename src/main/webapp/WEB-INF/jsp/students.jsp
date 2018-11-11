@@ -39,12 +39,12 @@
         <div class="container content py-5">
             <div class="title text-right">
                 <h1>Students</h1>
-                <a href="/students/add">add</a>
+                <a href="/students/add" class="btn btn-sm active" role="button">add</a>
             </div>
             <div class="table">
                 <div class="row">
-                    <div class="col-4 table-header">Name</div>
-                    <div class="col-4 table-header">Surname</div>
+                    <div class="col-4 table-header">First name</div>
+                    <div class="col-4 table-header">Second name</div>
                     <div class="col-4 table-header">Group</div>
                 </div>
                 <c:forEach items="${students}" var="student">

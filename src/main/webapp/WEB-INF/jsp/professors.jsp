@@ -39,12 +39,12 @@
         <div class="container content py-5">
             <div class="title text-right">
                 <h1>Professors</h1>
-                <a href="/professors/add">add</a>
+                <a href="/professors/add" class="btn btn-sm active" role="button">add</a>
             </div>
             <div class="table">
                 <div class="row">
-                    <div class="col-3 table-header">Name</div>
-                    <div class="col-3 table-header">Surname</div>
+                    <div class="col-3 table-header">First name</div>
+                    <div class="col-3 table-header">Second name</div>
                     <div class="col-3 table-header">Fathers name</div>
                     <div class="col-3 table-header">Date of birth</div>
                 </div>

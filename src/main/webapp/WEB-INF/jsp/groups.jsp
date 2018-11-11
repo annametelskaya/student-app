@@ -38,12 +38,12 @@
         <div class="container content py-5">
             <div class="title text-right">
                 <h1>Groups</h1>
-                <a href="/groups/add">add</a>
+                <a href="/groups/add" class="btn btn-sm active" role="button">add</a>
             </div>
             <c:forEach items="${groups}" var="group">
                 <div class="card m-1" style="width: 18em; display: inline-block">
                     <div class="card-body">
-                        <h5 class="card-title">Group ?${group.getGroupNumber() }</h5>
+                        <h5 class="card-title">Group ${group.getGroupNumber() }</h5>
                         <p class="card-text">Number of students: ${group.getNumber() }</p>
                             <%--<a href="#" class="btn btn-primary">Go somewhere</a>--%>
                     </div>

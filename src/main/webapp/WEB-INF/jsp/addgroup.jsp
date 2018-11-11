@@ -41,9 +41,9 @@
             </div>
             <form action="/groups" method="POST">
                 <div class="form-container">
-                    <input type="text" class="form-control" id="groupNumberForm" name="groupNumber" placeholder="Name"
-                           required pattern="[0-9]+">
-                    <input class="btn" style="width: 100%" type="submit" value="OK">
+                    <input type="text" class="form-control" id="groupNumberForm" name="groupNumber"
+                           placeholder="Group number" required pattern="[0-9]+">
+                    <input class="btn" type="submit" value="OK">
                 </div>
             </form>
         </div>

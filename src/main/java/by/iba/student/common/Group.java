@@ -16,10 +16,10 @@ public class Group {
 
     public void addStudent(Student student) {
         number++;
-        if (number!=1) {
+        if (number != 1) {
             Student[] save = students;
             students = new Student[number];
-            System.arraycopy(save, 0, students, 0, number);
+            if (number - 1 >= 0) System.arraycopy(save, 0, students, 0, number - 1);
             students[number - 1] = student;
             student.setGroupNumber(number);
         } else {

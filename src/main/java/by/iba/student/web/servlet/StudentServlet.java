@@ -33,7 +33,7 @@ public class StudentServlet extends HttpServlet {
         String secondName = req.getParameter("secondName");
         String groupNumber = req.getParameter("groupNumber");
         Data.STUDENTS.add(new Student(firstName, secondName, groupNumber));
-        Data.GROUP.get(Integer.decode(groupNumber) - 1).addStudent(new Student(firstName, secondName, groupNumber));
+        Data.addNewStudent(groupNumber, new Student(firstName, secondName, groupNumber));
         doGet(req, resp);
 
     }

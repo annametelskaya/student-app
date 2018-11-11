@@ -41,15 +41,15 @@
             </div>
             <form action="/professors" method="POST">
                 <div class="form-container">
-                    <input type="text" class="form-control" id="nameForm" name="firstName" placeholder="Name"
+                    <input type="text" class="form-control" id="nameForm" name="firstName" placeholder="First name"
                            required>
-                    <input type="text" class="form-control" id="surnameForm" name="secondName" placeholder="Surname"
+                    <input type="text" class="form-control" id="surnameForm" name="secondName" placeholder="Second name"
                            required>
                     <input type="text" class="form-control" id="fatherNameForm" name="fatherName"
-                           placeholder="Father Name" required>
+                           placeholder="Father name" required>
                     <input type="date" value="2018-11-11" class="form-control" id="birthForm" name="birthDate"
                            required>
-                    <input class="btn" style="width: 100%" type="submit" value="OK">
+                    <input class="btn" type="submit" value="OK">
                 </div>
             </form>
         </div>

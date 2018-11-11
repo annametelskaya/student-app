@@ -61,14 +61,16 @@ body, html {
     border-bottom: 1px solid darkgray;
     margin: 8px 0;
 }
-
 .btn {
     background-color: #3F51B1;
     color: #dddddd;
 }
-
+input.btn {
+    width: 100%;
+}
 .btn:hover {
     background-color: #394aa1;
+    color: #dddddd;
 }
 
 .table {

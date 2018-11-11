@@ -41,16 +41,16 @@
             </div>
             <form action="/students" method="POST">
                 <div class="form-container">
-                    <input type="text" class="form-control" id="nameForm" name="firstName" placeholder="Name"
+                    <input type="text" class="form-control" id="nameForm" name="firstName" placeholder="First name"
                            required>
-                    <input type="text" class="form-control" id="surnameForm" name="secondName" placeholder="Surname"
+                    <input type="text" class="form-control" id="surnameForm" name="secondName" placeholder="Second name"
                            required>
                     <select class="form-control" id="groupForm" name="groupNumber" required pattern="[0-9]+">
                         <c:forEach items="${groups}" var="group">
                             <option>${group.getGroupNumber() }</option>
                         </c:forEach>
                     </select>
-                    <input class="btn" style="width: 100%" type="submit" value="OK">
+                    <input class="btn" type="submit" value="OK">
                 </div>
             </form>
         </div>

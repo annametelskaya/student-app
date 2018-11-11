@@ -29,4 +29,12 @@ public class Data {
         }
         return null;
     }
+
+    public static void addNewStudent(String group, Student student) {
+        for (int i = 0; i < GROUP.size(); i++) {
+            if (GROUP.get(i).getGroupNumber().equals(group)) {
+                GROUP.get(i).addStudent(student);
+            }
+        }
+    }
 }

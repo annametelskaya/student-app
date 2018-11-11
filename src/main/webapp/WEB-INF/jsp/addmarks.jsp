@@ -55,8 +55,8 @@
                            required>
                     <input type="text" class="form-control" id="markForm" name="mark" placeholder="mark"
                            required pattern="[0-9]+">
-                    <textarea type="text" class="form-control" id="commentForm" name="comment" rows="3"></textarea>
-                    <input class="btn" style="width: 100%" type="submit" value="OK">
+                    <textarea type="text" class="form-control" id="commentForm" name="comment" rows="3" placeholder="comment"></textarea>
+                    <input class="btn" type="submit" value="OK">
                 </div>
             </form>
         </div>

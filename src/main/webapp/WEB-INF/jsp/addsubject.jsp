@@ -50,7 +50,7 @@
                             <option>${professor.getFirstName() } ${professor.getSecondName() } ${professor.getFatherName()}</option>
                         </c:forEach>
                     </select>
-                    <input class="btn" style="width: 100%" type="submit" value="OK">
+                    <input class="btn" type="submit" value="OK">
                 </div>
             </form>
         </div>
