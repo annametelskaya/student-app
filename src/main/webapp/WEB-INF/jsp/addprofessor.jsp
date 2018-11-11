@@ -21,23 +21,23 @@
                 <a href="/students" class="nav-link nav-link-text">Students</a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link nav-link-text">Groups</a>
+                <a href="/groups" class="nav-link nav-link-text">Groups</a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link nav-link-text">Marks</a>
+                <a href="/marks" class="nav-link nav-link-text">Marks</a>
             </li>
             <li class="nav-item">
                 <a href="/professors" class="nav-link nav-link-text">Professors</a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link nav-link-text">Subjects</a>
+                <a href="/subjects" class="nav-link nav-link-text">Subjects</a>
             </li>
         </ul>
     </nav>
     <div class="col-md-9">
         <div class="container content div-center flex-column">
             <div class="title text-center">
-                <h1>Add Student</h1>
+                <h1>Add professor</h1>
             </div>
             <form action="/professors" method="POST">
                 <div class="form-container">

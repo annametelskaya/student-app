@@ -5,7 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>Add student</title>
+    <title>Add mark</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
@@ -37,17 +37,23 @@
     <div class="col-md-9">
         <div class="container content div-center flex-column">
             <div class="title text-center">
-                <h1>Add student</h1>
+                <h1>Add mark</h1>
             </div>
-            <form action="/students" method="POST">
+            <form action="/marks" method="POST">
                 <div class="form-container">
-                    <input type="text" class="form-control" id="nameForm" name="firstName" placeholder="Name"
+                    <select class="form-control" id="selectStudentForm" name="selectedStudent">
+                        <c:forEach items="${students}" var="student">
+                            <option>${student.getFirstName() } ${student.getSecondName() }</option>
+                        </c:forEach>
+                    </select>
+                    <select class="form-control" id="selectProfessorForm" name="selectedProfessor">
+                        <c:forEach items="${professors}" var="professor">
+                            <option>${professor.getFirstName() } ${professor.getSecondName() } ${professor.getFatherName()}</option>
+                        </c:forEach>
+                    </select>
+                    <input type="text" class="form-control" id="markForm" name="mark" placeholder="mark"
                            required>
-                    <input type="text" class="form-control" id="surnameForm" name="secondName" placeholder="Surname"
-                           required>
-                    <%--<input type="text" class="form-control" id="studentGroupForm" name="groupNumber" placeholder="Group"--%>
-                    <%--required--%>
-                    <%--pattern="[0-9]+">--%>
+                    <textarea type="text" class="form-control" id="commentForm" name="comment" rows="3"></textarea>
                     <input class="btn" style="width: 100%" type="submit" value="OK">
                 </div>
             </form>

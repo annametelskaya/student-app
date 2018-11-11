@@ -3,42 +3,53 @@
         "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-    <display-name>Archetype Created Web Application</display-name>
-
     <servlet>
         <servlet-name>StudentServlet</servlet-name>
         <servlet-class>by.iba.student.web.servlet.StudentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddStudentServlet</servlet-name>
+        <servlet-class>by.iba.student.web.servlet.AddStudentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProfessorsServlet</servlet-name>
+        <servlet-class>by.iba.student.web.servlet.ProfessorsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddProfessorServlet</servlet-name>
+        <servlet-class>by.iba.student.web.servlet.AddProfessorServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MarksServlet</servlet-name>
+        <servlet-class>by.iba.student.web.servlet.MarksServelt</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddMarkServlet</servlet-name>
+        <servlet-class>by.iba.student.web.servlet.AddMarkServelt</servlet-class>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>StudentServlet</servlet-name>
         <url-pattern>/students</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>AddStudentServlet</servlet-name>
-        <servlet-class>by.iba.student.web.servlet.AddStudentServlet</servlet-class>
-    </servlet>
-
     <servlet-mapping>
         <servlet-name>AddStudentServlet</servlet-name>
         <url-pattern>/students/add</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>ProfessorsServlet</servlet-name>
-        <servlet-class>by.iba.student.web.servlet.ProfessorsServlet</servlet-class>
-    </servlet>
-
     <servlet-mapping>
         <servlet-name>ProfessorsServlet</servlet-name>
         <url-pattern>/professors</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>AddProfessorServlet</servlet-name>
-        <servlet-class>by.iba.student.web.servlet.AddProfessorServlet</servlet-class>
-    </servlet>
-
     <servlet-mapping>
         <servlet-name>AddProfessorServlet</servlet-name>
         <url-pattern>/professors/add</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MarksServlet</servlet-name>
+        <url-pattern>/marks</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddMarkServlet</servlet-name>
+        <url-pattern>/marks/add</url-pattern>
     </servlet-mapping>
 </web-app>

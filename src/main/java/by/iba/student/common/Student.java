@@ -11,7 +11,7 @@ public class Student {
         super();
         this.firstName = firstName;
         this.secondName = secondName;
-        this.groupNumber=0;
+        this.groupNumber = 0;
 //        this.groupNumber = Integer.decode(groupNumber);
     }
 
@@ -40,4 +40,5 @@ public class Student {
     public void setGroupNumber(int groupNumber) {
         this.groupNumber = groupNumber;
     }
+
 }
