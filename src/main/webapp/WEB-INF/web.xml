@@ -27,6 +27,15 @@
         <servlet-name>AddMarkServlet</servlet-name>
         <servlet-class>by.iba.student.web.servlet.AddMarkServelt</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GroupsServlet</servlet-name>
+        <servlet-class>by.iba.student.web.servlet.GroupServelt</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddGroupServlet</servlet-name>
+        <servlet-class>by.iba.student.web.servlet.AddGroupServlet</servlet-class>
+    </servlet>
+
 
     <servlet-mapping>
         <servlet-name>StudentServlet</servlet-name>
@@ -51,5 +60,13 @@
     <servlet-mapping>
         <servlet-name>AddMarkServlet</servlet-name>
         <url-pattern>/marks/add</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GroupsServlet</servlet-name>
+        <url-pattern>/groups</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddGroupServlet</servlet-name>
+        <url-pattern>/groups/add</url-pattern>
     </servlet-mapping>
 </web-app>

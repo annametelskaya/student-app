@@ -1,13 +1,15 @@
 package by.iba.student.common;
 
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
 
 public class Data {
     public final static List<Student> STUDENTS = new ArrayList<Student>();
     public final static List<Professor> PROFESSORS = new ArrayList<Professor>();
     public final static List<Marks> MARKS = new ArrayList<Marks>();
-
+    public final static List<Group> GROUP = new ArrayList<Group>();
 
     public static Student findStudent(String name, String surname) {
         for (Student student : STUDENTS) {

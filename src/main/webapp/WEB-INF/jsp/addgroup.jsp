@@ -5,7 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>Add student</title>
+    <title>Add group</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
@@ -37,19 +37,12 @@
     <div class="col-md-9">
         <div class="container content div-center flex-column">
             <div class="title text-center">
-                <h1>Add student</h1>
+                <h1>Add group</h1>
             </div>
-            <form action="/students" method="POST">
+            <form action="/groups" method="POST">
                 <div class="form-container">
-                    <input type="text" class="form-control" id="nameForm" name="firstName" placeholder="Name"
-                           required>
-                    <input type="text" class="form-control" id="surnameForm" name="secondName" placeholder="Surname"
-                           required>
-                    <select class="form-control" id="groupForm" name="groupNumber" required pattern="[0-9]+">
-                        <c:forEach items="${groups}" var="group">
-                            <option>${group.getGroupNumber() }</option>
-                        </c:forEach>
-                    </select>
+                    <input type="text" class="form-control" id="groupNumberForm" name="groupNumber" placeholder="Name"
+                           required pattern="[0-9]+">
                     <input class="btn" style="width: 100%" type="submit" value="OK">
                 </div>
             </form>

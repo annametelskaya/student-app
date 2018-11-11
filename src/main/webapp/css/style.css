@@ -23,7 +23,11 @@ body, html {
 }
 
 .nav-items-padding {
-    padding: 25px 40px;
+    padding: 25px 0;
+}
+
+.nav-items-padding li {
+    padding-left: 40px;
 }
 
 .nav-items-padding a {
@@ -36,15 +40,18 @@ body, html {
     font-size: 25px;
     text-transform: uppercase;
 }
-.form-container{
+
+.form-container {
     padding: 0 20%;
 }
-.div-center{
+
+.div-center {
     display: flex;
     align-items: center;
     justify-content: center;
 
 }
+
 .div-center form {
     width: 100%;
 }
@@ -59,9 +66,11 @@ body, html {
     background-color: #3F51B1;
     color: #dddddd;
 }
-.btn:hover{
+
+.btn:hover {
     background-color: #394aa1;
 }
+
 .table {
     font-size: 18px;
     font-family: arial, sans-serif;

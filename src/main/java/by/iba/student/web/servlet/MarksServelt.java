@@ -25,7 +25,6 @@ public class MarksServelt extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println(req.getParameter("selectedStudent"));
         String[] studentInfo = req.getParameter("selectedStudent").split(" ");
         String[] professorInfo = req.getParameter("selectedProfessor").split(" ");
         Student student = Data.findStudent(studentInfo[0], studentInfo[1]);

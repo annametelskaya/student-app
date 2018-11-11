@@ -10,7 +10,7 @@
 <body>
 <div class="row content">
     <nav class="col-md-3">
-        <ul class="nav flex-column fixed-bottom nav-items-padding">
+        <ul class="nav flex-column fixed-bottom nav-items-padding col-md-3">
             <li class="nav-item ">
                 <a href="/" class="nav-link nav-link-text">Home</a>
             </li>

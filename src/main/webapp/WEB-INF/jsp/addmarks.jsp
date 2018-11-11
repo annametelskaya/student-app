@@ -13,7 +13,7 @@
 <body>
 <div class="row content">
     <nav class="col-md-3">
-        <ul class="nav flex-column fixed-bottom nav-items-padding">
+        <ul class="nav flex-column fixed-bottom nav-items-padding col-md-3">
             <li class="nav-item ">
                 <a href="/" class="nav-link nav-link-text">Home</a>
             </li>
@@ -41,12 +41,12 @@
             </div>
             <form action="/marks" method="POST">
                 <div class="form-container">
-                    <select class="form-control" id="selectStudentForm" name="selectedStudent">
+                    <select class="form-control" id="selectStudentForm" name="selectedStudent" required>
                         <c:forEach items="${students}" var="student">
                             <option>${student.getFirstName() } ${student.getSecondName() }</option>
                         </c:forEach>
                     </select>
-                    <select class="form-control" id="selectProfessorForm" name="selectedProfessor">
+                    <select class="form-control" id="selectProfessorForm" name="selectedProfessor" required>
                         <c:forEach items="${professors}" var="professor">
                             <option>${professor.getFirstName() } ${professor.getSecondName() } ${professor.getFatherName()}</option>
                         </c:forEach>

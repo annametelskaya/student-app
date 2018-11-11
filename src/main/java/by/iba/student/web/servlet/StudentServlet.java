@@ -20,7 +20,6 @@ public class StudentServlet extends HttpServlet {
     private static final long serialVersionUID = 6345194112526801506L;
 
 
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("students", Data.STUDENTS);
@@ -32,8 +31,9 @@ public class StudentServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String firstName = req.getParameter("firstName");
         String secondName = req.getParameter("secondName");
-//        String group = req.getParameter("groupNumber");
-        Data.STUDENTS.add(new Student(firstName, secondName));
+        String groupNumber = req.getParameter("groupNumber");
+        Data.STUDENTS.add(new Student(firstName, secondName, groupNumber));
+        Data.GROUP.get(Integer.decode(groupNumber) - 1).addStudent(new Student(firstName, secondName, groupNumber));
         doGet(req, resp);
 
     }
