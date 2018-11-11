@@ -7,11 +7,12 @@ public class Student {
     private int groupNumber;
 
 
-    public Student(String firstName, String secondName, String groupNumber) {
+    public Student(String firstName, String secondName) {
         super();
         this.firstName = firstName;
         this.secondName = secondName;
-        this.groupNumber = Integer.decode(groupNumber);
+        this.groupNumber=0;
+//        this.groupNumber = Integer.decode(groupNumber);
     }
 
     public String getFirstName() {

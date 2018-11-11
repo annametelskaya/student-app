@@ -12,18 +12,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import by.iba.student.common.Data;
 import by.iba.student.common.Student;
 
 public class StudentServlet extends HttpServlet {
 
     private static final long serialVersionUID = 6345194112526801506L;
 
-    private final static List<Student> STUDENTS = new ArrayList<Student>();
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("students", STUDENTS);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/test.jsp");
+        req.setAttribute("students", Data.STUDENTS);
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/students.jsp");
         dispatcher.forward(req, resp);
     }
 
@@ -31,8 +32,8 @@ public class StudentServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String firstName = req.getParameter("firstName");
         String secondName = req.getParameter("secondName");
-        String group = req.getParameter("groupNumber");
-        STUDENTS.add(new Student(firstName, secondName, group));
+//        String group = req.getParameter("groupNumber");
+        Data.STUDENTS.add(new Student(firstName, secondName));
         doGet(req, resp);
 
     }
