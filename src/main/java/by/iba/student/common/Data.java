@@ -10,6 +10,7 @@ public class Data {
     public final static List<Professor> PROFESSORS = new ArrayList<Professor>();
     public final static List<Marks> MARKS = new ArrayList<Marks>();
     public final static List<Group> GROUP = new ArrayList<Group>();
+    public final static List<Subject> SUBJECTS = new ArrayList<Subject>();
 
     public static Student findStudent(String name, String surname) {
         for (Student student : STUDENTS) {

@@ -35,7 +35,14 @@
         <servlet-name>AddGroupServlet</servlet-name>
         <servlet-class>by.iba.student.web.servlet.AddGroupServlet</servlet-class>
     </servlet>
-
+    <servlet>
+        <servlet-name>SubjectsServlet</servlet-name>
+        <servlet-class>by.iba.student.web.servlet.SubjectsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddSubjectServlet</servlet-name>
+        <servlet-class>by.iba.student.web.servlet.AddSubjectServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>StudentServlet</servlet-name>
@@ -69,4 +76,13 @@
         <servlet-name>AddGroupServlet</servlet-name>
         <url-pattern>/groups/add</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SubjectsServlet</servlet-name>
+        <url-pattern>/subjects</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddSubjectServlet</servlet-name>
+        <url-pattern>/subjects/add</url-pattern>
+    </servlet-mapping>
+
 </web-app>

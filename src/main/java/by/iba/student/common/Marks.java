@@ -4,14 +4,24 @@ public class Marks {
     private Student student;
     private Professor professor;
     private String mark;
+    private String date;
     private String comment;
 
-    public Marks(Student student, Professor professor, String mark, String comment) {
+    public Marks(Student student, Professor professor, String mark, String date, String comment) {
         super();
         this.student = student;
         this.professor = professor;
         this.mark = mark;
+        this.date = date;
         this.comment = comment;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getStudent() {

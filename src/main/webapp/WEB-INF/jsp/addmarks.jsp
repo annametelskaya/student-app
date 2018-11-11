@@ -51,8 +51,10 @@
                             <option>${professor.getFirstName() } ${professor.getSecondName() } ${professor.getFatherName()}</option>
                         </c:forEach>
                     </select>
-                    <input type="text" class="form-control" id="markForm" name="mark" placeholder="mark"
+                    <input type="date" value="2018-11-11" class="form-control" id="date" name="date"
                            required>
+                    <input type="text" class="form-control" id="markForm" name="mark" placeholder="mark"
+                           required pattern="[0-9]+">
                     <textarea type="text" class="form-control" id="commentForm" name="comment" rows="3"></textarea>
                     <input class="btn" style="width: 100%" type="submit" value="OK">
                 </div>

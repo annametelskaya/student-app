@@ -5,7 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>Marks</title>
+    <title>Subjects</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
@@ -37,27 +37,19 @@
     <div class="col-md-9">
         <div class="container content py-5">
             <div class="title text-right">
-                <h1>Marks</h1>
-                <a href="/marks/add">add</a>
+                <h1>Subjects</h1>
+                <a href="/subjects/add">add</a>
             </div>
-            <div class="table">
-                <div class="row">
-                    <div class="col-2 table-header">Student</div>
-                    <div class="col-3 table-header">Professor</div>
-                    <div class="col-2 table-header">Mark</div>
-                    <div class="col-2 table-header">Date</div>
-                    <div class="col-3 table-header">Comment</div>
-                </div>
-                <c:forEach items="${marks}" var="mark">
-                    <div class="row">
-                        <div class="col-2 table-item">${mark.getStudent() }</div>
-                        <div class="col-3 table-item">${mark.getProfessor() }</div>
-                        <div class="col-2 table-item">${mark.getMark()}</div>
-                        <div class="col-2 table-item">${mark.getDate()}</div>
-                        <div class="col-3 table-item">${mark.getComment()}</div>
+            <c:forEach items="${subjects}" var="subject">
+                <div class="card m-1" style="width: 18em; display: inline-block">
+                    <div class="card-body">
+                        <h5 class="card-title">${subject.getName() }</h5>
+                        <p class="card-text">Professor: ${subject.getProfessor() }<br>
+                            Hours: ${subject.getHours() }</p>
+                            <%--<a href="#" class="btn btn-primary">Go somewhere</a>--%>
                     </div>
-                </c:forEach>
-            </div>
+                </div>
+            </c:forEach>
         </div>
     </div>
 </div>
