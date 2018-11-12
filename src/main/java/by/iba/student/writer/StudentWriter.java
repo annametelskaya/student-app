@@ -17,7 +17,7 @@ public class StudentWriter {
     public void write(List<Student> students) throws IOException {
         try (BufferedWriter write = new BufferedWriter(new FileWriter(path))) {
             for (Student st : students) {
-                String line = String.format("%s%s%s%s",
+                String line = String.format("%s;%s;%s;%s",
                         st.getId(),
                         st.getFirstName(),
                         st.getSecondName(),

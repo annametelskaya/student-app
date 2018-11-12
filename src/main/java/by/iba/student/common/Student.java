@@ -2,6 +2,7 @@ package by.iba.student.common;
 
 public class Student {
 
+
     private String id;
     private String firstName;
     private String secondName;

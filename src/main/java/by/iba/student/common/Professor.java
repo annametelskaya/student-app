@@ -1,6 +1,7 @@
 package by.iba.student.common;
 
 public class Professor {
+    private String id;
     private String firstName;
     private String secondName;
     private String fatherName;
@@ -12,6 +13,14 @@ public class Professor {
         this.secondName = secondName;
         this.fatherName = fatherName;
         this.birthDate = birthDate;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getFirstName() {

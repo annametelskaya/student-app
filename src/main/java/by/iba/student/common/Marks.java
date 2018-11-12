@@ -1,6 +1,7 @@
 package by.iba.student.common;
 
 public class Marks {
+    private String id;
     private Student student;
     private Professor professor;
     private String mark;
@@ -22,6 +23,14 @@ public class Marks {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getStudent() {

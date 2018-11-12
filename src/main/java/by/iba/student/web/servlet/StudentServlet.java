@@ -6,8 +6,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
+import javax.servlet.*;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,21 +20,13 @@ import by.iba.student.writer.StudentWriter;
 public class StudentServlet extends HttpServlet {
 
     private static final long serialVersionUID = 6345194112526801506L;
-    private final String path = "/home/anna/uni/git/student-app/src/main/resources/students.csv";
     private StudentRep rep;
+    //private final String path = "/home/anna/uni/git/student-app/src/main/resources/students.csv";
 
     @Override
     public void init() {
-        try {
-            List<Student> students = new StudentReader(path).reader();
-            this.rep = new StudentRep(students);
-        } catch (IOException e) {
-            try {
-                throw new ServletException(e);
-            } catch (ServletException e1) {
-                e1.printStackTrace();
-            }
-        }
+        ServletContext sc = getServletContext();
+        this.rep = (StudentRep) sc.getAttribute("studentRepository");
     }
 
     @Override
@@ -77,11 +68,6 @@ public class StudentServlet extends HttpServlet {
 
     @Override
     public void destroy() {
-        try {
-            List<Student> students = rep.findAll();
-            new StudentWriter(path).write(students);
-        } catch (IOException e) {
-            System.out.println("can't save file");
-        }
+
     }
 }

@@ -3,9 +3,10 @@ package by.iba.student.common;
 import javax.xml.ws.BindingType;
 
 public class Group {
-    int groupNumber;
-    int number;
-    Student[] students;
+    private String id;
+    private int groupNumber;
+    private int number;
+    private Student[] students;
 
     public Group(String n) {
         super();
@@ -27,6 +28,14 @@ public class Group {
             students[number - 1] = student;
             student.setGroupNumber(number);
         }
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Student[] getStudents() {

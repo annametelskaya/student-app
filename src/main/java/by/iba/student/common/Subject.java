@@ -1,6 +1,7 @@
 package by.iba.student.common;
 
 public class Subject {
+    private String id;
     private String name;
     private String hours;
     private Professor professor;
@@ -9,6 +10,14 @@ public class Subject {
         this.name = name;
         this.hours = hours;
         this.professor = professor;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
