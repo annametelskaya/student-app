@@ -15,7 +15,6 @@ public class AddStudentServlet extends HttpServlet {
     private static final long serialVersionUID = 6345194112526801506L;
     private GroupRepository groupRepository;
 
-
     @Override
     public void init() {
         ServletContext sc = getServletContext();
@@ -24,7 +23,7 @@ public class AddStudentServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("groups",  groupRepository.findAll());
+        req.setAttribute("groups", groupRepository.findAll());
         RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/addstudent.jsp");
         dispatcher.forward(req, resp);
     }

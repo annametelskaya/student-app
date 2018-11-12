@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import by.iba.student.Repository.GroupRepository;
 import by.iba.student.Repository.StudentRepository;
 import by.iba.student.common.Student;
 
@@ -14,11 +15,14 @@ public class StudentServlet extends HttpServlet {
 
     private static final long serialVersionUID = 6345194112526801506L;
     private StudentRepository studentRepository;
+    private GroupRepository groupRepository;
 
     @Override
     public void init() {
         ServletContext sc = getServletContext();
         this.studentRepository = (StudentRepository) sc.getAttribute("studentRepository");
+        this.groupRepository = (GroupRepository) sc.getAttribute("groupRepository");
+
     }
 
     @Override
@@ -32,8 +36,8 @@ public class StudentServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String firstName = req.getParameter("firstName");
         String secondName = req.getParameter("secondName");
-        String groupNumber = req.getParameter("groupNumber");
-        studentRepository.create(new Student(firstName, secondName, groupNumber));
+        String groupId = req.getParameter("groupNumber");
+        studentRepository.create(new Student(firstName, secondName, groupRepository.findGroupById(groupId)));
         //Data.addNewStudent(groupNumber, new Student(firstName, secondName, groupNumber));
         doGet(req, resp);
 
