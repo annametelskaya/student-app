@@ -1,9 +1,6 @@
 package by.iba.student.common;
 
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class Data {
     public final static List<Student> STUDENTS = new ArrayList<Student>();

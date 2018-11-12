@@ -2,6 +2,7 @@ package by.iba.student.common;
 
 public class Student {
 
+    private String id;
     private String firstName;
     private String secondName;
     private int groupNumber;
@@ -13,6 +14,14 @@ public class Student {
         this.secondName = secondName;
         this.groupNumber = 0;
         this.groupNumber = Integer.decode(groupNumber);
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getFirstName() {
