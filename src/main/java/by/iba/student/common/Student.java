@@ -14,7 +14,7 @@ public class Student {
         this.firstName = firstName;
         this.secondName = secondName;
         this.groupNumber = 0;
-        this.groupNumber = Integer.decode(groupNumber);
+        this.groupNumber = Integer.valueOf(groupNumber);
     }
 
     public String getId() {

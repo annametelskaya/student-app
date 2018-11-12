@@ -47,7 +47,7 @@
                            required pattern="[0-9]+">
                     <select class="form-control" id="selectProfessorForm" name="selectedProfessor" required>
                         <c:forEach items="${professors}" var="professor">
-                            <option>${professor.getFirstName() } ${professor.getSecondName() } ${professor.getFatherName()}</option>
+                            <option value="${professor.getId()}">${professor.getFirstName() } ${professor.getSecondName() } ${professor.getFatherName()}</option>
                         </c:forEach>
                     </select>
                     <input class="btn" type="submit" value="OK">

@@ -44,7 +44,7 @@
                 <div class="card m-1" style="width: 18em; display: inline-block">
                     <div class="card-body">
                         <h5 class="card-title">Group ${group.getGroupNumber() }</h5>
-                        <p class="card-text">Number of students: ${group.getNumber() }</p>
+                        <%--<p class="card-text">Number of students: ${group.getNumber() }</p>--%>
                             <%--<a href="#" class="btn btn-primary">Go somewhere</a>--%>
                     </div>
                 </div>

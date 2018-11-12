@@ -3,14 +3,13 @@ package by.iba.student.Repository;
 import by.iba.student.common.Student;
 
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
-public class StudentRep {
+public class StudentRepository {
 
     public final Map<String, Student> students = new LinkedHashMap<>();
 
 
-    public StudentRep(List<Student> students) {
+    public StudentRepository(List<Student> students) {
         if (students != null) {
             for (Student student : students) {
                 this.students.put(student.getId(), student);
@@ -18,16 +17,24 @@ public class StudentRep {
         }
     }
 
-    public List<Student> findAll() {
-        return new ArrayList<>(students.values());
-        //new ArrayList<>(STUDENTS);
+    public Student findStudentById(String id) {
+        for (Student student : students.values()) {
+            if (student.getId().equals(id)) {
+                return student;
+            }
+        }
+        return null;
     }
 
-    public Student create(Student student) {
+    public List<Student> findAll() {
+        return new ArrayList<>(students.values());
+    }
+
+    public void create(Student student) {
         String id = UUID.randomUUID().toString();
         student.setId(id);
         students.put(id, student);
-        return student;
+        //return student;
     }
 
     public void delete(String id) {

@@ -7,8 +7,17 @@
         <param-name>student.file.path</param-name>
         <param-value>/home/anna/uni/git/student-app/src/main/resources/students.csv</param-value>
     </context-param>
+    <context-param>
+        <param-name>group.file.path</param-name>
+        <param-value>/home/anna/uni/git/student-app/src/main/resources/group.csv</param-value>
+    </context-param>
+    <context-param>
+        <param-name>professor.file.path</param-name>
+        <param-value>/home/anna/uni/git/student-app/src/main/resources/professor.csv</param-value>
+    </context-param>
+
     <listener>
-        <listener-class>by.iba.student.listener.AppListener</listener-class>
+        <listener-class>by.iba.student.web.listener.AppListener</listener-class>
     </listener>
 
     <servlet>
@@ -37,7 +46,7 @@
     </servlet>
     <servlet>
         <servlet-name>GroupsServlet</servlet-name>
-        <servlet-class>by.iba.student.web.servlet.GroupServelt</servlet-class>
+        <servlet-class>by.iba.student.web.servlet.GroupServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddGroupServlet</servlet-name>

@@ -43,12 +43,12 @@
                 <div class="form-container">
                     <select class="form-control" id="selectStudentForm" name="selectedStudent" required>
                         <c:forEach items="${students}" var="student">
-                            <option>${student.getFirstName() } ${student.getSecondName() }</option>
+                            <option value="${student.getId() }">${student.getFirstName() } ${student.getSecondName() }</option>
                         </c:forEach>
                     </select>
                     <select class="form-control" id="selectProfessorForm" name="selectedProfessor" required>
                         <c:forEach items="${professors}" var="professor">
-                            <option>${professor.getFirstName() } ${professor.getSecondName() } ${professor.getFatherName()}</option>
+                            <option value="${professor.getId()}">${professor.getFirstName() } ${professor.getSecondName() } ${professor.getFatherName()}</option>
                         </c:forEach>
                     </select>
                     <input type="date" value="2018-11-11" class="form-control" id="date" name="date"
