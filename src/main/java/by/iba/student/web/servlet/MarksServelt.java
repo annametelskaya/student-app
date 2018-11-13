@@ -1,5 +1,6 @@
 package by.iba.student.web.servlet;
 
+import by.iba.student.Repository.MarksRepository;
 import by.iba.student.Repository.ProfessorRepository;
 import by.iba.student.Repository.StudentRepository;
 import by.iba.student.common.Data;
@@ -20,17 +21,19 @@ public class MarksServelt extends HttpServlet {
     private static final long serialVersionUID = 6345194112526801506L;
     private StudentRepository studentRepository;
     private ProfessorRepository professorRepository;
+    private MarksRepository marksRepository;
 
     @Override
     public void init() {
         ServletContext sc = getServletContext();
+        this.marksRepository = (MarksRepository) sc.getAttribute("marksRepository");
         this.studentRepository = (StudentRepository) sc.getAttribute("studentRepository");
         this.professorRepository = (ProfessorRepository) sc.getAttribute("professorRepository");
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("marks", Data.MARKS);
+        req.setAttribute("marks", this.marksRepository.findAll());
         RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/marks.jsp");
         dispatcher.forward(req, resp);
     }
@@ -42,7 +45,13 @@ public class MarksServelt extends HttpServlet {
         String mark = req.getParameter("mark");
         String date = req.getParameter("date");
         String comment = req.getParameter("comment");
-        Data.MARKS.add(new Marks(studentRepository.findStudentById(studentId), professorRepository.findProfessorById(professorId), mark, date, comment));
+//      this.marksRepository.create(new Marks(studentId, professorId, mark, date, comment));
+        this.marksRepository.create(new Marks((this.studentRepository.findStudentById(studentId).getFirstName() + " " +
+                this.studentRepository.findStudentById(studentId).getSecondName()),
+                (this.professorRepository.findProfessorById(professorId).getFirstName() + " " +
+                        this.professorRepository.findProfessorById(professorId).getSecondName() + " " +
+                        this.professorRepository.findProfessorById(professorId).getFatherName()), mark, date, comment));
+
         doGet(req, resp);
 
     }

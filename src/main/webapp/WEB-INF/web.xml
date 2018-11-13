@@ -3,18 +3,26 @@
         "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-    <context-param>
-        <param-name>student.file.path</param-name>
-        <param-value>/home/anna/uni/git/student-app/src/main/resources/students.csv</param-value>
-    </context-param>
-    <context-param>
-        <param-name>group.file.path</param-name>
-        <param-value>/home/anna/uni/git/student-app/src/main/resources/group.csv</param-value>
-    </context-param>
-    <context-param>
-        <param-name>professor.file.path</param-name>
-        <param-value>/home/anna/uni/git/student-app/src/main/resources/professor.csv</param-value>
-    </context-param>
+    <!--<context-param>-->
+        <!--<param-name>student.file.path</param-name>-->
+        <!--<param-value>/home/anna/uni/git/student-app/src/main/resources/students.csv</param-value>-->
+    <!--</context-param>-->
+    <!--<context-param>-->
+        <!--<param-name>group.file.path</param-name>-->
+        <!--<param-value>/home/anna/uni/git/student-app/src/main/resources/group.csv</param-value>-->
+    <!--</context-param>-->
+    <!--<context-param>-->
+        <!--<param-name>professor.file.path</param-name>-->
+        <!--<param-value>/home/anna/uni/git/student-app/src/main/resources/professor.csv</param-value>-->
+    <!--</context-param>-->
+    <!--<context-param>-->
+        <!--<param-name>mark.file.path</param-name>-->
+        <!--<param-value>/home/anna/uni/git/student-app/src/main/resources/mark.csv</param-value>-->
+    <!--</context-param>-->
+    <!--<context-param>-->
+        <!--<param-name>subject.file.path</param-name>-->
+        <!--<param-value>/home/anna/uni/git/student-app/src/main/resources/subject.csv</param-value>-->
+    <!--</context-param>-->
 
     <listener>
         <listener-class>by.iba.student.web.listener.AppListener</listener-class>

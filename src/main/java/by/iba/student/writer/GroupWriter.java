@@ -18,10 +18,16 @@ public class GroupWriter {
     public void write(List<Group> groups) throws IOException {
         try (BufferedWriter write = new BufferedWriter(new FileWriter(path))) {
             for (Group gr : groups) {
-                String line = String.format("%s;%s;%s",
+                StringBuilder students= new StringBuilder();
+                for (Student st: gr.getStudents()){
+                    students.append(String.format(";%s",
+                            st.getId()));
+                }
+                String line = String.format("%s;%s;%s%s",
                         gr.getId(),
                         gr.getGroupNumber(),
-                        gr.getNumber());
+                        gr.getNumber(),
+                        students);
                 write.write(line);
                 write.newLine();
             }

@@ -2,16 +2,16 @@ package by.iba.student.common;
 
 public class Marks {
     private String id;
-    private Student student;
-    private Professor professor;
+    private String studentId;
+    private String professorId;
     private String mark;
     private String date;
     private String comment;
 
-    public Marks(Student student, Professor professor, String mark, String date, String comment) {
+    public Marks(String studentId, String professorId, String mark, String date, String comment) {
         super();
-        this.student = student;
-        this.professor = professor;
+        this.studentId = studentId;
+        this.professorId = professorId;
         this.mark = mark;
         this.date = date;
         this.comment = comment;
@@ -33,20 +33,31 @@ public class Marks {
         this.id = id;
     }
 
-    public String getStudent() {
-        return student.getFirstName() + " " + student.getSecondName();
+    public String getStudentId() {
+        return studentId;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
     }
 
-    public String getProfessor() {
-        return professor.getFirstName() + " " + professor.getSecondName() + " " + professor.getFatherName();
+    public String getProfessorId() {
+        return professorId;
     }
 
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
+    public void setProfessorId(String professorId) {
+        this.professorId = professorId;
+    }
+
+    public String getStudentName() {
+        return Data.studentRepository.findStudentById(studentId).getFirstName() + " "
+                + Data.studentRepository.findStudentById(studentId).getSecondName();
+    }
+
+    public String getProfessorName() {
+        return Data.professorRepository.findProfessorById(professorId).getFirstName() + " " +
+                Data.professorRepository.findProfessorById(professorId).getSecondName() + " " +
+                Data.professorRepository.findProfessorById(professorId).getFatherName();
     }
 
     public String getMark() {

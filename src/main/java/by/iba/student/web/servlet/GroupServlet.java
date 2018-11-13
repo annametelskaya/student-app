@@ -26,7 +26,7 @@ public class GroupServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("groups", groupRepository.findAll());
+        req.setAttribute("groups", this.groupRepository.findAll());
         RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/groups.jsp");
         dispatcher.forward(req, resp);
     }
@@ -35,7 +35,7 @@ public class GroupServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String number = req.getParameter("groupNumber");
 //        String group = req.getParameter("groupNumber");
-        groupRepository.create(new Group(number));
+        this.groupRepository.create(new Group(number));
         doGet(req, resp);
 
     }

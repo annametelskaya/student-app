@@ -24,7 +24,7 @@ public class ProfessorsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("professors", professorRepository.findAll());
+        req.setAttribute("professors", this.professorRepository.findAll());
         RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/professors.jsp");
         dispatcher.forward(req, resp);
     }
@@ -36,7 +36,7 @@ public class ProfessorsServlet extends HttpServlet {
         String fatherName = req.getParameter("fatherName");
         String birthDate = req.getParameter("birthDate");
 //        String group = req.getParameter("groupNumber");
-        professorRepository.create(new Professor(firstName, secondName, fatherName, birthDate));
+        this.professorRepository.create(new Professor(firstName, secondName, fatherName, birthDate));
         doGet(req, resp);
 
     }

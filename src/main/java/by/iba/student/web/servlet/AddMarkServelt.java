@@ -27,8 +27,8 @@ public class AddMarkServelt extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("students", studentRepository.findAll());
-        req.setAttribute("professors", professorRepository.findAll());
+        req.setAttribute("students", this.studentRepository.findAll());
+        req.setAttribute("professors", this.professorRepository.findAll());
         RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/addmarks.jsp");
         dispatcher.forward(req, resp);
     }

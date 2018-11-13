@@ -16,10 +16,10 @@ public class GroupRepository {
         }
     }
 
-    public String findGroupById(String id) {
+    public Group findGroupById(String id) {
         for (Group group : groups.values()) {
             if (group.getId().equals(id)) {
-                return group.getGroupNumber();
+                return group;
             }
         }
         return null;

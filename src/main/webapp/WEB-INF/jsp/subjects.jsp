@@ -17,20 +17,20 @@
             <li class="nav-item ">
                 <a href="/" class="nav-link nav-link-text">Home</a>
             </li>
-            <li class="nav-item ">
-                <a href="/students" class="nav-link nav-link-text">Students</a>
-            </li>
             <li class="nav-item">
                 <a href="/groups" class="nav-link nav-link-text">Groups</a>
             </li>
             <li class="nav-item">
-                <a href="/marks" class="nav-link nav-link-text">Marks</a>
-            </li>
-            <li class="nav-item">
                 <a href="/professors" class="nav-link nav-link-text">Professors</a>
+            </li>
+            <li class="nav-item ">
+                <a href="/students" class="nav-link nav-link-text">Students</a>
             </li>
             <li class="nav-item">
                 <a href="/subjects" class="nav-link nav-link-text">Subjects</a>
+            </li>
+            <li class="nav-item">
+                <a href="/marks" class="nav-link nav-link-text">Marks</a>
             </li>
         </ul>
     </nav>
@@ -44,7 +44,7 @@
                 <div class="card m-1" style="width: 18em; display: inline-block">
                     <div class="card-body">
                         <h5 class="card-title">${subject.getName() }</h5>
-                        <p class="card-text">Professor: ${subject.getProfessor() }<br>
+                        <p class="card-text">Professor: ${subject.getProfessorId() }<br>
                             Hours: ${subject.getHours() }</p>
                             <%--<a href="#" class="btn btn-primary">Go somewhere</a>--%>
                     </div>

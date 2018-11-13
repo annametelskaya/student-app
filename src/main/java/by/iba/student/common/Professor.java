@@ -51,6 +51,7 @@ public class Professor {
         return birthDate;
     }
 
+
     public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }

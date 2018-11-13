@@ -1,27 +1,28 @@
 package by.iba.student.writer;
 
 import by.iba.student.common.Student;
+import by.iba.student.common.Subject;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
-public class StudentWriter {
+public class SubjectWriter {
     private final String path;
 
-    public StudentWriter(String path) {
+    public SubjectWriter(String path) {
         this.path = path;
     }
 
-    public void write(List<Student> students) throws IOException {
+    public void write(List<Subject> subjects) throws IOException {
         try (BufferedWriter write = new BufferedWriter(new FileWriter(path))) {
-            for (Student st : students) {
+            for (Subject subject : subjects) {
                 String line = String.format("%s;%s;%s;%s",
-                        st.getId(),
-                        st.getFirstName(),
-                        st.getSecondName(),
-                        st.getGroupId());
+                        subject.getId(),
+                        subject.getName(),
+                        subject.getHours(),
+                        subject.getProfessorId());
                 write.write(line);
                 write.newLine();
             }

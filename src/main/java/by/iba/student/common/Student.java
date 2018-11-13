@@ -6,15 +6,14 @@ public class Student {
     private String id;
     private String firstName;
     private String secondName;
-    private int groupNumber;
+    private String groupId;
 
 
-    public Student(String firstName, String secondName, String groupNumber) {
+    public Student(String firstName, String secondName, String groupId) {
         super();
         this.firstName = firstName;
         this.secondName = secondName;
-        this.groupNumber = 0;
-        this.groupNumber = Integer.valueOf(groupNumber);
+        this.groupId = groupId;
     }
 
     public String getId() {
@@ -41,14 +40,15 @@ public class Student {
         this.secondName = secondName;
     }
 
-    public String getGroupNumber() {
-        if (groupNumber == 0)
-            return "enter group number";
-        return groupNumber + "";
+    public String getGroupId() {
+        return groupId;
     }
 
-    public void setGroupNumber(int groupNumber) {
-        this.groupNumber = groupNumber;
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
     }
 
+    public String getStudentGroupNumber() {
+        return Data.groupRepository.findGroupById(groupId).getGroupNumber();
+    }
 }

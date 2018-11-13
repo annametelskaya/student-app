@@ -1,5 +1,6 @@
 package by.iba.student.Repository;
 
+import by.iba.student.common.Data;
 import by.iba.student.common.Student;
 
 import java.util.*;
@@ -7,7 +8,7 @@ import java.util.*;
 public class StudentRepository {
 
     public final Map<String, Student> students = new LinkedHashMap<>();
-
+    private GroupRepository groupRepository;
 
     public StudentRepository(List<Student> students) {
         if (students != null) {
@@ -44,5 +45,13 @@ public class StudentRepository {
     public Student update(Student student) {
         students.put(student.getId(), student);
         return student;
+    }
+
+    public GroupRepository getGroupRepository() {
+        return groupRepository;
+    }
+
+    public void setGroupRepository(GroupRepository groupRepository) {
+        this.groupRepository = groupRepository;
     }
 }

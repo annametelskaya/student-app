@@ -4,12 +4,12 @@ public class Subject {
     private String id;
     private String name;
     private String hours;
-    private Professor professor;
+    private String professorId;
 
-    public Subject(String name, String hours, Professor professor) {
+    public Subject(String name, String hours, String professorId) {
         this.name = name;
         this.hours = hours;
-        this.professor = professor;
+        this.professorId = professorId;
     }
 
     public String getId() {
@@ -36,12 +36,17 @@ public class Subject {
         this.hours = hours;
     }
 
-    public String getProfessor() {
-        return professor.getFirstName() + " " + professor.getSecondName() + " " + professor.getFatherName();
+    public String getProfessorName() {
+        return Data.professorRepository.findProfessorById(professorId).getFirstName() + " "
+                + Data.professorRepository.findProfessorById(professorId).getSecondName() + " "
+                + Data.professorRepository.findProfessorById(professorId).getFatherName();
     }
 
+    public String getProfessorId() {
+        return professorId;
+    }
 
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
+    public void setProfessor(String professorId) {
+        this.professorId = professorId;
     }
 }

@@ -17,20 +17,20 @@
             <li class="nav-item ">
                 <a href="/" class="nav-link nav-link-text">Home</a>
             </li>
-            <li class="nav-item ">
-                <a href="/students" class="nav-link nav-link-text">Students</a>
-            </li>
             <li class="nav-item">
                 <a href="/groups" class="nav-link nav-link-text">Groups</a>
             </li>
             <li class="nav-item">
-                <a href="/marks" class="nav-link nav-link-text">Marks</a>
-            </li>
-            <li class="nav-item">
                 <a href="/professors" class="nav-link nav-link-text">Professors</a>
+            </li>
+            <li class="nav-item ">
+                <a href="/students" class="nav-link nav-link-text">Students</a>
             </li>
             <li class="nav-item">
                 <a href="/subjects" class="nav-link nav-link-text">Subjects</a>
+            </li>
+            <li class="nav-item">
+                <a href="/marks" class="nav-link nav-link-text">Marks</a>
             </li>
         </ul>
     </nav>
@@ -50,8 +50,8 @@
                 </div>
                 <c:forEach items="${marks}" var="mark">
                     <div class="row">
-                        <div class="col-2 table-item">${mark.getStudent() }</div>
-                        <div class="col-3 table-item">${mark.getProfessor() }</div>
+                        <div class="col-2 table-item">${mark.getStudentId() }</div>
+                        <div class="col-3 table-item">${mark.getProfessorId() }</div>
                         <div class="col-2 table-item">${mark.getMark()}</div>
                         <div class="col-2 table-item">${mark.getDate()}</div>
                         <div class="col-3 table-item">${mark.getComment()}</div>
