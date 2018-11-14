@@ -36,11 +36,11 @@ public class Subject {
         this.hours = hours;
     }
 
-    public String getProfessorName() {
-        return Data.professorRepository.findProfessorById(professorId).getFirstName() + " "
-                + Data.professorRepository.findProfessorById(professorId).getSecondName() + " "
-                + Data.professorRepository.findProfessorById(professorId).getFatherName();
-    }
+//    public String getProfessorName() {
+//        return Data.professorRepository.findProfessorById(professorId).getFirstName() + " "
+//                + Data.professorRepository.findProfessorById(professorId).getSecondName() + " "
+//                + Data.professorRepository.findProfessorById(professorId).getFatherName();
+//    }
 
     public String getProfessorId() {
         return professorId;

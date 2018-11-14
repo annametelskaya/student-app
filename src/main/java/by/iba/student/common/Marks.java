@@ -49,16 +49,16 @@ public class Marks {
         this.professorId = professorId;
     }
 
-    public String getStudentName() {
-        return Data.studentRepository.findStudentById(studentId).getFirstName() + " "
-                + Data.studentRepository.findStudentById(studentId).getSecondName();
-    }
+//    public String getStudentName() {
+//        return Data.studentRepository.findStudentById(studentId).getFirstName() + " "
+//                + Data.studentRepository.findStudentById(studentId).getSecondName();
+//    }
 
-    public String getProfessorName() {
-        return Data.professorRepository.findProfessorById(professorId).getFirstName() + " " +
-                Data.professorRepository.findProfessorById(professorId).getSecondName() + " " +
-                Data.professorRepository.findProfessorById(professorId).getFatherName();
-    }
+//    public String getProfessorName() {
+//        return Data.professorRepository.findProfessorById(professorId).getFirstName() + " " +
+//                Data.professorRepository.findProfessorById(professorId).getSecondName() + " " +
+//                Data.professorRepository.findProfessorById(professorId).getFatherName();
+//    }
 
     public String getMark() {
         return mark;

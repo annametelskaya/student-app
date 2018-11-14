@@ -48,7 +48,7 @@ public class Student {
         this.groupId = groupId;
     }
 
-    public String getStudentGroupNumber() {
-        return Data.groupRepository.findGroupById(groupId).getGroupNumber();
-    }
+//    public String getStudentGroupNumber() {
+//        return Data.groupRepository.findGroupById(groupId).getGroupNumber();
+//    }
 }

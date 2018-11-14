@@ -22,7 +22,8 @@ public class MarkReader {
             while ((line = read.readLine()) != null) {
                 String[] data = line.split(";");
                 Marks subject;
-                if (data.length > 5) {
+                if (data.length > 5
+                ) {
                     subject = new Marks(data[1], data[2], data[3], data[4], data[5]);
                 } else {
                     subject = new Marks(data[1], data[2], data[3], data[4], "");
