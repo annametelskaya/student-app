@@ -1,7 +1,6 @@
 package by.iba.student.web.servlet;
 
 import by.iba.student.Repository.GroupRepository;
-import by.iba.student.common.Data;
 import by.iba.student.common.Group;
 
 import javax.servlet.RequestDispatcher;

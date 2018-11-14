@@ -1,7 +1,6 @@
 package by.iba.student.reader;
 
 import by.iba.student.common.Group;
-import by.iba.student.common.Student;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -25,9 +24,6 @@ public class GroupReader {
                 Group group = new Group(data[1]);
                 group.setId(data[0]);
                 group.setNumber(data[2]);
-//                for(int i=3; i<data.length;i++){
-//                    group.addStudent(Data.studentRepository.findStudentById(data[i]));
-//                }
                 groups.add(group);
             }
 

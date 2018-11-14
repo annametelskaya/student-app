@@ -2,7 +2,6 @@ package by.iba.student.web.servlet;
 
 import by.iba.student.Repository.ProfessorRepository;
 import by.iba.student.Repository.StudentRepository;
-import by.iba.student.common.Data;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;

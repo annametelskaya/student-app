@@ -51,7 +51,7 @@
                     <div class="row">
                         <div class="col-4 table-item">${student.getFirstName() }</div>
                         <div class="col-4 table-item">${student.getSecondName() }</div>
-                        <div class="col-4 table-item">${student.getGroupId()}</div>
+                        <div class="col-4 table-item">${student.getGroupNumber()}</div>
                         <%--<div class="col-4 table-item">${student.getStudentGroupNumber()}</div>--%>
                     </div>
                 </c:forEach>

@@ -10,7 +10,6 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.ServletException;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
@@ -26,16 +25,17 @@ public class AppListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
         Properties property = getCurrProperties();
         try {
-            ServletContext sc = sce.getServletContext();
-            String studentPath = property.getProperty("student.file.path");
-            List<Student> students = new StudentReader(studentPath).reader();
-            this.studentRepository = new StudentRepository(students);
-            sc.setAttribute("studentRepository", studentRepository);
 
+            ServletContext sc = sce.getServletContext();
             String groupPath = property.getProperty("group.file.path");
-            List<Group> groups = new GroupReader(groupPath).reader();
+            List<Group> groups = new EntityFileReader(groupPath, new GroupLineMapper()).read();
             this.groupRepository = new GroupRepository(groups);
             sc.setAttribute("groupRepository", groupRepository);
+
+            String studentPath = property.getProperty("student.file.path");
+            List<Student> students = new EntityFileReader(studentPath, new StudentLineMapper(groupRepository)).read();
+            this.studentRepository = new StudentRepository(students);
+            sc.setAttribute("studentRepository", studentRepository);
 
             String professorPath = property.getProperty("professor.file.path");
             List<Professor> professors = new ProfessorReader(professorPath).reader();

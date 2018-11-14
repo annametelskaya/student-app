@@ -1,6 +1,5 @@
 package by.iba.student.Repository;
 
-import by.iba.student.common.Data;
 import by.iba.student.common.Student;
 
 import java.util.*;

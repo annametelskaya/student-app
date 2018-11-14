@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import by.iba.student.Repository.GroupRepository;
 import by.iba.student.Repository.StudentRepository;
-import by.iba.student.common.Data;
 import by.iba.student.common.Student;
 
 public class StudentServlet extends HttpServlet {
@@ -40,10 +39,10 @@ public class StudentServlet extends HttpServlet {
         String secondName = req.getParameter("secondName");
         String groupId = req.getParameter("groupNumber");
         //Student st = new Student(firstName, secondName, groupId);
-        Student st = new Student(firstName, secondName, groupRepository.findGroupById(groupId).getGroupNumber());
+        Student st = new Student(firstName, secondName, groupRepository.findGroupById(groupId));
         this.studentRepository.create(st);
         //this.groupRepository.findGroupById(groupId).addStudent(st);
-
+        groupRepository.findGroupById(groupId).addStudent();
         //Data.addNewStudent(groupNumber, new Student(firstName, secondName, groupNumber));
         doGet(req, resp);
 

@@ -1,6 +1,5 @@
 package by.iba.student.reader;
 
-import by.iba.student.common.Data;
 import by.iba.student.common.Subject;
 
 import java.io.BufferedReader;

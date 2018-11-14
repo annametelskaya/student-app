@@ -3,10 +3,7 @@ package by.iba.student.web.servlet;
 import by.iba.student.Repository.MarksRepository;
 import by.iba.student.Repository.ProfessorRepository;
 import by.iba.student.Repository.StudentRepository;
-import by.iba.student.common.Data;
 import by.iba.student.common.Marks;
-import by.iba.student.common.Professor;
-import by.iba.student.common.Student;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;

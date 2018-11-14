@@ -6,14 +6,14 @@ public class Student {
     private String id;
     private String firstName;
     private String secondName;
-    private String groupId;
+    private Group group;
 
 
-    public Student(String firstName, String secondName, String groupId) {
+    public Student(String firstName, String secondName, Group group) {
         super();
         this.firstName = firstName;
         this.secondName = secondName;
-        this.groupId = groupId;
+        this.group = group;
     }
 
     public String getId() {
@@ -41,11 +41,14 @@ public class Student {
     }
 
     public String getGroupId() {
-        return groupId;
+        return group.getId();
     }
 
-    public void setGroupId(String groupId) {
-        this.groupId = groupId;
+    public String getGroupNumber() {
+        return group.getGroupNumber();
+    }
+    public void setGroupId(Group groupId) {
+        this.group = groupId;
     }
 
 //    public String getStudentGroupNumber() {
