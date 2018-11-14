@@ -24,40 +24,32 @@ public class AppListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         Properties property = getCurrProperties();
-        try {
 
-            ServletContext sc = sce.getServletContext();
-            String groupPath = property.getProperty("group.file.path");
-            List<Group> groups = new EntityFileReader(groupPath, new GroupLineMapper()).read();
-            this.groupRepository = new GroupRepository(groups);
-            sc.setAttribute("groupRepository", groupRepository);
+        ServletContext sc = sce.getServletContext();
+        String groupPath = property.getProperty("group.file.path");
+        List<Group> groups = new EntityFileReader<Group>(groupPath, new GroupLineMapper()).read();
+        this.groupRepository = new GroupRepository(groups);
+        sc.setAttribute("groupRepository", groupRepository);
 
-            String studentPath = property.getProperty("student.file.path");
-            List<Student> students = new EntityFileReader(studentPath, new StudentLineMapper(groupRepository)).read();
-            this.studentRepository = new StudentRepository(students);
-            sc.setAttribute("studentRepository", studentRepository);
+        String studentPath = property.getProperty("student.file.path");
+        List<Student> students = new EntityFileReader<Student>(studentPath, new StudentLineMapper(groupRepository)).read();
+        this.studentRepository = new StudentRepository(students);
+        sc.setAttribute("studentRepository", studentRepository);
 
-            String professorPath = property.getProperty("professor.file.path");
-            List<Professor> professors = new ProfessorReader(professorPath).reader();
-            this.professorRepository = new ProfessorRepository(professors);
-            sc.setAttribute("professorRepository", professorRepository);
+        String professorPath = property.getProperty("professor.file.path");
+        List<Professor> professors = new EntityFileReader<Professor>(professorPath, new ProfessorLineMapper()).read();
+        this.professorRepository = new ProfessorRepository(professors);
+        sc.setAttribute("professorRepository", professorRepository);
 
-            String subjectPath = property.getProperty("subject.file.path");
-            List<Subject> subjects = new SubjectReader(subjectPath).reader();
-            this.subjectRepository = new SubjectRepository(subjects);
-            sc.setAttribute("subjectRepository", subjectRepository);
+        String subjectPath = property.getProperty("subject.file.path");
+        List<Subject> subjects = new EntityFileReader<Subject>(subjectPath, new SubjectLineMapper()).read();
+        this.subjectRepository = new SubjectRepository(subjects);
+        sc.setAttribute("subjectRepository", subjectRepository);
 
-            String markPath = property.getProperty("mark.file.path");
-            List<Marks> marks = new MarkReader(markPath).reader();
-            this.marksRepository = new MarksRepository(marks);
-            sc.setAttribute("marksRepository", marksRepository);
-        } catch (IOException e) {
-            try {
-                throw new ServletException(e);
-            } catch (ServletException e1) {
-                e1.printStackTrace();
-            }
-        }
+        String markPath = property.getProperty("mark.file.path");
+        List<Marks> marks = new EntityFileReader<Marks>(markPath, new MarkLineMapper()).read();
+        this.marksRepository = new MarksRepository(marks);
+        sc.setAttribute("marksRepository", marksRepository);
     }
 
     @Override
