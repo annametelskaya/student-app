@@ -1,7 +1,7 @@
 package by.iba.student.web.servlet;
 
-import by.iba.student.Repository.ProfessorRepository;
-import by.iba.student.common.Data;
+import by.iba.student.Repository.Repository;
+import by.iba.student.common.Professor;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -13,12 +13,12 @@ import java.io.IOException;
 
 public class AddSubjectServlet extends HttpServlet {
     private static final long serialVersionUID = 6345194112526801506L;
-    private ProfessorRepository professorRepository;
+    private Repository<Integer, Professor> professorRepository;
 
     @Override
     public void init() {
         ServletContext sc = getServletContext();
-        this.professorRepository = (ProfessorRepository) sc.getAttribute("professorRepository");
+        this.professorRepository = (Repository<Integer, Professor>) sc.getAttribute("professorRepository");
     }
 
     @Override

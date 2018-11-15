@@ -37,19 +37,31 @@
     <div class="col-md-9">
         <div class="container content div-center flex-column">
             <div class="title text-center">
-                <h1>Add subject</h1>
+                <h1>Add mark</h1>
             </div>
-            <form action="/subjects" method="POST">
+            <form action="/marks" method="POST">
                 <div class="form-container">
-                    <input type="text" class="form-control" id="subjectForm" name="subjectName" placeholder="Subject"
-                           required>
-                    <input type="text" class="form-control" id="hoursForm" name="hours" placeholder="hours"
-                           required pattern="[0-9]+">
-                    <select class="form-control" id="selectProfessorForm" name="selectedProfessor" required>
-                        <c:forEach items="${professors}" var="professor">
-                            <option value="${professor.getId()}">${professor.getFirstName() } ${professor.getSecondName() } ${professor.getFatherName()}</option>
+                    <select class="form-control" id="selectedSubject" name="selectedSubject" required>
+                        <c:forEach items="${subjects}" var="subject">
+                            <option value="${subject.getId() }">${subject.getName() }</option>
                         </c:forEach>
                     </select>
+                    <select class="form-control" id="selectStudentForm" name="selectedStudent" required>
+                        <c:forEach items="${students}" var="student">
+                            <option value="${student.getId() }">${student.getFirstName() } ${student.getSecondName() }</option>
+                        </c:forEach>
+                    </select>
+                    <select class="form-control" id="selectProfessorForm" name="selectedProfessor" required>
+                        <c:forEach items="${professors}" var="professor">
+                            <option value="${professor.getId()}">${professor.getFirstName() } ${professor.getSecondName() }</option>
+                        </c:forEach>
+                    </select>
+                    <input type="date" value="2018-11-11" class="form-control" id="date" name="date"
+                           required>
+                    <input type="text" class="form-control" id="markForm" name="mark" placeholder="mark"
+                           required pattern="[0-9]+">
+                    <textarea type="text" class="form-control" id="commentForm" name="comment" rows="3"
+                              placeholder="comment"></textarea>
                     <input class="btn" type="submit" value="OK">
                 </div>
             </form>

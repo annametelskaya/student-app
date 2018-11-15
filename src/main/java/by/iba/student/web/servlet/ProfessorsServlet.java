@@ -1,7 +1,6 @@
 package by.iba.student.web.servlet;
 
-import by.iba.student.Repository.ProfessorRepository;
-import by.iba.student.common.Data;
+import by.iba.student.Repository.Repository;
 import by.iba.student.common.Professor;
 
 import javax.servlet.RequestDispatcher;
@@ -14,12 +13,12 @@ import java.io.IOException;
 
 public class ProfessorsServlet extends HttpServlet {
     private static final long serialVersionUID = 6345194112526801506L;
-    private ProfessorRepository professorRepository;
+    private Repository<Integer,Professor> professorRepository;
 
     @Override
     public void init() {
         ServletContext sc = getServletContext();
-        this.professorRepository = (ProfessorRepository) sc.getAttribute("professorRepository");
+        this.professorRepository = (Repository<Integer, Professor>) sc.getAttribute("professorRepository");
     }
 
     @Override
@@ -36,7 +35,7 @@ public class ProfessorsServlet extends HttpServlet {
         String fatherName = req.getParameter("fatherName");
         String birthDate = req.getParameter("birthDate");
 //        String group = req.getParameter("groupNumber");
-        this.professorRepository.create(new Professor(firstName, secondName, fatherName, birthDate));
+        this.professorRepository.create(new Professor(firstName, secondName));
         doGet(req, resp);
 
     }

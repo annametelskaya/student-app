@@ -1,22 +1,24 @@
 package by.iba.student.common;
 
 public class Subject {
-    private String id;
+    private int id;
     private String name;
-    private String hours;
+    private int hours;
     private String professorId;
+    private double avgMark;
 
-    public Subject(String name, String hours, String professorId) {
+    public Subject(String name, int hours, String professorId) {
         this.name = name;
         this.hours = hours;
         this.professorId = professorId;
+        this.avgMark = 0;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -28,25 +30,27 @@ public class Subject {
         this.name = name;
     }
 
-    public String getHours() {
+    public int getHours() {
         return hours;
     }
 
-    public void setHours(String hours) {
+    public void setHours(int hours) {
         this.hours = hours;
     }
-
-//    public String getProfessorName() {
-//        return Data.professorRepository.findProfessorById(professorId).getFirstName() + " "
-//                + Data.professorRepository.findProfessorById(professorId).getSecondName() + " "
-//                + Data.professorRepository.findProfessorById(professorId).getFatherName();
-//    }
 
     public String getProfessorId() {
         return professorId;
     }
 
-    public void setProfessor(String professorId) {
+    public void setProfessorId(String professorId) {
         this.professorId = professorId;
+    }
+
+    public double getAvgMark() {
+        return avgMark;
+    }
+
+    public void setAvgMark(double avgMark) {
+        this.avgMark = avgMark;
     }
 }

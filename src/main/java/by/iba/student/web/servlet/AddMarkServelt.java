@@ -1,7 +1,8 @@
 package by.iba.student.web.servlet;
 
-import by.iba.student.Repository.ProfessorRepository;
-import by.iba.student.Repository.StudentRepository;
+import by.iba.student.Repository.Repository;
+import by.iba.student.common.Professor;
+import by.iba.student.common.Subject;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -13,14 +14,16 @@ import java.io.IOException;
 
 public class AddMarkServelt extends HttpServlet {
     private static final long serialVersionUID = 6345194112526801506L;
-    private ProfessorRepository professorRepository;
-    private StudentRepository studentRepository;
+    private Repository<Integer, Professor> professorRepository;
+    private Repository studentRepository;
+    private Repository<Integer, Subject> subjectRepository;
 
     @Override
     public void init() {
         ServletContext sc = getServletContext();
-        this.studentRepository = (StudentRepository) sc.getAttribute("studentRepository");
-        this.professorRepository = (ProfessorRepository) sc.getAttribute("professorRepository");
+        this.studentRepository = (Repository) sc.getAttribute("studentRepository");
+        this.professorRepository = (Repository<Integer, Professor>) sc.getAttribute("professorRepository");
+        this.subjectRepository = (Repository<Integer, Subject>) sc.getAttribute("subjectRepository");
     }
 
 
@@ -28,6 +31,7 @@ public class AddMarkServelt extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("students", this.studentRepository.findAll());
         req.setAttribute("professors", this.professorRepository.findAll());
+        req.setAttribute("subjects",this.subjectRepository.findAll());
         RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/addmarks.jsp");
         dispatcher.forward(req, resp);
     }

@@ -17,12 +17,10 @@ public class ProfessorWriter {
     public void write(List<Professor> professors) throws IOException {
         try (BufferedWriter write = new BufferedWriter(new FileWriter(path))) {
             for (Professor professor : professors) {
-                String line = String.format("%s;%s;%s;%s;%s",
+                String line = String.format("%s;%s;%s",
                         professor.getId(),
                         professor.getFirstName(),
-                        professor.getSecondName(),
-                        professor.getFatherName(),
-                        professor.getBirthDate());
+                        professor.getSecondName());
                 write.write(line);
                 write.newLine();
             }

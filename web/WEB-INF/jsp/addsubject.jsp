@@ -5,8 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Professors</title>
+    <title>Add mark</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
@@ -36,29 +35,27 @@
         </ul>
     </nav>
     <div class="col-md-9">
-        <div class="container content py-5">
-            <div class="title text-right">
-                <h1>Professors</h1>
-                <a href="/professors/add" class="btn btn-sm active" role="button">add</a>
+        <div class="container content div-center flex-column">
+            <div class="title text-center">
+                <h1>Add subject</h1>
             </div>
-            <div class="table">
-                <div class="row">
-                    <div class="col-3 table-header">First name</div>
-                    <div class="col-3 table-header">Second name</div>
-                    <div class="col-3 table-header">Fathers name</div>
-                    <div class="col-3 table-header">Date of birth</div>
+            <form action="/subjects" method="POST">
+                <div class="form-container">
+                    <input type="text" class="form-control" id="subjectForm" name="subjectName" placeholder="Subject"
+                           required>
+                    <input type="text" class="form-control" id="hoursForm" name="hours" placeholder="hours"
+                           required pattern="[0-9]+">
+                    <select class="form-control" id="selectProfessorForm" name="selectedProfessor" required>
+                        <c:forEach items="${professors}" var="professor">
+                            <option value="${professor.getId()}">${professor.getFirstName() } ${professor.getSecondName() }</option>
+                        </c:forEach>
+                    </select>
+                    <input class="btn" type="submit" value="OK">
                 </div>
-                <c:forEach items="${professors}" var="professor">
-                    <div class="row">
-                        <div class="col-3 table-item">${professor.getFirstName() }</div>
-                        <div class="col-3 table-item">${professor.getSecondName() }</div>
-                        <div class="col-3 table-item">${professor.getFatherName()}</div>
-                        <div class="col-3 table-item">${professor.getBirthDate()}</div>
-                    </div>
-                </c:forEach>
-            </div>
+            </form>
         </div>
     </div>
 </div>
 </body>
+</html>
 </html>

@@ -1,26 +1,26 @@
 package by.iba.student.common;
 
 public class Student {
-
-
-    private String id;
+    private int id;
     private String firstName;
     private String secondName;
-    private Group group;
+    private String group;
+    private double avgMark;
 
 
-    public Student(String firstName, String secondName, Group group) {
+    public Student(String firstName, String secondName, String group) {
         super();
         this.firstName = firstName;
         this.secondName = secondName;
         this.group = group;
+        this.avgMark = 0;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -40,18 +40,19 @@ public class Student {
         this.secondName = secondName;
     }
 
-    public String getGroupId() {
-        return group.getId();
+    public String getGroup() {
+        return group;
     }
 
-    public String getGroupNumber() {
-        return group.getGroupNumber();
-    }
-    public void setGroupId(Group groupId) {
+    public void setGroupId(String groupId) {
         this.group = groupId;
     }
 
-//    public String getStudentGroupNumber() {
-//        return Data.groupRepository.findGroupById(groupId).getGroupNumber();
-//    }
+    public double getAvgMark() {
+        return avgMark;
+    }
+
+    public void setAvgMark(double avgMark) {
+        this.avgMark = avgMark;
+    }
 }

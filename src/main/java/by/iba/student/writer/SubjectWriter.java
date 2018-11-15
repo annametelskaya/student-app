@@ -1,6 +1,5 @@
 package by.iba.student.writer;
 
-import by.iba.student.common.Student;
 import by.iba.student.common.Subject;
 
 import java.io.BufferedWriter;

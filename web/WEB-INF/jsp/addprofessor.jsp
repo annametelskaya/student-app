@@ -5,7 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>Groups</title>
+    <title>Add professor</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
@@ -35,22 +35,22 @@
         </ul>
     </nav>
     <div class="col-md-9">
-        <div class="container content py-5">
-            <div class="title text-right">
-                <h1>Groups</h1>
-                <a href="/groups/add" class="btn btn-sm active" role="button">add</a>
+        <div class="container content div-center flex-column">
+            <div class="title text-center">
+                <h1>Add professor</h1>
             </div>
-            <c:forEach items="${groups}" var="group">
-                <div class="card m-1" style="width: 18em; display: inline-block">
-                    <div class="card-body">
-                        <h5 class="card-title">Group ${group.getGroupNumber() }</h5>
-                        <p class="card-text">Number of students: ${group.getNumber() }</p>
-                            <%--<a href="#" class="btn btn-primary">Go somewhere</a>--%>
-                    </div>
+            <form action="/professors" method="POST">
+                <div class="form-container">
+                    <input type="text" class="form-control" id="nameForm" name="firstName" placeholder="First name"
+                           required>
+                    <input type="text" class="form-control" id="surnameForm" name="secondName" placeholder="Second name"
+                           required>
+                    <input class="btn" type="submit" value="OK">
                 </div>
-            </c:forEach>
+            </form>
         </div>
     </div>
 </div>
 </body>
+</html>
 </html>

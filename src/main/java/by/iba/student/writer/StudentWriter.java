@@ -21,7 +21,7 @@ public class StudentWriter {
                         st.getId(),
                         st.getFirstName(),
                         st.getSecondName(),
-                        st.getGroupId());
+                        st.getGroup());
                 write.write(line);
                 write.newLine();
             }

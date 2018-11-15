@@ -1,6 +1,6 @@
 package by.iba.student.web.servlet;
 
-import by.iba.student.Repository.GroupRepository;
+import by.iba.student.Repository.Repository;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -12,12 +12,12 @@ import java.io.IOException;
 
 public class AddStudentServlet extends HttpServlet {
     private static final long serialVersionUID = 6345194112526801506L;
-    private GroupRepository groupRepository;
+    private Repository groupRepository;
 
     @Override
     public void init() {
         ServletContext sc = getServletContext();
-        this.groupRepository = (GroupRepository) sc.getAttribute("groupRepository");
+        this.groupRepository = (Repository) sc.getAttribute("groupRepository");
     }
 
     @Override

@@ -1,9 +1,10 @@
 package by.iba.student.web.servlet;
 
-import by.iba.student.Repository.MarksRepository;
-import by.iba.student.Repository.ProfessorRepository;
-import by.iba.student.Repository.StudentRepository;
+import by.iba.student.Repository.Repository;
 import by.iba.student.common.Marks;
+import by.iba.student.common.Professor;
+import by.iba.student.common.Student;
+import by.iba.student.common.Subject;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -12,20 +13,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class MarksServelt extends HttpServlet {
 
     private static final long serialVersionUID = 6345194112526801506L;
-    private StudentRepository studentRepository;
-    private ProfessorRepository professorRepository;
-    private MarksRepository marksRepository;
+    private Repository<Integer, Student> studentRepository;
+    private Repository<Integer,Professor> professorRepository;
+    private Repository<Integer,Marks> marksRepository;
+    private Repository<Integer,Subject> subjectRepository;
 
     @Override
     public void init() {
         ServletContext sc = getServletContext();
-        this.marksRepository = (MarksRepository) sc.getAttribute("marksRepository");
-        this.studentRepository = (StudentRepository) sc.getAttribute("studentRepository");
-        this.professorRepository = (ProfessorRepository) sc.getAttribute("professorRepository");
+        this.marksRepository = (Repository<Integer, Marks>) sc.getAttribute("marksRepository");
+        this.studentRepository = (Repository<Integer, Student>) sc.getAttribute("studentRepository");
+        this.professorRepository = (Repository<Integer, Professor>) sc.getAttribute("professorRepository");
+        this.subjectRepository = (Repository<Integer, Subject>) sc.getAttribute("subjectRepository");
     }
 
     @Override
@@ -37,18 +42,21 @@ public class MarksServelt extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String subjectId = req.getParameter("selectedSubject");
         String studentId = req.getParameter("selectedStudent");
         String professorId = req.getParameter("selectedProfessor");
         String mark = req.getParameter("mark");
         String date = req.getParameter("date");
         String comment = req.getParameter("comment");
-//      this.marksRepository.create(new Marks(studentId, professorId, mark, date, comment));
-        this.marksRepository.create(new Marks((this.studentRepository.findStudentById(studentId).getFirstName() + " " +
-                this.studentRepository.findStudentById(studentId).getSecondName()),
-                (this.professorRepository.findProfessorById(professorId).getFirstName() + " " +
-                        this.professorRepository.findProfessorById(professorId).getSecondName() + " " +
-                        this.professorRepository.findProfessorById(professorId).getFatherName()), mark, date, comment));
-
+        Subject subject = this.subjectRepository.findById(Integer.valueOf(subjectId));
+        Student student = this.studentRepository.findById(Integer.valueOf(studentId));
+        Professor professor = this.professorRepository.findById(Integer.valueOf(professorId));
+        try {
+            this.marksRepository.create(new Marks(subject.getName(), student.getFirstName() + " " + student.getSecondName(),
+                    professor.getFirstName() + " " + professor.getSecondName(), Double.valueOf(mark), new SimpleDateFormat("yyyy-MM-dd").parse(date), comment));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         doGet(req, resp);
 
     }

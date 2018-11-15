@@ -5,6 +5,7 @@ import by.iba.student.common.Marks;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class MarkWriter {
@@ -19,16 +20,18 @@ public class MarkWriter {
             for (Marks mark : marks) {
                 String line;
                 if (mark.getComment() != null) {
-                    line = String.format("%s;%s;%s;%s;%s;%s",
+                    line = String.format("%s;%s;%s;%s;%s;%s;%s",
                             mark.getId(),
+                            mark.getSubjectId(),
                             mark.getStudentId(),
                             mark.getProfessorId(),
                             mark.getMark(),
                             mark.getDate(),
                             mark.getComment());
                 } else {
-                    line = String.format("%s;%s;%s;%s;%s",
+                    line = String.format("%s;%s;%s;%s;%s;%s",
                             mark.getId(),
+                            mark.getSubjectId(),
                             mark.getStudentId(),
                             mark.getProfessorId(),
                             mark.getMark(),

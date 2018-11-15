@@ -1,25 +1,23 @@
 package by.iba.student.common;
 
 public class Professor {
-    private String id;
+    private int id;
     private String firstName;
     private String secondName;
-    private String fatherName;
-    private String birthDate;
+    private double avgMark;
 
-    public Professor(String firstName, String secondName, String fatherName, String birthDate) {
+    public Professor(String firstName, String secondName) {
         super();
         this.firstName = firstName;
         this.secondName = secondName;
-        this.fatherName = fatherName;
-        this.birthDate = birthDate;
+        this.avgMark = 0;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -39,20 +37,11 @@ public class Professor {
         this.secondName = secondName;
     }
 
-    public String getFatherName() {
-        return fatherName;
+    public double getAvgMark() {
+        return avgMark;
     }
 
-    public void setFatherName(String fatherName) {
-        this.fatherName = fatherName;
-    }
-
-    public String getBirthDate() {
-        return birthDate;
-    }
-
-
-    public void setBirthDate(String birthDate) {
-        this.birthDate = birthDate;
+    public void setAvgMark(double avgMark) {
+        this.avgMark = avgMark;
     }
 }

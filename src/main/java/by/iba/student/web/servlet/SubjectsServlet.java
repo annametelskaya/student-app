@@ -1,7 +1,6 @@
 package by.iba.student.web.servlet;
 
-import by.iba.student.Repository.ProfessorRepository;
-import by.iba.student.Repository.SubjectRepository;
+import by.iba.student.Repository.Repository;
 import by.iba.student.common.*;
 
 import javax.servlet.RequestDispatcher;
@@ -15,14 +14,14 @@ import java.io.IOException;
 public class SubjectsServlet extends HttpServlet {
     private static final long serialVersionUID = 6345194112526801506L;
 
-    private ProfessorRepository professorRepository;
-    private SubjectRepository subjectRepository;
+    private Repository<Integer, Professor> professorRepository;
+    private Repository<Integer, Subject> subjectRepository;
 
     @Override
     public void init() {
         ServletContext sc = getServletContext();
-        this.subjectRepository = (SubjectRepository) sc.getAttribute("subjectRepository");
-        this.professorRepository = (ProfessorRepository) sc.getAttribute("professorRepository");
+        this.subjectRepository = (Repository<Integer, Subject>) sc.getAttribute("subjectRepository");
+        this.professorRepository = (Repository<Integer, Professor>) sc.getAttribute("professorRepository");
     }
 
     @Override
@@ -37,10 +36,9 @@ public class SubjectsServlet extends HttpServlet {
         String professorId = req.getParameter("selectedProfessor");
         String name = req.getParameter("subjectName");
         String hours = req.getParameter("hours");
-        this.subjectRepository.create(new Subject(name, hours, (this.professorRepository.findProfessorById(professorId).getFirstName() + " " +
-                this.professorRepository.findProfessorById(professorId).getSecondName() + " " +
-                this.professorRepository.findProfessorById(professorId).getFatherName())));
-//      this.subjectRepository.create(new Subject(name, hours, professorId));
+        Professor professor = this.professorRepository.findById(Integer.valueOf(professorId));
+        this.subjectRepository.create(new Subject(name, Integer.valueOf(hours), (professor.getFirstName() + " " +
+                professor.getSecondName())));
         doGet(req, resp);
     }
 

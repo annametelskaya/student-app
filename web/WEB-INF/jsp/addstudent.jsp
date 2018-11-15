@@ -47,7 +47,7 @@
                            required>
                     <select class="form-control" id="groupForm" name="groupNumber" required pattern="[0-9]+">
                         <c:forEach items="${groups}" var="group">
-                            <option value="${group.getId()}">${group.getGroupNumber() }</option>
+                            <option value="${group.getGroupNumber()}">${group.getGroupNumber() }</option>
                         </c:forEach>
                     </select>
                     <input class="btn" type="submit" value="OK">

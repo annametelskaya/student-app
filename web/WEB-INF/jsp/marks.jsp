@@ -42,19 +42,21 @@
             </div>
             <div class="table">
                 <div class="row">
+                    <div class="col-2 table-header">Subject</div>
                     <div class="col-2 table-header">Student</div>
-                    <div class="col-3 table-header">Professor</div>
+                    <div class="col-2 table-header">Professor</div>
                     <div class="col-2 table-header">Mark</div>
                     <div class="col-2 table-header">Date</div>
-                    <div class="col-3 table-header">Comment</div>
+                    <div class="col-2 table-header">Comment</div>
                 </div>
                 <c:forEach items="${marks}" var="mark">
                     <div class="row">
+                        <div class="col-2 table-item">${mark.getSubjectId() }</div>
                         <div class="col-2 table-item">${mark.getStudentId() }</div>
-                        <div class="col-3 table-item">${mark.getProfessorId() }</div>
+                        <div class="col-2 table-item">${mark.getProfessorId() }</div>
                         <div class="col-2 table-item">${mark.getMark()}</div>
                         <div class="col-2 table-item">${mark.getDate()}</div>
-                        <div class="col-3 table-item">${mark.getComment()}</div>
+                        <div class="col-2 table-item">${mark.getComment()}</div>
                     </div>
                 </c:forEach>
             </div>
