@@ -50,7 +50,7 @@ public class Subject {
         return avgMark;
     }
 
-    public void setAvgMark(double avgMark) {
-        this.avgMark = avgMark;
+    public void setAvgMark(String avgMark) {
+        this.avgMark = Double.valueOf(avgMark);
     }
 }
