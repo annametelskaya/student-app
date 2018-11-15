@@ -5,29 +5,33 @@ import java.util.Date;
 
 public class Marks {
     private int id;
-    private String subjectId;
-    private String studentId;
-    private String professorId;
+    private Subject subject;
+    private Student student;
+    private Professor professor;
     private double mark;
     private Date date;
     private String comment;
 
-    public Marks(String subjectId, String studentId, String professorId, double mark, Date date, String comment) {
+    public Marks(Subject subject, Student student, Professor professor, double mark, Date date, String comment) {
         super();
-        this.subjectId = subjectId;
-        this.studentId = studentId;
-        this.professorId = professorId;
+        this.subject = subject;
+        this.student = student;
+        this.professor = professor;
         this.mark = mark;
         this.date = date;
         this.comment = comment;
     }
 
     public String getSubjectId() {
-        return subjectId;
+        return subject.getId() + "";
     }
 
-    public void setSubjectId(String subjectId) {
-        this.subjectId = subjectId;
+    public String getSubjectName() {
+        return subject.getName();
+    }
+
+    public void setSubjectId(Subject subjectId) {
+        this.subject = subjectId;
     }
 
     public String getDate() {
@@ -47,19 +51,27 @@ public class Marks {
     }
 
     public String getStudentId() {
-        return studentId;
+        return student.getId() + "";
     }
 
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
+    public String getStudentName() {
+        return student.getFirstName() + " " + student.getSecondName();
+    }
+
+    public void setStudentId(Student studentId) {
+        this.student = studentId;
     }
 
     public String getProfessorId() {
-        return professorId;
+        return professor.getId() + "";
     }
 
-    public void setProfessorId(String professorId) {
-        this.professorId = professorId;
+    public String getProfessorName() {
+        return professor.getFirstName() + " " + professor.getSecondName();
+    }
+
+    public void setProfessorId(Professor professorId) {
+        this.professor = professorId;
     }
 
     public double getMark() {

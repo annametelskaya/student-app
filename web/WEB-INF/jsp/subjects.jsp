@@ -44,7 +44,7 @@
                 <div class="card m-1" style="width: 18em; display: inline-block">
                     <div class="card-body">
                         <h5 class="card-title">${subject.getName() }</h5>
-                        <p class="card-text">Professor: ${subject.getProfessorId() }<br>
+                        <p class="card-text">Professor: ${subject.getProfessorName() }<br>
                             Hours: ${subject.getHours() }</p>
                             <%--<a href="#" class="btn btn-primary">Go somewhere</a>--%>
                     </div>

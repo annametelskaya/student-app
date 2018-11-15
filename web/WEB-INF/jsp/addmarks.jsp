@@ -61,7 +61,7 @@
                     <input type="text" class="form-control" id="markForm" name="mark" placeholder="mark"
                            required pattern="[0-9]+">
                     <textarea type="text" class="form-control" id="commentForm" name="comment" rows="3"
-                              placeholder="comment"></textarea>
+                              placeholder="comment" required></textarea>
                     <input class="btn" type="submit" value="OK">
                 </div>
             </form>

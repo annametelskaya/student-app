@@ -4,13 +4,13 @@ public class Subject {
     private int id;
     private String name;
     private int hours;
-    private String professorId;
+    private Professor professor;
     private double avgMark;
 
-    public Subject(String name, int hours, String professorId) {
+    public Subject(String name, int hours, Professor professorId) {
         this.name = name;
         this.hours = hours;
-        this.professorId = professorId;
+        this.professor = professorId;
         this.avgMark = 0;
     }
 
@@ -39,11 +39,15 @@ public class Subject {
     }
 
     public String getProfessorId() {
-        return professorId;
+        return professor.getId() + "";
     }
 
-    public void setProfessorId(String professorId) {
-        this.professorId = professorId;
+    public String getProfessorName() {
+        return professor.getFirstName() + " " + professor.getSecondName();
+    }
+
+    public void setProfessorId(Professor professorId) {
+        this.professor = professorId;
     }
 
     public double getAvgMark() {

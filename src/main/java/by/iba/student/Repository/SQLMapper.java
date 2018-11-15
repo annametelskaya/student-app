@@ -10,4 +10,8 @@ public interface SQLMapper<C, T> {
     public C setKey(T item, int size);
 
     public List<T> getData(Connection conn) throws SQLException;
+
+    public void createData(Connection conn, T item) throws SQLException;
+
+    public T findOne(Connection conn, C id) throws SQLException;
 }

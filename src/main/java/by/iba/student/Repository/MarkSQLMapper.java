@@ -1,7 +1,6 @@
 package by.iba.student.Repository;
 
-import by.iba.student.common.Marks;
-import by.iba.student.common.Student;
+import by.iba.student.common.*;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -34,31 +33,55 @@ public class MarkSQLMapper implements SQLMapper<Integer, Marks> {
                 + "FROM BEGANSS.MARK;";
         ResultSet rs = statement.executeQuery(sql);
         while (rs.next()) {
-            sql = "select FIRST_NAME, SECOND_NAME " +
-                    "from BEGANSS.STUDENT where STUDENT_ID=" +
-                    rs.getString("STUDENT_ID") + ";";
-            ResultSet st = statement.executeQuery(sql);
-            String student = st.getString("FIRST_NAME") + " " + st.getString("SECOND_NAME");
-            sql = "select NAME " +
-                    "from BEGANSS.STUDY where STUDENT_ID=" +
-                    rs.getString("STUDY_ID") + ";";
-            ResultSet sb = statement.executeQuery(sql);
-            String subject = sb.getString("NAME");
-            sql = "select FIRST_NAME, SECOND_NAME " +
-                    "from BEGANSS.PROFESS where PROFESS_ID=" +
-                    rs.getString("PROFESS_ID") + ";";
-            ResultSet pr = statement.executeQuery(sql);
-            String profess = pr.getString("FIRST_NAME") + " " + pr.getString("SECOND_NAME");
             Marks mark = null;
             try {
-                mark = new Marks(subject, student, profess, Double.valueOf(rs.getString("MARK")),
+                GetItems gt = new GetItems();
+                mark = new Marks(gt.getSubject(conn, rs.getString("STUDY_ID")),
+                        gt.getStudent(conn, rs.getString("STUDENT_ID")),
+                        gt.getProfessor(conn, rs.getString("PROFESS_ID")),
+                        Double.valueOf(rs.getString("MARK")),
                         new SimpleDateFormat("yyyy-MM-dd").parse(rs.getString("DATE")),
                         rs.getString("COMMENTS"));
+                mark.setId(rs.getInt("MARK_ID"));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
             marks.add(mark);
         }
         return marks;
+    }
+
+    @Override
+    public void createData(Connection conn, Marks item) throws SQLException {
+        Statement statement = conn.createStatement();
+        String sql = "INSERT INTO BEGANSS.MARK(STUDY_ID, STUDENT_ID, DATE, PROFESS_ID, MARK, COMMENTS) VALUES " +
+                "('" + item.getSubjectId() + "','" + item.getStudentId() + "','" + item.getDate() + "','" + item.getProfessorId()
+                + "','" + item.getMark() + "','" + item.getComment() + "');";
+        statement.executeUpdate(sql);
+        sql = "SELECT MAX(MARK_ID) AS 'MARK_ID' FROM BEGANSS.MARK";
+        ResultSet rs = statement.executeQuery(sql);
+        if (rs.next()) {
+            item.setId(rs.getInt("MARK_ID"));
+        }
+    }
+
+    @Override
+    public Marks findOne(Connection conn, Integer id) throws SQLException {
+        Statement statement = conn.createStatement();
+        String sql = "select * from BEGANSS.MARK where MARK_ID='" + id + "';";
+        ResultSet pr = statement.executeQuery(sql);
+        Marks mark = null;
+        if (pr.next()) {
+            GetItems gt = new GetItems();
+            try {
+                mark = new Marks(gt.getSubject(conn, pr.getString("STUDY_ID")), gt.getStudent(conn, pr.getString("STUDENT_ID")),
+                        gt.getProfessor(conn, pr.getString("PROFESS_ID")), Double.valueOf(pr.getString("MARK")),
+                        new SimpleDateFormat("yyyy-MM-dd").parse(pr.getString("DATE")),
+                        pr.getString("COMMENTS"));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return mark;
     }
 }

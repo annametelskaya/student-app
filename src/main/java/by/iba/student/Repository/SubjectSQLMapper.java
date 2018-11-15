@@ -1,5 +1,6 @@
 package by.iba.student.Repository;
 
+import by.iba.student.common.Professor;
 import by.iba.student.common.Subject;
 
 import java.sql.Connection;
@@ -17,7 +18,7 @@ public class SubjectSQLMapper implements SQLMapper<Integer, Subject> {
 
     @Override
     public Integer setKey(Subject item, int size) {
-        int id = size+ 1;
+        int id = size + 1;
         item.setId(id);
         return id;
     }
@@ -31,14 +32,49 @@ public class SubjectSQLMapper implements SQLMapper<Integer, Subject> {
                 + "FROM BEGANSS.STUDY;";
         ResultSet rs = statement.executeQuery(sql);
         while (rs.next()) {
-            sql = "select FIRST_NAME, SECOND_NAME " +
-                    "from BEGANSS.PROFESS where PROFESS_ID=" +
-                    rs.getString("PROFESS_ID") + ";";
-            ResultSet pr = statement.executeQuery(sql);
-            String profess = pr.getString("FIRST_NAME") + " " + pr.getString("SECOND_NAME");
-            Subject subject= new Subject(rs.getString("NAME"),Integer.valueOf(rs.getString("HOURS")),profess);
+            GetItems gt = new GetItems();
+            Subject subject = new Subject(rs.getString("NAME"),
+                    Integer.valueOf(rs.getString("HOURS")), gt.getProfessor(conn, rs.getString("PROFESS_ID")));
+            subject.setId(rs.getInt("STUDY_ID"));
             subjects.add(subject);
         }
         return subjects;
     }
+
+    @Override
+    public void createData(Connection conn, Subject item) throws SQLException {
+        Statement statement = conn.createStatement();
+        String sql = "INSERT INTO BEGANSS.STUDY(NAME, HOURS, PROFESS_ID, AVG_MARK) VALUES ('" +
+                item.getName() + "','"
+                + item.getHours() + "','"
+                + item.getProfessorId() + "','"
+                + item.getAvgMark() + "');";
+        statement.executeUpdate(sql);
+        sql = "SELECT MAX(STUDY_ID) AS 'STUDY_ID' FROM BEGANSS.STUDY";
+        ResultSet rs = statement.executeQuery(sql);
+        if (rs.next()) {
+            item.setId(rs.getInt("STUDY_ID"));
+        }
+    }
+
+    @Override
+    public Subject findOne(Connection conn, Integer id) throws SQLException {
+        Statement statement = conn.createStatement();
+        String sql = "select * " +
+                "from BEGANSS.STUDY where STUDY_ID='" +
+                id + "';";
+        Subject subject = null;
+        ResultSet sb = statement.executeQuery(sql);
+        if (sb.next()) {
+            GetItems gt = new GetItems();
+            subject = new Subject(sb.getString("NAME"), sb.getInt("HOURS"),
+                    gt.getProfessor(conn, sb.getString("PROFESS_ID")));
+
+            subject.setAvgMark(sb.getString("AVG_MARK"));
+            subject.setId(sb.getInt("STUDY_ID"));
+        }
+        return subject;
+    }
+
+
 }

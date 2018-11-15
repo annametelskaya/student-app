@@ -1,8 +1,6 @@
 package by.iba.student.Repository;
 
 import by.iba.student.common.Group;
-import by.iba.student.common.Student;
-import util.StringUtil;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -38,4 +36,26 @@ public class GroupSQLMapper implements SQLMapper<String, Group> {
         }
         return groups;
     }
+
+    @Override
+    public void createData(Connection conn, Group item) throws SQLException {
+        Statement statement = conn.createStatement();
+        String sql = "INSERT INTO BEGANSS.GROUP(GROUP_NUMBER, AVG_MARK) VALUES" +
+                " ('" + item.getGroupNumber() + "','" + item.getAvg_mark() + "');";
+        statement.executeUpdate(sql);
+    }
+
+    @Override
+    public Group findOne(Connection conn, String id) throws SQLException {
+        Statement statement = conn.createStatement();
+        String sql = "select * from BEGANSS.GROUP where GROUP_NUMBER='" + id + "';";
+        ResultSet pr = statement.executeQuery(sql);
+        Group group = null;
+        if (pr.next()) {
+            group = new Group(pr.getString("GROUP_NUMBER"));
+            group.setAvg_mark(pr.getString("AVG_MARK"));
+        }
+        return group;
+    }
+
 }

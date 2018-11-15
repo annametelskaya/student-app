@@ -37,14 +37,30 @@ public class Repository<C, T> implements EntityRepository<C, T> {
 
     @Override
     public T findById(C id) {
-        for (T item : items.values()) {
-            if (mapper.getKey(item) == id) return item;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
-        return null;
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/BEGANSS", "root", "30inutez")) {
+            return mapper.findOne(conn, id);
+        } catch (Throwable ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     @Override
     public void create(T item) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/BEGANSS", "root", "30inutez")) {
+            mapper.createData(conn, item);
+        } catch (Throwable ex) {
+            throw new RuntimeException(ex);
+        }
         C id = mapper.setKey(item, items.size());
         items.put(id, item);
     }

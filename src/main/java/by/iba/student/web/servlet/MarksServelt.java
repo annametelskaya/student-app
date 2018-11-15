@@ -20,9 +20,9 @@ public class MarksServelt extends HttpServlet {
 
     private static final long serialVersionUID = 6345194112526801506L;
     private Repository<Integer, Student> studentRepository;
-    private Repository<Integer,Professor> professorRepository;
-    private Repository<Integer,Marks> marksRepository;
-    private Repository<Integer,Subject> subjectRepository;
+    private Repository<Integer, Professor> professorRepository;
+    private Repository<Integer, Marks> marksRepository;
+    private Repository<Integer, Subject> subjectRepository;
 
     @Override
     public void init() {
@@ -52,8 +52,8 @@ public class MarksServelt extends HttpServlet {
         Student student = this.studentRepository.findById(Integer.valueOf(studentId));
         Professor professor = this.professorRepository.findById(Integer.valueOf(professorId));
         try {
-            this.marksRepository.create(new Marks(subject.getName(), student.getFirstName() + " " + student.getSecondName(),
-                    professor.getFirstName() + " " + professor.getSecondName(), Double.valueOf(mark), new SimpleDateFormat("yyyy-MM-dd").parse(date), comment));
+            this.marksRepository.create(new Marks(subject, student, professor, Double.valueOf(mark),
+                    new SimpleDateFormat("yyyy-MM-dd").parse(date), comment));
         } catch (ParseException e) {
             e.printStackTrace();
         }

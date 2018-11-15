@@ -51,9 +51,9 @@
                 </div>
                 <c:forEach items="${marks}" var="mark">
                     <div class="row">
-                        <div class="col-2 table-item">${mark.getSubjectId() }</div>
-                        <div class="col-2 table-item">${mark.getStudentId() }</div>
-                        <div class="col-2 table-item">${mark.getProfessorId() }</div>
+                        <div class="col-2 table-item">${mark.getSubjectName() }</div>
+                        <div class="col-2 table-item">${mark.getStudentName() }</div>
+                        <div class="col-2 table-item">${mark.getProfessorName() }</div>
                         <div class="col-2 table-item">${mark.getMark()}</div>
                         <div class="col-2 table-item">${mark.getDate()}</div>
                         <div class="col-2 table-item">${mark.getComment()}</div>

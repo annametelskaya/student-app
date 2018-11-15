@@ -4,11 +4,11 @@ public class Student {
     private int id;
     private String firstName;
     private String secondName;
-    private String group;
+    private Group group;
     private double avgMark;
 
 
-    public Student(String firstName, String secondName, String group) {
+    public Student(String firstName, String secondName, Group group) {
         super();
         this.firstName = firstName;
         this.secondName = secondName;
@@ -40,11 +40,11 @@ public class Student {
         this.secondName = secondName;
     }
 
-    public String getGroup() {
-        return group;
+    public String getGroupNumber() {
+        return group.getGroupNumber();
     }
 
-    public void setGroupId(String groupId) {
+    public void setGroupId(Group groupId) {
         this.group = groupId;
     }
 

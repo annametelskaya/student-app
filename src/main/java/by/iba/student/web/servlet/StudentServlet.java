@@ -8,19 +8,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import by.iba.student.Repository.Repository;
+import by.iba.student.common.Group;
 import by.iba.student.common.Student;
 
 public class StudentServlet extends HttpServlet {
 
     private static final long serialVersionUID = 6345194112526801506L;
-    private Repository studentRepository;
-    private Repository groupRepository;
+    private Repository<Integer,Student> studentRepository;
+    private Repository<String, Group> groupRepository;
 
     @Override
     public void init() {
         ServletContext sc = getServletContext();
-        this.studentRepository = (Repository) sc.getAttribute("studentRepository");
-        this.groupRepository = (Repository) sc.getAttribute("groupRepository");
+        this.studentRepository = (Repository<Integer, Student>) sc.getAttribute("studentRepository");
+        this.groupRepository = (Repository<String, Group>) sc.getAttribute("groupRepository");
 
     }
 
@@ -36,8 +37,7 @@ public class StudentServlet extends HttpServlet {
         String firstName = req.getParameter("firstName");
         String secondName = req.getParameter("secondName");
         String groupNumber = req.getParameter("groupNumber");
-        //Student st = new Student(firstName, secondName, groupId);
-        Student st = new Student(firstName, secondName, groupNumber);
+        Student st = new Student(firstName, secondName, groupRepository.findById(groupNumber));
         this.studentRepository.create(st);
         doGet(req, resp);
 

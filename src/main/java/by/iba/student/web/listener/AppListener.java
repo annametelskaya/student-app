@@ -2,8 +2,6 @@ package by.iba.student.web.listener;
 
 import by.iba.student.Repository.*;
 import by.iba.student.common.*;
-import by.iba.student.reader.*;
-import by.iba.student.writer.*;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -31,69 +29,51 @@ public class AppListener implements ServletContextListener {
 
      //   DataSource dataSource = dataSource();
         ServletContext sc = sce.getServletContext();
-        String groupPath = property.getProperty("group.file.path");
-        List<Group> groups = new EntityFileReader<Group>(groupPath, new GroupLineMapper()).read();
         this.groupRepository = new Repository<String, Group>(new GroupSQLMapper());
         sc.setAttribute("groupRepository", groupRepository);
 
-        String studentPath = property.getProperty("student.file.path");
-        List<Student> students = new EntityFileReader<Student>(studentPath, new StudentLineMapper()).read();
         this.studentRepository = new Repository<Integer, Student>(new StudentSQLMapper());
         sc.setAttribute("studentRepository", studentRepository);
 
-        String professorPath = property.getProperty("professor.file.path");
-        List<Professor> professors = new EntityFileReader<Professor>(professorPath, new ProfessorLineMapper()).read();
         this.professorRepository = new Repository<>(new ProfessorSQLMapper());
         sc.setAttribute("professorRepository", professorRepository);
 
-        String subjectPath = property.getProperty("subject.file.path");
-        List<Subject> subjects = new EntityFileReader<Subject>(subjectPath, new SubjectLineMapper()).read();
         this.subjectRepository = new Repository<>(new SubjectSQLMapper());
         sc.setAttribute("subjectRepository", subjectRepository);
 
-        String markPath = property.getProperty("mark.file.path");
-        List<Marks> marks = new EntityFileReader<Marks>(markPath, new MarkLineMapper()).read();
         this.marksRepository = new Repository<Integer, Marks>(new MarkSQLMapper());
         sc.setAttribute("marksRepository", marksRepository);
     }
 
-    private DataSource dataSource() {
-        try {
-            Context initContext = new InitialContext();
-            Context envContext = (Context) initContext.lookup("java:/comp/env");
-            return (DataSource) envContext.lookup("java:comp/env/jdbc/myDB");
-        } catch (NamingException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        Properties property = getCurrProperties();
-        try {
-            ServletContext sc = sce.getServletContext();
-            String studentPath = property.getProperty("student.file.path");
-            List<Student> students = studentRepository.findAll();
-            new StudentWriter(studentPath).write(students);
-
-            String groupPath = property.getProperty("group.file.path");
-            List<Group> groups = groupRepository.findAll();
-            new GroupWriter(groupPath).write(groups);
-
-            String professorPath = property.getProperty("professor.file.path");
-            List<Professor> professors = professorRepository.findAll();
-            new ProfessorWriter(professorPath).write(professors);
-
-            String subjectPath = property.getProperty("subject.file.path");
-            List<Subject> subjects = subjectRepository.findAll();
-            new SubjectWriter(subjectPath).write(subjects);
-
-            String markPath = property.getProperty("mark.file.path");
-            List<Marks> marks = marksRepository.findAll();
-            new MarkWriter(markPath).write(marks);
-        } catch (IOException e) {
-            System.out.println("can't save file");
-        }
+//        Properties property = getCurrProperties();
+//        try {
+//            ServletContext sc = sce.getServletContext();
+//            String studentPath = property.getProperty("student.file.path");
+//            List<Student> students = studentRepository.findAll();
+//            new StudentWriter(studentPath).write(students);
+//
+//            String groupPath = property.getProperty("group.file.path");
+//            List<Group> groups = groupRepository.findAll();
+//            new GroupWriter(groupPath).write(groups);
+//
+//            String professorPath = property.getProperty("professor.file.path");
+//            List<Professor> professors = professorRepository.findAll();
+//            new ProfessorWriter(professorPath).write(professors);
+//
+//            String subjectPath = property.getProperty("subject.file.path");
+//            List<Subject> subjects = subjectRepository.findAll();
+//            new SubjectWriter(subjectPath).write(subjects);
+//
+//            String markPath = property.getProperty("mark.file.path");
+//            List<Marks> marks = marksRepository.findAll();
+//            new MarkWriter(markPath).write(marks);
+//        } catch (IOException e) {
+//            System.out.println("can't save file");
+//        }
     }
 
     private Properties getCurrProperties() {

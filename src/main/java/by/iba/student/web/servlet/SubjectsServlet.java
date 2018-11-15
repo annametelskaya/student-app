@@ -36,9 +36,9 @@ public class SubjectsServlet extends HttpServlet {
         String professorId = req.getParameter("selectedProfessor");
         String name = req.getParameter("subjectName");
         String hours = req.getParameter("hours");
+        System.out.println(professorId);
         Professor professor = this.professorRepository.findById(Integer.valueOf(professorId));
-        this.subjectRepository.create(new Subject(name, Integer.valueOf(hours), (professor.getFirstName() + " " +
-                professor.getSecondName())));
+        this.subjectRepository.create(new Subject(name, Integer.valueOf(hours), professor));
         doGet(req, resp);
     }
 
