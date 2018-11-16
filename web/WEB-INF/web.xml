@@ -19,10 +19,10 @@
     <!--<param-name>mark.file.path</param-name>-->
     <!--<param-value>/home/anna/uni/git/student-app/src/main/resources/mark.csv</param-value>-->
     <!--</context-param>-->
-    <!--<context-param>-->
-    <!--<param-name>subject.file.path</param-name>-->
-    <!--<param-value>/home/anna/uni/git/student-app/src/main/resources/subject.csv</param-value>-->
-    <!--</context-param>-->
+    <context-param>
+        <param-name>subject.file.path</param-name>
+        <param-value>/home/anna/uni/git/student-app/src/main/resources/subject.csv</param-value>
+    </context-param>
 
     <listener>
         <listener-class>by.iba.student.web.listener.AppListener</listener-class>

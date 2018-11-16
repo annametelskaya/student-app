@@ -65,4 +65,9 @@ public class ProfessorSQLMapper implements SQLMapper<Integer, Professor> {
         }
         return professor;
     }
+
+    @Override
+    public List<Professor> findSort(Connection connection, String[] arg) {
+        return null;
+    }
 }

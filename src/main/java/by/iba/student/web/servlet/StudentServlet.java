@@ -14,7 +14,7 @@ import by.iba.student.common.Student;
 public class StudentServlet extends HttpServlet {
 
     private static final long serialVersionUID = 6345194112526801506L;
-    private Repository<Integer,Student> studentRepository;
+    private Repository<Integer, Student> studentRepository;
     private Repository<String, Group> groupRepository;
 
     @Override
@@ -27,7 +27,23 @@ public class StudentServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("students", this.studentRepository.findAll());
+        String sortByName = req.getParameter("sortByName");
+        String sortBySurname = req.getParameter("sortBySurname");
+        String sortByGroup = req.getParameter("sortByGroup");
+        if (sortByName!=null || sortByGroup!=null || sortBySurname!=null) {
+            if(sortByGroup==null){
+                sortByGroup="";
+            }
+            if (sortByName==null){
+                sortByName="";
+            }
+            if(sortBySurname==null){
+                sortBySurname="";
+            }
+            req.setAttribute("students", this.studentRepository.findBySort(new String[]{sortByName, sortBySurname, sortByGroup}));
+        } else {
+            req.setAttribute("students", this.studentRepository.findAll());
+        }
         RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/students.jsp");
         dispatcher.forward(req, resp);
     }
@@ -40,7 +56,6 @@ public class StudentServlet extends HttpServlet {
         Student st = new Student(firstName, secondName, groupRepository.findById(groupNumber));
         this.studentRepository.create(st);
         doGet(req, resp);
-
     }
 
     @Override

@@ -24,10 +24,8 @@ public class AppListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        Properties property = getCurrProperties();
-
-
-     //   DataSource dataSource = dataSource();
+        //   Properties property = getCurrProperties();
+        //   DataSource dataSource = dataSource();
         ServletContext sc = sce.getServletContext();
         this.groupRepository = new Repository<String, Group>(new GroupSQLMapper());
         sc.setAttribute("groupRepository", groupRepository);
@@ -35,16 +33,15 @@ public class AppListener implements ServletContextListener {
         this.studentRepository = new Repository<Integer, Student>(new StudentSQLMapper());
         sc.setAttribute("studentRepository", studentRepository);
 
-        this.professorRepository = new Repository<>(new ProfessorSQLMapper());
+        this.professorRepository = new Repository<Integer, Professor>(new ProfessorSQLMapper());
         sc.setAttribute("professorRepository", professorRepository);
 
-        this.subjectRepository = new Repository<>(new SubjectSQLMapper());
+        this.subjectRepository = new Repository<Integer, Subject>(new SubjectSQLMapper());
         sc.setAttribute("subjectRepository", subjectRepository);
 
         this.marksRepository = new Repository<Integer, Marks>(new MarkSQLMapper());
         sc.setAttribute("marksRepository", marksRepository);
     }
-
 
 
     @Override

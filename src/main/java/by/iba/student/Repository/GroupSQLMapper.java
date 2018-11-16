@@ -58,4 +58,9 @@ public class GroupSQLMapper implements SQLMapper<String, Group> {
         return group;
     }
 
+    @Override
+    public List<Group> findSort(Connection connection, String[] arg) {
+        return null;
+    }
+
 }

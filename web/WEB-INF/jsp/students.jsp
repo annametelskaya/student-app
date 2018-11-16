@@ -41,6 +41,25 @@
                 <h1>Students</h1>
                 <a href="/students/add" class="btn btn-sm active" role="button">add</a>
             </div>
+
+            <form action="/students" method="GET">
+                <div class="row">
+                    <div class="col-3">
+                        <input type="text" class="form-control" id="sortByName" name="sortByName" placeholder="Name">
+                    </div>
+                    <div class="col-3">
+                        <input type="text" class="form-control" id="sortBySurname" name="sortBySurname"
+                               placeholder="Surname">
+                    </div>
+                    <div class="col-3">
+                        <input type="text" class="form-control" id="sortByGroup" name="sortByGroup" placeholder="Group">
+                    </div>
+                    <div class="col-3">
+                        <input type="submit" value="Search">
+                    </div>
+                </div>
+            </form>
+            <br>
             <div class="table">
                 <div class="row">
                     <div class="col-4 table-header">First name</div>
@@ -52,7 +71,7 @@
                         <div class="col-4 table-item">${student.getFirstName() }</div>
                         <div class="col-4 table-item">${student.getSecondName() }</div>
                         <div class="col-4 table-item">${student.getGroupNumber()}</div>
-                        <%--<div class="col-4 table-item">${student.getStudentGroupNumber()}</div>--%>
+                            <%--<div class="col-4 table-item">${student.getStudentGroupNumber()}</div>--%>
                     </div>
                 </c:forEach>
             </div>

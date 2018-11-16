@@ -3,10 +3,7 @@ package by.iba.student.Repository;
 import by.iba.student.common.Group;
 import by.iba.student.common.Student;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,5 +69,29 @@ public class StudentSQLMapper implements SQLMapper<Integer, Student> {
             student.setAvgMark(pr.getString("AVG_MARK"));
         }
         return student;
+    }
+
+    @Override
+    public List<Student> findSort(Connection connection, String[] arg) throws SQLException {
+        List<Student> students = new ArrayList<>();
+        String sql = "SELECT ST.STUDENT_ID,ST.FIRST_NAME,ST.SECOND_NAME,ST.AVG_MARK AS 'STUDENT_AVG',ST.GROUP_NUMBER, GR.AVG_MARK  AS 'GROUP_AVG'" +
+                " FROM BEGANSS.STUDENT AS ST JOIN BEGANSS.GROUP AS GR ON ST.GROUP_NUMBER = GR.GROUP_NUMBER " +
+                "WHERE ST.FIRST_NAME LIKE ? " +
+                "AND ST.SECOND_NAME LIKE  ? AND GR.GROUP_NUMBER LIKE ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, arg[0] + "%");
+        statement.setString(2, arg[1] + "%");
+        statement.setString(3, arg[2] + "%");
+        ResultSet rs = statement.executeQuery();
+        while (rs.next()) {
+            Group group = new Group(rs.getString("GROUP_NUMBER"));
+            group.setAvg_mark(rs.getString("GROUP_AVG"));
+            Student student = new Student(rs.getString("FIRST_NAME"), rs.getString("SECOND_NAME"),
+                    group);
+            student.setAvgMark(rs.getString("STUDENT_AVG"));
+            student.setId(rs.getInt("STUDENT_ID"));
+            students.add(student);
+        }
+        return students;
     }
 }

@@ -84,4 +84,9 @@ public class MarkSQLMapper implements SQLMapper<Integer, Marks> {
         }
         return mark;
     }
+
+    @Override
+    public List<Marks> findSort(Connection connection, String[] arg) {
+        return null;
+    }
 }

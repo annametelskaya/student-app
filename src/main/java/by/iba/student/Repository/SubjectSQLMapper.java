@@ -76,5 +76,10 @@ public class SubjectSQLMapper implements SQLMapper<Integer, Subject> {
         return subject;
     }
 
+    @Override
+    public List<Subject> findSort(Connection connection, String[] arg) {
+        return null;
+    }
+
 
 }

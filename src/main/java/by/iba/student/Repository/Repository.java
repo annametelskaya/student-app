@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Repository<C, T> implements EntityRepository<C, T> {
-    public final Map<C, T> items = new LinkedHashMap<>();
+    //  public final Map<C, T> items = new LinkedHashMap<>();
     public SQLMapper<C, T> mapper;
 
     public Repository(SQLMapper<C, T> mapper) {
@@ -61,8 +61,6 @@ public class Repository<C, T> implements EntityRepository<C, T> {
         } catch (Throwable ex) {
             throw new RuntimeException(ex);
         }
-        C id = mapper.setKey(item, items.size());
-        items.put(id, item);
     }
 
     @Override
@@ -73,5 +71,21 @@ public class Repository<C, T> implements EntityRepository<C, T> {
     @Override
     public T update(T item) {
         return null;
+    }
+
+    @Override
+    public List<T> findBySort(String[] arg) {
+        List<T> items = new ArrayList<>();
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/BEGANSS", "root", "30inutez")) {
+            items.addAll(mapper.findSort(conn, arg));
+        } catch (Throwable ex) {
+            throw new RuntimeException(ex);
+        }
+        return items;
     }
 }

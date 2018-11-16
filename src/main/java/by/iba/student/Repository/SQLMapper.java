@@ -14,4 +14,6 @@ public interface SQLMapper<C, T> {
     public void createData(Connection conn, T item) throws SQLException;
 
     public T findOne(Connection conn, C id) throws SQLException;
+
+    public List<T> findSort(Connection connection, String[] arg) throws SQLException;
 }
