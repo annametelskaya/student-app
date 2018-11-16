@@ -40,7 +40,7 @@
                 <h1>Subjects</h1>
                 <a href="/subjects/add" class="btn btn-sm active" role="button">add</a>
             </div>
-            <form action="/groups" method="GET">
+            <form action="/subjects" method="GET">
                 <div class="row">
                     <div class="col-2">
                         <input type="text" class="form-control" id="sortByName" name="sortByName" placeholder="Subject">

@@ -26,7 +26,7 @@ public class GroupSQLMapper implements SQLMapper<String, Group, GroupFilter> {
                 "GROUP_NUMBER, " +
                 "AVG_MARK " +
                 "FROM BEGANSS.GROUP " +
-                "WHERE GROUP_NUMBER LIKE ? AND AVG_MARK LIKE ?";
+                "WHERE GROUP_NUMBER LIKE ? AND AVG_MARK LIKE ?;";
         PreparedStatement statement = conn.prepareStatement(sql);
         statement.setString(1, groupFilter.getGroupNumber() + "%");
         statement.setString(2, groupFilter.getAvg_mark() + "%");
@@ -41,28 +41,28 @@ public class GroupSQLMapper implements SQLMapper<String, Group, GroupFilter> {
 
     @Override
     public void createData(Connection conn, Group item) throws SQLException {
-        Statement statement = conn.createStatement();
-        String sql = "INSERT INTO BEGANSS.GROUP(GROUP_NUMBER, AVG_MARK) VALUES" +
-                " ('" + item.getGroupNumber() + "','" + item.getAvg_mark() + "');";
-        statement.executeUpdate(sql);
+        String sql = "INSERT INTO BEGANSS.GROUP(GROUP_NUMBER, AVG_MARK) VALUES(?,?);";
+        PreparedStatement statement = conn.prepareStatement(sql);
+        statement.setString(1, item.getGroupNumber());
+        statement.setString(2, item.getAvg_mark());
+        statement.executeUpdate();
     }
 
     @Override
     public Group findOne(Connection conn, String id) throws SQLException {
-        Statement statement = conn.createStatement();
-        String sql = "select * from BEGANSS.GROUP where GROUP_NUMBER='" + id + "';";
-        ResultSet pr = statement.executeQuery(sql);
+        String sql = "SELECT " +
+                "GROUP_NUMBER, " +
+                "AVG_MARK " +
+                "FROM BEGANSS.GROUP " +
+                "WHERE GROUP_NUMBER =?;";
+        PreparedStatement statement = conn.prepareStatement(sql);
+        statement.setString(1, id);
+        ResultSet rs = statement.executeQuery();
         Group group = null;
-        if (pr.next()) {
-            group = new Group(pr.getString("GROUP_NUMBER"));
-            group.setAvg_mark(pr.getString("AVG_MARK"));
+        if (rs.next()) {
+            group = new Group(rs.getString("GROUP_NUMBER"));
+            group.setAvg_mark(rs.getString("AVG_MARK"));
         }
         return group;
     }
-
-    @Override
-    public List<Group> findSort(Connection connection, String[] arg) {
-        return null;
-    }
-
 }

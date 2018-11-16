@@ -1,6 +1,5 @@
 package by.iba.student.filter;
 
-import java.util.Date;
 
 public class MarksFilter {
     private String professor;

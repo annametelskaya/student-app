@@ -39,7 +39,24 @@ public class MarksServelt extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("marks", this.marksRepository.findAll(new MarksFilter()));
+        String sortBySubject = req.getParameter("sortBySubject");
+        String sortByStudent = req.getParameter("sortByStudent");
+        String sortByProfessor = req.getParameter("sortByProfessor");
+        String sortByMark = req.getParameter("sortByMark");
+        MarksFilter marksFilter = new MarksFilter();
+        if (sortBySubject != null) {
+            marksFilter.setSubject(sortBySubject);
+        }
+        if (sortByStudent != null) {
+            marksFilter.setStudent(sortByStudent);
+        }
+        if (sortByProfessor != null) {
+            marksFilter.setProfessor(sortByProfessor);
+        }
+        if (sortByMark != null) {
+            marksFilter.setMark(sortByMark);
+        }
+        req.setAttribute("marks", this.marksRepository.findAll(marksFilter));
         RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/marks.jsp");
         dispatcher.forward(req, resp);
     }
@@ -48,15 +65,13 @@ public class MarksServelt extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String subjectId = req.getParameter("selectedSubject");
         String studentId = req.getParameter("selectedStudent");
-        String professorId = req.getParameter("selectedProfessor");
         String mark = req.getParameter("mark");
         String date = req.getParameter("date");
         String comment = req.getParameter("comment");
         Subject subject = this.subjectRepository.findById(Integer.valueOf(subjectId));
         Student student = this.studentRepository.findById(Integer.valueOf(studentId));
-        Professor professor = this.professorRepository.findById(Integer.valueOf(professorId));
         try {
-            this.marksRepository.create(new Marks(subject, student, professor, Double.valueOf(mark),
+            this.marksRepository.create(new Marks(subject, student, Double.valueOf(mark),
                     new SimpleDateFormat("yyyy-MM-dd").parse(date), comment));
         } catch (ParseException e) {
             e.printStackTrace();

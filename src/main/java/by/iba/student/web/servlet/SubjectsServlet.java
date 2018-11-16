@@ -28,7 +28,20 @@ public class SubjectsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("subjects", this.subjectRepository.findAll(new SubjectFilter()));
+        String professor = req.getParameter("sortByProf");
+        String name = req.getParameter("sortByName");
+        String hours = req.getParameter("sortByHours");
+        SubjectFilter subjectFilter = new SubjectFilter();
+        if (professor != null) {
+            subjectFilter.setProfessor(professor);
+        }
+        if (name != null) {
+            subjectFilter.setName(name);
+        }
+        if (hours != null) {
+            subjectFilter.setHours(hours);
+        }
+        req.setAttribute("subjects", this.subjectRepository.findAll(subjectFilter));
         RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/subjects.jsp");
         dispatcher.forward(req, resp);
     }

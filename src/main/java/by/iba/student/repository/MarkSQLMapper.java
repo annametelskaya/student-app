@@ -3,10 +3,7 @@ package by.iba.student.repository;
 import by.iba.student.common.*;
 import by.iba.student.filter.MarksFilter;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,23 +25,41 @@ public class MarkSQLMapper implements SQLMapper<Integer, Marks, MarksFilter> {
     @Override
     public List<Marks> getData(Connection conn, MarksFilter marksFilter) throws SQLException {
         List<Marks> marks = new ArrayList<>();
-        Statement statement = conn.createStatement();
-        String sql = "SELECT * FROM BEGANSS.MARK;";
-        ResultSet rs = statement.executeQuery(sql);
+        String sql = "SELECT M.MARK_ID, " +
+                "M.STUDENT_ID, " +
+                "M.STUDY_ID, " +
+                "M.MARK, " +
+                "M.DATE, " +
+                "M.COMMENTS, " +
+                "P.PROFESS_ID, " +
+                "P.FIRST_NAME AS 'PROFESSOR_NAME', " +
+                "P.SECOND_NAME AS 'PROFESSOR_SURNAME', " +
+                "P.AVG_MARK AS 'PROFESS_AVG', " +
+                "S.FIRST_NAME AS 'STUDENT_NAME', " +
+                "S.SECOND_NAME AS 'STUDENT_SURNAME', " +
+                "S.AVG_MARK AS 'STUDENT_AVG', " +
+                "S.GROUP_NUMBER, " +
+                "ST.NAME, " +
+                "ST.HOURS, " +
+                "ST.AVG_MARK AS 'STUDY_AVG', " +
+                "G.AVG_MARK AS 'GROUP_AVG' " +
+                "FROM BEGANSS.MARK M JOIN BEGANSS.PROFESS P ON M.PROFESS_ID = P.PROFESS_ID " +
+                "JOIN BEGANSS.STUDENT S ON M.STUDENT_ID = S.STUDENT_ID " +
+                "JOIN BEGANSS.STUDY ST ON M.STUDY_ID = ST.STUDY_ID " +
+                "JOIN BEGANSS.GROUP G ON S.GROUP_NUMBER=G.GROUP_NUMBER " +
+                "WHERE CONCAT(P.FIRST_NAME,' ',P.SECOND_NAME) LIKE ? AND " +
+                "CONCAT(S.FIRST_NAME,' ',S.SECOND_NAME) LIKE ? AND " +
+                "ST.NAME LIKE ? AND " +
+                "M.MARK LIKE ? ;";
+        PreparedStatement statement = conn.prepareStatement(sql);
+        statement.setString(1, marksFilter.getProfessor() + "%");
+        statement.setString(2, marksFilter.getStudent() + "%");
+        statement.setString(3, marksFilter.getSubject() + "%");
+        statement.setString(4, marksFilter.getMark() + "%");
+        ResultSet rs = statement.executeQuery();
         while (rs.next()) {
             Marks mark = null;
-            try {
-                GetItems gt = new GetItems();
-                mark = new Marks(gt.getSubject(conn, rs.getString("STUDY_ID")),
-                        gt.getStudent(conn, rs.getString("STUDENT_ID")),
-                        gt.getProfessor(conn, rs.getString("PROFESS_ID")),
-                        Double.valueOf(rs.getString("MARK")),
-                        new SimpleDateFormat("yyyy-MM-dd").parse(rs.getString("DATE")),
-                        rs.getString("COMMENTS"));
-                mark.setId(rs.getInt("MARK_ID"));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            mark = fillMark(rs);
             marks.add(mark);
         }
         return marks;
@@ -52,12 +67,16 @@ public class MarkSQLMapper implements SQLMapper<Integer, Marks, MarksFilter> {
 
     @Override
     public void createData(Connection conn, Marks item) throws SQLException {
-        Statement statement = conn.createStatement();
-        String sql = "INSERT INTO BEGANSS.MARK(STUDY_ID, STUDENT_ID, DATE, PROFESS_ID, MARK, COMMENTS) VALUES " +
-                "('" + item.getSubjectId() + "','" + item.getStudentId() + "','" + item.getDate() + "','" + item.getProfessorId()
-                + "','" + item.getMark() + "','" + item.getComment() + "');";
-        statement.executeUpdate(sql);
-        sql = "SELECT MAX(MARK_ID) AS 'MARK_ID' FROM BEGANSS.MARK";
+        String sql = "INSERT INTO BEGANSS.MARK(STUDY_ID, STUDENT_ID, PROFESS_ID, DATE, MARK, COMMENTS) VALUES (?,?,?,?,?,?);";
+        PreparedStatement statement = conn.prepareStatement(sql);
+        statement.setString(1, item.getSubjectId());
+        statement.setString(2, item.getStudentId());
+        statement.setString(3, item.getProfessorId());
+        statement.setString(4, item.getDate());
+        statement.setDouble(5, item.getMark());
+        statement.setString(6, item.getComment());
+        statement.executeUpdate();
+        sql = "SELECT MAX(MARK_ID) AS 'MARK_ID' FROM BEGANSS.MARK;";
         ResultSet rs = statement.executeQuery(sql);
         if (rs.next()) {
             item.setId(rs.getInt("MARK_ID"));
@@ -66,26 +85,60 @@ public class MarkSQLMapper implements SQLMapper<Integer, Marks, MarksFilter> {
 
     @Override
     public Marks findOne(Connection conn, Integer id) throws SQLException {
-        Statement statement = conn.createStatement();
-        String sql = "select * from BEGANSS.MARK where MARK_ID='" + id + "';";
-        ResultSet pr = statement.executeQuery(sql);
+        String sql = "SELECT M.MARK_ID, " +
+                "M.STUDENT_ID, " +
+                "M.STUDY_ID, " +
+                "M.MARK, " +
+                "M.DATE, " +
+                "M.COMMENTS, " +
+                "P.PROFESS_ID, " +
+                "P.FIRST_NAME AS 'PROFESSOR_NAME', " +
+                "P.SECOND_NAME AS 'PROFESSOR_SURNAME', " +
+                "P.AVG_MARK AS 'PROFESS_AVG', " +
+                "S.FIRST_NAME AS 'STUDENT_NAME', " +
+                "S.SECOND_NAME AS 'STUDENT_SURNAME', " +
+                "S.AVG_MARK AS 'STUDENT_AVG', " +
+                "S.GROUP_NUMBER, " +
+                "ST.NAME, " +
+                "ST.HOURS, " +
+                "ST.AVG_MARK AS 'STUDY_AVG', " +
+                "G.AVG_MARK AS 'GROUP_AVG' " +
+                "FROM BEGANSS.MARK M JOIN BEGANSS.PROFESS P ON M.PROFESS_ID = P.PROFESS_ID " +
+                "JOIN BEGANSS.STUDENT S ON M.STUDENT_ID = S.STUDENT_ID " +
+                "JOIN BEGANSS.STUDY ST ON M.STUDY_ID = ST.STUDY_ID " +
+                "JOIN BEGANSS.GROUP G ON S.GROUP_NUMBER=G.GROUP_NUMBER " +
+                "WHERE MARK_ID=?;";
+        PreparedStatement statement = conn.prepareStatement(sql);
+        statement.setInt(1, id);
+        ResultSet rs = statement.executeQuery();
         Marks mark = null;
-        if (pr.next()) {
-            GetItems gt = new GetItems();
-            try {
-                mark = new Marks(gt.getSubject(conn, pr.getString("STUDY_ID")), gt.getStudent(conn, pr.getString("STUDENT_ID")),
-                        gt.getProfessor(conn, pr.getString("PROFESS_ID")), Double.valueOf(pr.getString("MARK")),
-                        new SimpleDateFormat("yyyy-MM-dd").parse(pr.getString("DATE")),
-                        pr.getString("COMMENTS"));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+        if (rs.next()) {
+            mark = fillMark(rs);
         }
         return mark;
     }
 
-    @Override
-    public List<Marks> findSort(Connection connection, String[] arg) {
-        return null;
+    private Marks fillMark(ResultSet rs) throws SQLException {
+        Marks mark=null;
+        try {
+            Professor professor = new Professor(rs.getString("PROFESSOR_NAME"), rs.getString("PROFESSOR_SURNAME"));
+            professor.setId(rs.getInt("PROFESS_ID"));
+            professor.setAvgMark(rs.getString("PROFESS_AVG"));
+            Subject subject = new Subject(rs.getString("NAME"), rs.getInt("HOURS"), professor);
+            subject.setId(rs.getInt("STUDY_ID"));
+            subject.setAvgMark(rs.getString("STUDY_AVG"));
+            Group group = new Group(rs.getString("GROUP_NUMBER"));
+            group.setAvg_mark(rs.getString("GROUP_AVG"));
+            Student student = new Student(rs.getString("STUDENT_NAME"), rs.getString("STUDENT_SURNAME"), group);
+            student.setId(rs.getInt("STUDENT_ID"));
+            student.setAvgMark(rs.getString("STUDENT_AVG"));
+            mark = new Marks(subject, student, Double.valueOf(rs.getString("MARK")),
+                    new SimpleDateFormat("yyyy-MM-dd").parse(rs.getString("DATE")),
+                    rs.getString("COMMENTS"));
+            mark.setId(rs.getInt("MARK_ID"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return mark;
     }
 }

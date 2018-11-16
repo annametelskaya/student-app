@@ -12,6 +12,4 @@ public interface EntityRepository<C, T, F> {
     public void delete(String id);
 
     public T update(T item);
-
-    public List<T> findBySort(String[] arg);
 }

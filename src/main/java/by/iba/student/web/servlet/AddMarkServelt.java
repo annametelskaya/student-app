@@ -18,7 +18,6 @@ import java.io.IOException;
 
 public class AddMarkServelt extends HttpServlet {
     private static final long serialVersionUID = 6345194112526801506L;
-    private Repository<Integer, Professor, ProfessorFilter> professorRepository;
     private Repository<Integer, Student, StudentFilter> studentRepository;
     private Repository<Integer, Subject, SubjectFilter> subjectRepository;
 
@@ -26,7 +25,6 @@ public class AddMarkServelt extends HttpServlet {
     public void init() {
         ServletContext sc = getServletContext();
         this.studentRepository = (Repository<Integer, Student, StudentFilter>) sc.getAttribute("studentRepository");
-        this.professorRepository = (Repository<Integer, Professor, ProfessorFilter>) sc.getAttribute("professorRepository");
         this.subjectRepository = (Repository<Integer, Subject, SubjectFilter>) sc.getAttribute("subjectRepository");
     }
 
@@ -34,7 +32,6 @@ public class AddMarkServelt extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("students", this.studentRepository.findAll(new StudentFilter()));
-        req.setAttribute("professors", this.professorRepository.findAll(new ProfessorFilter()));
         req.setAttribute("subjects", this.subjectRepository.findAll(new SubjectFilter()));
         RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/addmarks.jsp");
         dispatcher.forward(req, resp);

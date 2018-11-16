@@ -42,6 +42,10 @@ public class Subject {
         return professor.getId() + "";
     }
 
+    public Professor getProfessor() {
+        return professor;
+    }
+
     public String getProfessorName() {
         return professor.getFirstName() + " " + professor.getSecondName();
     }
