@@ -1,6 +1,10 @@
 package by.iba.student.web.servlet;
 
-import by.iba.student.Repository.Repository;
+import by.iba.student.filter.MarksFilter;
+import by.iba.student.filter.ProfessorFilter;
+import by.iba.student.filter.StudentFilter;
+import by.iba.student.filter.SubjectFilter;
+import by.iba.student.repository.Repository;
 import by.iba.student.common.Marks;
 import by.iba.student.common.Professor;
 import by.iba.student.common.Student;
@@ -19,23 +23,23 @@ import java.text.SimpleDateFormat;
 public class MarksServelt extends HttpServlet {
 
     private static final long serialVersionUID = 6345194112526801506L;
-    private Repository<Integer, Student> studentRepository;
-    private Repository<Integer, Professor> professorRepository;
-    private Repository<Integer, Marks> marksRepository;
-    private Repository<Integer, Subject> subjectRepository;
+    private Repository<Integer, Student, StudentFilter> studentRepository;
+    private Repository<Integer, Professor, ProfessorFilter> professorRepository;
+    private Repository<Integer, Marks, MarksFilter> marksRepository;
+    private Repository<Integer, Subject, SubjectFilter> subjectRepository;
 
     @Override
     public void init() {
         ServletContext sc = getServletContext();
-        this.marksRepository = (Repository<Integer, Marks>) sc.getAttribute("marksRepository");
-        this.studentRepository = (Repository<Integer, Student>) sc.getAttribute("studentRepository");
-        this.professorRepository = (Repository<Integer, Professor>) sc.getAttribute("professorRepository");
-        this.subjectRepository = (Repository<Integer, Subject>) sc.getAttribute("subjectRepository");
+        this.marksRepository = (Repository<Integer, Marks, MarksFilter>) sc.getAttribute("marksRepository");
+        this.studentRepository = (Repository<Integer, Student, StudentFilter>) sc.getAttribute("studentRepository");
+        this.professorRepository = (Repository<Integer, Professor, ProfessorFilter>) sc.getAttribute("professorRepository");
+        this.subjectRepository = (Repository<Integer, Subject, SubjectFilter>) sc.getAttribute("subjectRepository");
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("marks", this.marksRepository.findAll());
+        req.setAttribute("marks", this.marksRepository.findAll(new MarksFilter()));
         RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/marks.jsp");
         dispatcher.forward(req, resp);
     }

@@ -41,6 +41,21 @@
                 <h1>Professors</h1>
                 <a href="/professors/add" class="btn btn-sm active" role="button">add</a>
             </div>
+            <form action="/professors" method="GET">
+                <div class="row">
+                    <div class="col-2 table-header">
+                        <input type="text" class="form-control" id="sortByName" name="sortByName"
+                               placeholder="Name">
+                    </div>
+                    <div class="col-2 table-header">
+                        <input type="text" class="form-control" id="sortBySurname" name="sortBySurname"
+                               placeholder="Surname">
+                    </div>
+                    <div class="col-2 table-header">
+                        <input class="btn" type="submit" value="Search">
+                    </div>
+                </div>
+            </form>
             <div class="table">
                 <div class="row">
                     <div class="col-6 table-header">First name</div>

@@ -1,6 +1,8 @@
 package by.iba.student.web.servlet;
 
-import by.iba.student.Repository.Repository;
+import by.iba.student.filter.ProfessorFilter;
+import by.iba.student.filter.SubjectFilter;
+import by.iba.student.repository.Repository;
 import by.iba.student.common.*;
 
 import javax.servlet.RequestDispatcher;
@@ -14,19 +16,19 @@ import java.io.IOException;
 public class SubjectsServlet extends HttpServlet {
     private static final long serialVersionUID = 6345194112526801506L;
 
-    private Repository<Integer, Professor> professorRepository;
-    private Repository<Integer, Subject> subjectRepository;
+    private Repository<Integer, Professor, ProfessorFilter> professorRepository;
+    private Repository<Integer, Subject, SubjectFilter> subjectRepository;
 
     @Override
     public void init() {
         ServletContext sc = getServletContext();
-        this.subjectRepository = (Repository<Integer, Subject>) sc.getAttribute("subjectRepository");
-        this.professorRepository = (Repository<Integer, Professor>) sc.getAttribute("professorRepository");
+        this.subjectRepository = (Repository<Integer, Subject, SubjectFilter>) sc.getAttribute("subjectRepository");
+        this.professorRepository = (Repository<Integer, Professor, ProfessorFilter>) sc.getAttribute("professorRepository");
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("subjects", this.subjectRepository.findAll());
+        req.setAttribute("subjects", this.subjectRepository.findAll(new SubjectFilter()));
         RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/subjects.jsp");
         dispatcher.forward(req, resp);
     }

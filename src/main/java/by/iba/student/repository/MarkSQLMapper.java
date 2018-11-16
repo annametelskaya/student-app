@@ -1,6 +1,7 @@
-package by.iba.student.Repository;
+package by.iba.student.repository;
 
 import by.iba.student.common.*;
+import by.iba.student.filter.MarksFilter;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -11,7 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MarkSQLMapper implements SQLMapper<Integer, Marks> {
+public class MarkSQLMapper implements SQLMapper<Integer, Marks, MarksFilter> {
     @Override
     public Integer getKey(Marks item) {
         return item.getId();
@@ -25,12 +26,10 @@ public class MarkSQLMapper implements SQLMapper<Integer, Marks> {
     }
 
     @Override
-    public List<Marks> getData(Connection conn) throws SQLException {
+    public List<Marks> getData(Connection conn, MarksFilter marksFilter) throws SQLException {
         List<Marks> marks = new ArrayList<>();
         Statement statement = conn.createStatement();
-        String sql = "SELECT "
-                + "* "
-                + "FROM BEGANSS.MARK;";
+        String sql = "SELECT * FROM BEGANSS.MARK;";
         ResultSet rs = statement.executeQuery(sql);
         while (rs.next()) {
             Marks mark = null;

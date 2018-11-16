@@ -1,15 +1,13 @@
-package by.iba.student.Repository;
+package by.iba.student.repository;
 
 import by.iba.student.common.Professor;
+import by.iba.student.filter.ProfessorFilter;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProfessorSQLMapper implements SQLMapper<Integer, Professor> {
+public class ProfessorSQLMapper implements SQLMapper<Integer, Professor, ProfessorFilter> {
     @Override
     public Integer getKey(Professor item) {
         return item.getId();
@@ -23,13 +21,18 @@ public class ProfessorSQLMapper implements SQLMapper<Integer, Professor> {
     }
 
     @Override
-    public List<Professor> getData(Connection conn) throws SQLException {
+    public List<Professor> getData(Connection conn, ProfessorFilter professorFilter) throws SQLException {
         List<Professor> professors = new ArrayList<>();
-        Statement statement = conn.createStatement();
-        String sql = "SELECT "
-                + "* "
-                + "FROM BEGANSS.PROFESS";
-        ResultSet rs = statement.executeQuery(sql);
+        String sql = "SELECT PROFESS_ID," +
+                "FIRST_NAME," +
+                "SECOND_NAME," +
+                "AVG_MARK " +
+                "FROM BEGANSS.PROFESS " +
+                "WHERE FIRST_NAME LIKE ? AND SECOND_NAME LIKE ?";
+        PreparedStatement statement = conn.prepareStatement(sql);
+        statement.setString(1, professorFilter.getFirstName() + "%");
+        statement.setString(2, professorFilter.getSecondName() + "%");
+        ResultSet rs = statement.executeQuery();
         while (rs.next()) {
             Professor professor = new Professor(rs.getString("FIRST_NAME"), rs.getString("SECOND_NAME"));
             professor.setId(rs.getInt("PROFESS_ID"));

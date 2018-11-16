@@ -7,21 +7,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import by.iba.student.Repository.Repository;
+import by.iba.student.filter.GroupFilter;
+import by.iba.student.filter.StudentFilter;
+import by.iba.student.repository.Repository;
 import by.iba.student.common.Group;
 import by.iba.student.common.Student;
 
 public class StudentServlet extends HttpServlet {
 
     private static final long serialVersionUID = 6345194112526801506L;
-    private Repository<Integer, Student> studentRepository;
-    private Repository<String, Group> groupRepository;
+    private Repository<Integer, Student, StudentFilter> studentRepository;
+    private Repository<String, Group, GroupFilter> groupRepository;
 
     @Override
     public void init() {
         ServletContext sc = getServletContext();
-        this.studentRepository = (Repository<Integer, Student>) sc.getAttribute("studentRepository");
-        this.groupRepository = (Repository<String, Group>) sc.getAttribute("groupRepository");
+        this.studentRepository = (Repository<Integer, Student, StudentFilter>) sc.getAttribute("studentRepository");
+        this.groupRepository = (Repository<String, Group, GroupFilter>) sc.getAttribute("groupRepository");
 
     }
 
@@ -30,20 +32,14 @@ public class StudentServlet extends HttpServlet {
         String sortByName = req.getParameter("sortByName");
         String sortBySurname = req.getParameter("sortBySurname");
         String sortByGroup = req.getParameter("sortByGroup");
-        if (sortByName!=null || sortByGroup!=null || sortBySurname!=null) {
-            if(sortByGroup==null){
-                sortByGroup="";
-            }
-            if (sortByName==null){
-                sortByName="";
-            }
-            if(sortBySurname==null){
-                sortBySurname="";
-            }
-            req.setAttribute("students", this.studentRepository.findBySort(new String[]{sortByName, sortBySurname, sortByGroup}));
-        } else {
-            req.setAttribute("students", this.studentRepository.findAll());
-        }
+        StudentFilter studentFilter = new StudentFilter();
+        if (sortByName != null)
+            studentFilter.setName(sortByName);
+        if (sortBySurname != null)
+            studentFilter.setSurname(sortBySurname);
+        if (sortByGroup != null)
+            studentFilter.setGroupNumber(sortByGroup);
+        req.setAttribute("students", this.studentRepository.findAll(studentFilter));
         RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/students.jsp");
         dispatcher.forward(req, resp);
     }

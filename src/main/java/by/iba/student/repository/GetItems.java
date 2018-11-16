@@ -1,4 +1,4 @@
-package by.iba.student.Repository;
+package by.iba.student.repository;
 
 import by.iba.student.common.Group;
 import by.iba.student.common.Professor;

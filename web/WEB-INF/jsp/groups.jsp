@@ -40,6 +40,17 @@
                 <h1>Groups</h1>
                 <a href="/groups/add" class="btn btn-sm active" role="button">add</a>
             </div>
+
+            <form action="/groups" method="GET">
+                <div class="row">
+                    <div class="col-2">
+                        <input type="text" class="form-control" id="sortByGroup" name="sortByGroup" placeholder="Group">
+                    </div>
+                    <div class="col-2">
+                        <input class="btn" type="submit" value="Search">
+                    </div>
+                </div>
+            </form>
             <c:forEach items="${groups}" var="group">
                 <div class="card m-1" style="width: 18em; display: inline-block">
                     <div class="card-body">

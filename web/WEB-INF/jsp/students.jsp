@@ -44,18 +44,20 @@
 
             <form action="/students" method="GET">
                 <div class="row">
-                    <div class="col-3">
+                    <div class="col-4">
                         <input type="text" class="form-control" id="sortByName" name="sortByName" placeholder="Name">
                     </div>
-                    <div class="col-3">
+                    <div class="col-4">
                         <input type="text" class="form-control" id="sortBySurname" name="sortBySurname"
                                placeholder="Surname">
                     </div>
-                    <div class="col-3">
+                    <div class="col-4">
                         <input type="text" class="form-control" id="sortByGroup" name="sortByGroup" placeholder="Group">
                     </div>
-                    <div class="col-3">
-                        <input type="submit" value="Search">
+                </div>
+                <div class="row">
+                    <div class="col-2">
+                        <input class="btn" type="submit" value="Search">
                     </div>
                 </div>
             </form>

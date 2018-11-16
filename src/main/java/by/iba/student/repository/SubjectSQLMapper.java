@@ -1,7 +1,7 @@
-package by.iba.student.Repository;
+package by.iba.student.repository;
 
-import by.iba.student.common.Professor;
 import by.iba.student.common.Subject;
+import by.iba.student.filter.SubjectFilter;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -10,7 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SubjectSQLMapper implements SQLMapper<Integer, Subject> {
+public class SubjectSQLMapper implements SQLMapper<Integer, Subject, SubjectFilter> {
     @Override
     public Integer getKey(Subject item) {
         return item.getId();
@@ -24,7 +24,7 @@ public class SubjectSQLMapper implements SQLMapper<Integer, Subject> {
     }
 
     @Override
-    public List<Subject> getData(Connection conn) throws SQLException {
+    public List<Subject> getData(Connection conn, SubjectFilter subjectFilter) throws SQLException {
         List<Subject> subjects = new ArrayList<>();
         Statement statement = conn.createStatement();
         String sql = "SELECT "

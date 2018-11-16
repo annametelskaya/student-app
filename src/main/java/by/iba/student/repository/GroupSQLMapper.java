@@ -1,15 +1,13 @@
-package by.iba.student.Repository;
+package by.iba.student.repository;
 
 import by.iba.student.common.Group;
+import by.iba.student.filter.GroupFilter;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroupSQLMapper implements SQLMapper<String, Group> {
+public class GroupSQLMapper implements SQLMapper<String, Group, GroupFilter> {
 
     @Override
     public String getKey(Group item) {
@@ -22,13 +20,17 @@ public class GroupSQLMapper implements SQLMapper<String, Group> {
     }
 
     @Override
-    public List<Group> getData(Connection conn) throws SQLException {
+    public List<Group> getData(Connection conn, GroupFilter groupFilter) throws SQLException {
         List<Group> groups = new ArrayList<>();
-        Statement statement = conn.createStatement();
-        String sql = "SELECT "
-                + "* "
-                + "FROM BEGANSS.GROUP";
-        ResultSet rs = statement.executeQuery(sql);
+        String sql = "SELECT " +
+                "GROUP_NUMBER, " +
+                "AVG_MARK " +
+                "FROM BEGANSS.GROUP " +
+                "WHERE GROUP_NUMBER LIKE ? AND AVG_MARK LIKE ?";
+        PreparedStatement statement = conn.prepareStatement(sql);
+        statement.setString(1, groupFilter.getGroupNumber() + "%");
+        statement.setString(2, groupFilter.getAvg_mark() + "%");
+        ResultSet rs = statement.executeQuery();
         while (rs.next()) {
             Group group = new Group(rs.getString("GROUP_NUMBER"));
             group.setAvg_mark(rs.getString("AVG_MARK"));

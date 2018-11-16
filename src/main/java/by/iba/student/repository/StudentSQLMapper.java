@@ -1,13 +1,14 @@
-package by.iba.student.Repository;
+package by.iba.student.repository;
 
 import by.iba.student.common.Group;
 import by.iba.student.common.Student;
+import by.iba.student.filter.StudentFilter;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudentSQLMapper implements SQLMapper<Integer, Student> {
+public class StudentSQLMapper implements SQLMapper<Integer, Student, StudentFilter> {
     @Override
     public Integer getKey(Student item) {
         return item.getId();
@@ -21,18 +22,22 @@ public class StudentSQLMapper implements SQLMapper<Integer, Student> {
     }
 
     @Override
-    public List<Student> getData(Connection conn) throws SQLException {
+    public List<Student> getData(Connection conn, StudentFilter studentFilter) throws SQLException {
         List<Student> students = new ArrayList<>();
-        Statement statement = conn.createStatement();
-        String sql = "SELECT "
-                + "* "
-                + "FROM BEGANSS.STUDENT";
-        ResultSet rs = statement.executeQuery(sql);
+        String sql = "SELECT ST.STUDENT_ID,ST.FIRST_NAME,ST.SECOND_NAME,ST.AVG_MARK AS 'STUDENT_AVG',ST.GROUP_NUMBER, GR.AVG_MARK  AS 'GROUP_AVG'" +
+                " FROM BEGANSS.STUDENT AS ST JOIN BEGANSS.GROUP AS GR ON ST.GROUP_NUMBER = GR.GROUP_NUMBER " +
+                "WHERE ST.FIRST_NAME LIKE ? " +
+                "AND ST.SECOND_NAME LIKE  ? AND GR.GROUP_NUMBER LIKE ?";
+        PreparedStatement statement = conn.prepareStatement(sql);
+        statement.setString(1, studentFilter.getName() + "%");
+        statement.setString(2, studentFilter.getSurname() + "%");
+        statement.setString(3, studentFilter.getGroupNumber() + "%");
+        ResultSet rs = statement.executeQuery();
         while (rs.next()) {
             GetItems gt = new GetItems();
             Student student = new Student(rs.getString("FIRST_NAME"), rs.getString("SECOND_NAME"),
                     gt.getGroup(conn, rs.getString("GROUP_NUMBER")));
-            student.setAvgMark(rs.getString("AVG_MARK"));
+            student.setAvgMark(rs.getString("STUDENT_AVG"));
             student.setId(rs.getInt("STUDENT_ID"));
             students.add(student);
         }

@@ -1,9 +1,9 @@
-package by.iba.student.Repository;
+package by.iba.student.repository;
 
 import java.util.List;
 
-public interface EntityRepository<C, T> {
-    public List<T> findAll();
+public interface EntityRepository<C, T, F> {
+    public List<T> findAll(F item);
 
     public T findById(C id);
 

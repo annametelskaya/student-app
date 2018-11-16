@@ -12,6 +12,12 @@ public class Marks {
     private Date date;
     private String comment;
 
+    public Marks() {
+        mark = 0;
+        date = new Date();
+        comment="";
+    }
+
     public Marks(Subject subject, Student student, Professor professor, double mark, Date date, String comment) {
         super();
         this.subject = subject;

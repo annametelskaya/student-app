@@ -40,6 +40,28 @@
                 <h1>Marks</h1>
                 <a href="/marks/add" class="btn btn-sm active" role="button">add</a>
             </div>
+            <form action="/marks" method="GET">
+                <div class="row">
+                    <div class="col-2 table-header">
+                        <input type="text" class="form-control" id="sortBySubject" name="sortBySubject"
+                               placeholder="Subject">
+                    </div>
+                    <div class="col-2 table-header">
+                        <input type="text" class="form-control" id="sortByStudent" name="sortByStudent"
+                               placeholder="Student">
+                    </div>
+                    <div class="col-2 table-header">
+                        <input type="text" class="form-control" id="sortByProfessor" name="sortByProfessor"
+                               placeholder="Professor">
+                    </div>
+                    <div class="col-2 table-header">
+                        <input type="text" class="form-control" id="sortByMark" name="sortByMark" placeholder="Mark">
+                    </div>
+                    <div class="col-2 table-header">
+                        <input class="btn" type="submit" value="Search">
+                    </div>
+                </div>
+            </form>
             <div class="table">
                 <div class="row">
                     <div class="col-2 table-header">Subject</div>
