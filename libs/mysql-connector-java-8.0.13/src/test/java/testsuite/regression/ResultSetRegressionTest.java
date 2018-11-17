@@ -3078,12 +3078,12 @@ public class ResultSetRegressionTest extends BaseTestCase {
     }
 
     /**
-     * Tests fix for BUG#25787 - java.util.Date should be serialized for
+     * Tests fix for BUG#25787 - java.by.iba.student.util.Date should be serialized for
      * PreparedStatement.setObject().
      * 
      * We add a new configuration option "treatUtilDateAsTimestamp", which is
      * false by default, as (1) We already had specific behavior to treat
-     * java.util.Date as a java.sql.Timestamp because it's useful to many folks,
+     * java.by.iba.student.util.Date as a java.sql.Timestamp because it's useful to many folks,
      * and (2) that behavior will very likely be in JDBC-post-4.0 as a
      * requirement.
      * 
@@ -3109,7 +3109,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
 
         this.rs = deserializeConn.createStatement().executeQuery("SELECT MY_OBJECT_FIELD FROM testBug25787");
         this.rs.next();
-        assertEquals("java.util.Date", this.rs.getObject(1).getClass().getName());
+        assertEquals("java.by.iba.student.util.Date", this.rs.getObject(1).getClass().getName());
         assertEquals(dt, this.rs.getObject(1));
     }
 

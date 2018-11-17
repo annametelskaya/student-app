@@ -24,7 +24,6 @@ public class StudentServlet extends HttpServlet {
         ServletContext sc = getServletContext();
         this.studentRepository = (Repository<Integer, Student, StudentFilter>) sc.getAttribute("studentRepository");
         this.groupRepository = (Repository<String, Group, GroupFilter>) sc.getAttribute("groupRepository");
-
     }
 
     @Override

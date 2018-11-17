@@ -1543,7 +1543,7 @@ Version 6.0.6
       failover/fault tolerance strategy for the slave pool. This work was done
       in order to fix Bug#49537.
       
-    - Fixed Bug#36565 - permgen leak from java.util.Timer. Unfortunately no great
+    - Fixed Bug#36565 - permgen leak from java.by.iba.student.util.Timer. Unfortunately no great
       fix exists that lets us keep the timer shared amongst connection instances, so
       instead it's lazily created if need be per-instance, and torn down when the 
       connection is closed.
@@ -2039,12 +2039,12 @@ Version 6.0.6
 	  Set "utf8OutsideBmpExcludedColumnNamePattern" to a regex so that
 	  column names matching the given regex will still be treated
 	  as BLOBs The regex must follow the patterns used for the
-	  java.util.regex package. The default is to exclude no columns,
+	  java.by.iba.student.util.regex package. The default is to exclude no columns,
 	  and include all columns.
 
 	  Set "utf8OutsideBmpIncludedColumnNamePattern" to specify exclusion
 	  rules to "utf8OutsideBmpExcludedColumnNamePattern". The regex must
-	  follow the patterns used for the java.util.regex package.
+	  follow the patterns used for the java.by.iba.student.util.regex package.
 
 	- New methods on com.mysql.jdbc.Statement: setLocalInfileInputStream()
 	  and getLocalInfileInputStream().
@@ -2454,7 +2454,7 @@ nn-nn-07 - Version 5.0.9
 
 	- New configuration property, "enableQueryTimeouts" (default "true").
 	  When enabled, query timeouts set via Statement.setQueryTimeout() use a
-	  shared java.util.Timer instance for scheduling. Even if the timeout
+	  shared java.by.iba.student.util.Timer instance for scheduling. Even if the timeout
 	  doesn't expire before the query is processed, there will be
 	  memory used by the TimerTask for the given timeout which won't be
 	  reclaimed until the time the timeout would have expired if it
@@ -2666,7 +2666,7 @@ nn-nn-07 - Version 5.0.9
 	  "cacheResultSetMetadata=true") to be cached per-connection rather
 	  than per-statement as previously implemented.
 
-	- Use a java.util.TreeMap to map column names to ordinal indexes for
+	- Use a java.by.iba.student.util.TreeMap to map column names to ordinal indexes for
 	  ResultSet.findColumn() instead of a HashMap. This allows us to have
 	  case-insensitive lookups (required by the JDBC specification) without
 	  resorting to the many transient object instances needed to support this
@@ -2721,12 +2721,12 @@ nn-nn-07 - Version 5.0.9
 	  use JavaBean naming conventions to set properties to fail to set the property
 	  (and in the case of SJAS, fail silently when trying to set this parameter).
 
-	- Fixed BUG#25787 - java.util.Date should be serialized for
+	- Fixed BUG#25787 - java.by.iba.student.util.Date should be serialized for
 	  PreparedStatement.setObject().
 
 	  We've added a new configuration option "treatUtilDateAsTimestamp", which is
 	  false by default, as (1) We already had specific behavior to treat
-	  java.util.Date as a java.sql.Timestamp because it's useful to many folks,
+	  java.by.iba.student.util.Date as a java.sql.Timestamp because it's useful to many folks,
 	  and (2) that behavior will very likely be required for drivers JDBC-post-4.0.
 
     - Fixed BUG#22628 - Driver.getPropertyInfo() throws NullPointerException for
@@ -2977,7 +2977,7 @@ nn-nn-07 - Version 5.0.9
       where only one thread ever uses a connection instance and the objects created by
       it.
 
-    - Use a java.util.Timer to schedule cancellation of queries via
+    - Use a java.by.iba.student.util.Timer to schedule cancellation of queries via
       Statement.setQueryTimeout() rather than one thread per potential cancellation.
 
       A new thread will be used to actually cancel a running query, as there's potential
@@ -4448,7 +4448,7 @@ nn-nn-07 - Version 3.1.15
     - Return creating statement for ResultSets created by
       getGeneratedKeys() (BUG#2957)
 
-    - Allow java.util.Date to be sent in as parameter to
+    - Allow java.by.iba.student.util.Date to be sent in as parameter to
       PreparedStatement.setObject(), converting it to a Timestamp
       to maintain full precision (BUG#3103).
 
@@ -4719,7 +4719,7 @@ nn-nn-07 - Version 3.1.15
 
 	- Backported auth. changes for 4.1.1 and newer from 3.1 branch.
 
-	- Added com.mysql.jdbc.util.BaseBugReport to help creation of testcases
+	- Added com.mysql.jdbc.by.iba.student.util.BaseBugReport to help creation of testcases
 	  for bug reports.
 
 	- Added property to 'clobber' streaming results, by setting the

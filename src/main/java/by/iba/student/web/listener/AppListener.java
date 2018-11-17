@@ -3,6 +3,7 @@ package by.iba.student.web.listener;
 import by.iba.student.filter.*;
 import by.iba.student.repository.*;
 import by.iba.student.common.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -28,18 +29,16 @@ public class AppListener implements ServletContextListener {
         ServletContext sc = sce.getServletContext();
         this.groupRepository = new Repository<String, Group, GroupFilter>(new GroupSQLMapper(), dataSource);
         sc.setAttribute("groupRepository", groupRepository);
-
         this.studentRepository = new Repository<Integer, Student, StudentFilter>(new StudentSQLMapper(), dataSource);
         sc.setAttribute("studentRepository", studentRepository);
-
         this.professorRepository = new Repository<Integer, Professor, ProfessorFilter>(new ProfessorSQLMapper(), dataSource);
         sc.setAttribute("professorRepository", professorRepository);
-
         this.subjectRepository = new Repository<Integer, Subject, SubjectFilter>(new SubjectSQLMapper(), dataSource);
         sc.setAttribute("subjectRepository", subjectRepository);
-
         this.marksRepository = new Repository<Integer, Marks, MarksFilter>(new MarkSQLMapper(), dataSource);
         sc.setAttribute("marksRepository", marksRepository);
+        sce.getServletContext().setAttribute("objectMapper", new ObjectMapper());
+
     }
 
 

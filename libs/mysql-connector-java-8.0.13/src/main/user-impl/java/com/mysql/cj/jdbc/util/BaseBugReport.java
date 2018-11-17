@@ -43,7 +43,7 @@ import com.mysql.cj.jdbc.Driver;
  * appreciates repeatable testcases when reporting bugs, so we're giving you this class to make that job a bit easier (and standarized).
  * 
  * <p>
- * To create a testcase, create a class that inherits from this class (com.mysql.cj.jdbc.util.BaseBugReport), and override the methods 'setUp', 'tearDown' and
+ * To create a testcase, create a class that inherits from this class (com.mysql.cj.jdbc.by.iba.student.util.BaseBugReport), and override the methods 'setUp', 'tearDown' and
  * 'runTest'.
  * 
  * <p>

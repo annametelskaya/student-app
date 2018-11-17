@@ -46,7 +46,7 @@ public interface ClientInfoProvider {
      * @param conn
      *            the connection that the provider belongs too.
      * @param configurationProps
-     *            a java.util.Properties instance that contains
+     *            a java.by.iba.student.util.Properties instance that contains
      *            configuration information for the connection.
      * @throws SQLException
      *             if initialization fails.

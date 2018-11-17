@@ -3,27 +3,6 @@
         "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-    <!--<context-param>-->
-    <!--<param-name>student.file.path</param-name>-->
-    <!--<param-value>/home/anna/uni/git/student-app/src/main/resources/students.csv</param-value>-->
-    <!--</context-param>-->
-    <!--<context-param>-->
-    <!--<param-name>group.file.path</param-name>-->
-    <!--<param-value>/home/anna/uni/git/student-app/src/main/resources/group.csv</param-value>-->
-    <!--</context-param>-->
-    <!--<context-param>-->
-    <!--<param-name>professor.file.path</param-name>-->
-    <!--<param-value>/home/anna/uni/git/student-app/src/main/resources/professor.csv</param-value>-->
-    <!--</context-param>-->
-    <!--<context-param>-->
-    <!--<param-name>mark.file.path</param-name>-->
-    <!--<param-value>/home/anna/uni/git/student-app/src/main/resources/mark.csv</param-value>-->
-    <!--</context-param>-->
-    <context-param>
-        <param-name>subject.file.path</param-name>
-        <param-value>/home/anna/uni/git/student-app/src/main/resources/subject.csv</param-value>
-    </context-param>
-
     <listener>
         <listener-class>by.iba.student.web.listener.AppListener</listener-class>
     </listener>
@@ -68,6 +47,10 @@
         <servlet-name>AddSubjectServlet</servlet-name>
         <servlet-class>by.iba.student.web.servlet.AddSubjectServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PageServlet</servlet-name>
+        <servlet-class>by.iba.student.web.servlet.PageServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>StudentServlet</servlet-name>
@@ -109,4 +92,14 @@
         <servlet-name>AddSubjectServlet</servlet-name>
         <url-pattern>/subjects/add</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PageServlet</servlet-name>
+        <url-pattern>/page</url-pattern>
+    </servlet-mapping>
+    <!--<resource-ref>-->
+        <!--<description>DB Connection</description>-->
+        <!--<res-ref-name>jdbc/BEGANSSDB</res-ref-name>-->
+        <!--<res-type>javax.sql.DataSource</res-type>-->
+        <!--<res-auth>Container</res-auth>-->
+    <!--</resource-ref>-->
 </web-app>

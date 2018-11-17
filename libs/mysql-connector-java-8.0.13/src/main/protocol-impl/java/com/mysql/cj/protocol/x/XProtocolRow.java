@@ -54,7 +54,7 @@ public class XProtocolRow implements com.mysql.cj.result.Row {
         Field f = this.metadata.getFields()[columnIndex];
         ByteString byteString = this.rowMessage.getField(columnIndex);
         // for debugging
-        //System.err.println("getValue bytes = " + com.mysql.cj.core.util.StringUtils.dumpAsHex(byteString.toByteArray(), byteString.toByteArray().length));
+        //System.err.println("getValue bytes = " + com.mysql.cj.core.by.iba.student.util.StringUtils.dumpAsHex(byteString.toByteArray(), byteString.toByteArray().length));
         //try {
         if (byteString.size() == 0) {
             T result = vf.createFromNull();

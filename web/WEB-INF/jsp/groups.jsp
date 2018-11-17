@@ -51,16 +51,51 @@
                     </div>
                 </div>
             </form>
-            <c:forEach items="${groups}" var="group">
-                <div class="card m-1" style="width: 18em; display: inline-block">
-                    <div class="card-body">
-                        <h5 class="card-title">Group ${group.getGroupNumber() }</h5>
-                            <%--<a href="#" class="btn btn-primary">Go somewhere</a>--%>
-                    </div>
-                </div>
-            </c:forEach>
+            <div id="groupsTable"></div>
+            <%--<c:forEach items="${groups}" var="group">--%>
+            <%--<div class="card m-1" style="width: 18em; display: inline-block">--%>
+            <%--<div class="card-body">--%>
+            <%--<h5 class="card-title">Group ${group.getGroupNumber() }</h5>--%>
+            <%--&lt;%&ndash;<a href="#" class="btn btn-primary">Go somewhere</a>&ndash;%&gt;--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</c:forEach>--%>
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    var data;
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/groups', true);
+    xhr.send();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState != 4) return;
+
+        if (xhr.status != 200) {
+            alert("ERROR");
+            alert(xhr.status + ': ' + xhr.statusText);
+        } else {
+            data = JSON.parse(xhr.responseText);
+            var table = document.getElementById('groupTable');
+            table.insertAdjacentHTML('beforeend', createTable(data));
+        }
+    };
+
+    function createTable(data) {
+        var rowData;
+        var rowHTML;
+        var tableHTML = "<div>";
+        for (var i = data.length - 1; i >= 0; i--) {
+            rowData = data[i];
+            rowHTML = "<div class='card m-1' style='width: 18em; display: inline-block'><div class=\"card-body\">";
+            rowHTML += "<h5 class='card-title'>Group rowData.GROUP_NUMBER</h5>";
+            //rowHTML += "<td>" + rowData.secondName + "</td>";
+            rowHTML += "</div></div>";
+            tableHTML += rowHTML;
+        }
+        tableHTML += "</div>";
+        return tableHTML;
+    }
+</script>
 </body>
 </html>

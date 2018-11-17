@@ -10,6 +10,7 @@
 *.ipr
 
 # Build
+classes
 out
 build
 bin

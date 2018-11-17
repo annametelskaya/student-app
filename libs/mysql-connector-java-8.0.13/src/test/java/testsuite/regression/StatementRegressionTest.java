@@ -1128,7 +1128,7 @@ public class StatementRegressionTest extends BaseTestCase {
     }
 
     /**
-     * Tests fix for BUG#3103 -- java.util.Date not accepted as parameter to
+     * Tests fix for BUG#3103 -- java.by.iba.student.util.Date not accepted as parameter to
      * PreparedStatement.setObject().
      * 
      * @throws Exception
@@ -3850,14 +3850,14 @@ public class StatementRegressionTest extends BaseTestCase {
 
             this.rs.next();
 
-            //java.util.Date date1 = new Date(this.rs.getTimestamp(2).getTime());
+            //java.by.iba.student.util.Date date1 = new Date(this.rs.getTimestamp(2).getTime());
             Timestamp ts1 = this.rs.getTimestamp(3);
             long datetimeSeconds1 = this.rs.getLong(4) * 1000;
             long timestampSeconds1 = this.rs.getLong(5) * 1000;
 
             this.rs.next();
 
-            //java.util.Date date2 = new Date(this.rs.getTimestamp(2).getTime());
+            //java.by.iba.student.util.Date date2 = new Date(this.rs.getTimestamp(2).getTime());
             Timestamp ts2 = this.rs.getTimestamp(3);
             long datetimeSeconds2 = this.rs.getLong(4) * 1000;
             long timestampSeconds2 = this.rs.getLong(5) * 1000;

@@ -1156,7 +1156,7 @@ public class StatementsTest extends BaseTestCase {
         createTable("t1", " (c1 DECIMAL," // instance of String
                 + "c2 VARCHAR(255)," // instance of String
                 + "c3 BLOB," // instance of byte[]
-                + "c4 DATE," // instance of java.util.Date
+                + "c4 DATE," // instance of java.by.iba.student.util.Date
                 + "c5 TIMESTAMP," // instance of String
                 + "c6 TIME," // instance of String
                 + "c7 TIME)"); // instance of java.sql.Timestamp
@@ -1202,7 +1202,7 @@ public class StatementsTest extends BaseTestCase {
         createTable("t1", " (c1 DECIMAL," // instance of String
                 + "c2 VARCHAR(255)," // instance of String
                 + "c3 BLOB," // instance of byte[]
-                + "c4 DATE," // instance of java.util.Date
+                + "c4 DATE," // instance of java.by.iba.student.util.Date
                 + "c5 TIMESTAMP NULL," // instance of String
                 + "c6 TIME," // instance of String
                 + "c7 TIME)"); // instance of java.sql.Timestamp

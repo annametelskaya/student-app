@@ -685,7 +685,7 @@ See also com.mysql.cj.conf.PropertyDefinitions.SYSP_* variables for other test o
                   value="com.mysql.cj.x.protobuf;version=&quot;${com.mysql.cj.build.meta-inf.osgid-version}&quot;" />
         <property name="com.mysql.cj.build.meta-inf.logging-exports"
                   value="com.mysql.cj.log;version=&quot;${com.mysql.cj.build.meta-inf.osgid-version}&quot;" />
-        <property name="com.mysql.cj.build.meta-inf.util-exports"
+        <property name="com.mysql.cj.build.meta-inf.by.iba.student.util-exports"
                   value="com.mysql.cj.util;version=&quot;${com.mysql.cj.build.meta-inf.osgid-version}&quot;,com.mysql.cj.jdbc.util;version=&quot;${com.mysql.cj.build.meta-inf.osgid-version}&quot;" />
         <property name="com.mysql.cj.build.meta-inf.exceptions-exports"
                   value="com.mysql.cj.jdbc.exceptions;version=&quot;${com.mysql.cj.build.meta-inf.osgid-version}&quot;,com.mysql.cj.exceptions;version=&quot;${com.mysql.cj.build.meta-inf.osgid-version}&quot;" />

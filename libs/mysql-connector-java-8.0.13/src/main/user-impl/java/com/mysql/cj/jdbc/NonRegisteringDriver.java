@@ -170,7 +170,7 @@ public class NonRegisteringDriver implements java.sql.Driver {
      * </p>
      * 
      * <p>
-     * The java.util.Properties argument can be used to pass arbitrary string tag/value pairs as connection arguments. These properties take precedence over any
+     * The java.by.iba.student.util.Properties argument can be used to pass arbitrary string tag/value pairs as connection arguments. These properties take precedence over any
      * properties sent in the URL.
      * </p>
      * 

@@ -117,7 +117,7 @@ public class ExprParser {
     public ExprParser(String s, boolean allowRelationalColumns) {
         this.string = s;
         lex();
-        // java.util.stream.IntStream.range(0, this.tokens.size()).forEach(i -> System.err.println("[" + i + "] = " + this.tokens.get(i)));
+        // java.by.iba.student.util.stream.IntStream.range(0, this.tokens.size()).forEach(i -> System.err.println("[" + i + "] = " + this.tokens.get(i)));
         this.allowRelationalColumns = allowRelationalColumns;
     }
 
