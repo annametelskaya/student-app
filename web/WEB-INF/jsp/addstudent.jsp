@@ -47,9 +47,6 @@
                     <input type="text" class="form-control" id="surnameForm" name="secondName" placeholder="Second name"
                            required>
                     <select class="form-control" id="groupForm" name="groupNumber" required pattern="[0-9]+">
-                        <c:forEach items="${groups}" var="group">
-                            <option value="${group.getGroupNumber()}">${group.getGroupNumber() }</option>
-                        </c:forEach>
                     </select>
                     <input class="btn" type="submit" value="OK" onclick="addStudent()">
                 </div>
@@ -57,6 +54,11 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    window.onload=function () {
+        getGroups();
+    }
+</script>
 </body>
 </html>
 </html>

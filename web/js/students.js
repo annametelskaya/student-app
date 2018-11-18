@@ -1,7 +1,7 @@
 function createTable(data) {
     let items;
     let row = "<div>";
-    for (let i =0; i < data.length ; i++) {
+    for (let i = 0; i < data.length; i++) {
         items = "<div class='row'>";
         items += "<div class='col-4 table-item'>" + data[i].firstName + "</div>";
         items += "<div class='col-4 table-item'>" + data[i].secondName + "</div>";
@@ -62,4 +62,30 @@ function addStudent() {
     // };
     let data = JSON.stringify(input);
     xhr.send(data);
+}
+
+function getGroups() {
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', '/groups', true);
+    xhr.send();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState != 4) return;
+        if (xhr.status === 200) {
+            let data = JSON.parse(xhr.responseText);
+            let card = document.getElementById('groupForm');
+            card.insertAdjacentHTML('beforeend', createOptions(data));
+        } else {
+            alert("ERROR\n" + xhr.status + ': ' + xhr.statusText);
+        }
+    };
+}
+
+function createOptions(data) {
+    let option;
+    let options = "";
+    for (let i = 0; i < data.length; i++) {
+        option = "<option value=" + data[i].groupNumber + ">" + data[i].groupNumber + "</option>";
+        options += option;
+    }
+    return options;
 }

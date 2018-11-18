@@ -43,22 +43,22 @@
             </div>
             <form>
                 <div class="row">
-                    <div class="col-2 table-header">
+                    <div class="col-2">
                         <input type="text" class="form-control" id="sortBySubject" name="sortBySubject"
                                placeholder="Subject">
                     </div>
-                    <div class="col-2 table-header">
+                    <div class="col-2">
                         <input type="text" class="form-control" id="sortByStudent" name="sortByStudent"
                                placeholder="Student">
                     </div>
-                    <div class="col-2 table-header">
+                    <div class="col-2">
                         <input type="text" class="form-control" id="sortByProfessor" name="sortByProfessor"
                                placeholder="Professor">
                     </div>
-                    <div class="col-2 table-header">
+                    <div class="col-2">
                         <input type="text" class="form-control" id="sortByMark" name="sortByMark" placeholder="Mark">
                     </div>
-                    <div class="col-2 table-header">
+                    <div class="col-2">
                         <input class="btn" type="button" value="Search" onclick="updateTable()">
                     </div>
                 </div>
