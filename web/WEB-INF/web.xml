@@ -12,44 +12,64 @@
         <servlet-class>by.iba.student.web.servlet.StudentServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>StudentPageServlet</servlet-name>
+        <servlet-class>by.iba.student.web.servlet.StudentPageServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>AddStudentServlet</servlet-name>
         <servlet-class>by.iba.student.web.servlet.AddStudentServlet</servlet-class>
     </servlet>
+
     <servlet>
         <servlet-name>ProfessorsServlet</servlet-name>
         <servlet-class>by.iba.student.web.servlet.ProfessorsServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ProfessorsPageServlet</servlet-name>
+        <servlet-class>by.iba.student.web.servlet.ProfessorsPageServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>AddProfessorServlet</servlet-name>
         <servlet-class>by.iba.student.web.servlet.AddProfessorServlet</servlet-class>
     </servlet>
+
     <servlet>
         <servlet-name>MarksServlet</servlet-name>
         <servlet-class>by.iba.student.web.servlet.MarksServelt</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>MarkPageServlet</servlet-name>
+        <servlet-class>by.iba.student.web.servlet.MarkPageServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>AddMarkServlet</servlet-name>
         <servlet-class>by.iba.student.web.servlet.AddMarkServelt</servlet-class>
     </servlet>
+
     <servlet>
         <servlet-name>GroupsServlet</servlet-name>
         <servlet-class>by.iba.student.web.servlet.GroupServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>GroupPageServlet</servlet-name>
+        <servlet-class>by.iba.student.web.servlet.GroupPageServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>AddGroupServlet</servlet-name>
         <servlet-class>by.iba.student.web.servlet.AddGroupServlet</servlet-class>
     </servlet>
+
     <servlet>
         <servlet-name>SubjectsServlet</servlet-name>
         <servlet-class>by.iba.student.web.servlet.SubjectsServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddSubjectServlet</servlet-name>
-        <servlet-class>by.iba.student.web.servlet.AddSubjectServlet</servlet-class>
+        <servlet-name>SubjectPageServlet</servlet-name>
+        <servlet-class>by.iba.student.web.servlet.SubjectPageServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>PageServlet</servlet-name>
-        <servlet-class>by.iba.student.web.servlet.PageServlet</servlet-class>
+        <servlet-name>AddSubjectServlet</servlet-name>
+        <servlet-class>by.iba.student.web.servlet.AddSubjectServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -57,49 +77,69 @@
         <url-pattern>/students</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AddStudentServlet</servlet-name>
-        <url-pattern>/students/add</url-pattern>
+        <servlet-name>StudentPageServlet</servlet-name>
+        <url-pattern>/studentsPage</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddStudentServlet</servlet-name>
+        <url-pattern>/studentsPage/add</url-pattern>
+    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>ProfessorsServlet</servlet-name>
         <url-pattern>/professors</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AddProfessorServlet</servlet-name>
-        <url-pattern>/professors/add</url-pattern>
+        <servlet-name>ProfessorsPageServlet</servlet-name>
+        <url-pattern>/professorsPage</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddProfessorServlet</servlet-name>
+        <url-pattern>/professorsPage/add</url-pattern>
+    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>MarksServlet</servlet-name>
         <url-pattern>/marks</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AddMarkServlet</servlet-name>
-        <url-pattern>/marks/add</url-pattern>
+        <servlet-name>MarkPageServlet</servlet-name>
+        <url-pattern>/marksPage</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddMarkServlet</servlet-name>
+        <url-pattern>/marksPage/add</url-pattern>
+    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>GroupsServlet</servlet-name>
         <url-pattern>/groups</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AddGroupServlet</servlet-name>
-        <url-pattern>/groups/add</url-pattern>
+        <servlet-name>GroupPageServlet</servlet-name>
+        <url-pattern>/groupsPage</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddGroupServlet</servlet-name>
+        <url-pattern>/groupsPage/add</url-pattern>
+    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>SubjectsServlet</servlet-name>
         <url-pattern>/subjects</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AddSubjectServlet</servlet-name>
-        <url-pattern>/subjects/add</url-pattern>
+        <servlet-name>SubjectPageServlet</servlet-name>
+        <url-pattern>/subjectsPage</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>PageServlet</servlet-name>
-        <url-pattern>/page</url-pattern>
+        <servlet-name>AddSubjectServlet</servlet-name>
+        <url-pattern>/subjectsPage/add</url-pattern>
     </servlet-mapping>
     <!--<resource-ref>-->
-        <!--<description>DB Connection</description>-->
-        <!--<res-ref-name>jdbc/BEGANSSDB</res-ref-name>-->
-        <!--<res-type>javax.sql.DataSource</res-type>-->
-        <!--<res-auth>Container</res-auth>-->
+    <!--<description>DB Connection</description>-->
+    <!--<res-ref-name>jdbc/BEGANSSDB</res-ref-name>-->
+    <!--<res-type>javax.sql.DataSource</res-type>-->
+    <!--<res-auth>Container</res-auth>-->
     <!--</resource-ref>-->
 </web-app>

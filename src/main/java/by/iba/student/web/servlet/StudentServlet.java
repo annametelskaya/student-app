@@ -1,6 +1,9 @@
 package by.iba.student.web.servlet;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +15,8 @@ import by.iba.student.filter.StudentFilter;
 import by.iba.student.repository.Repository;
 import by.iba.student.common.Group;
 import by.iba.student.common.Student;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONObject;
 
 public class StudentServlet extends HttpServlet {
 
@@ -27,7 +32,8 @@ public class StudentServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
         String sortByName = req.getParameter("sortByName");
         String sortBySurname = req.getParameter("sortBySurname");
         String sortByGroup = req.getParameter("sortByGroup");
@@ -38,19 +44,28 @@ public class StudentServlet extends HttpServlet {
             studentFilter.setSurname(sortBySurname);
         if (sortByGroup != null)
             studentFilter.setGroupNumber(sortByGroup);
-        req.setAttribute("students", this.studentRepository.findAll(studentFilter));
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/students.jsp");
-        dispatcher.forward(req, resp);
+        List<Student> students = this.studentRepository.findAll(studentFilter);
+        PrintWriter pw = resp.getWriter();
+        pw.print(mapper.writeValueAsString(students));
+        pw.flush();
+        pw.close();
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String firstName = req.getParameter("firstName");
-        String secondName = req.getParameter("secondName");
-        String groupNumber = req.getParameter("groupNumber");
-        Student st = new Student(firstName, secondName, groupRepository.findById(groupNumber));
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+        StringBuilder sb = new StringBuilder();
+        BufferedReader br = req.getReader();
+        String str;
+        while ((str = br.readLine()) != null) {
+            sb.append(str);
+        }
+        JSONObject jsonObject = new JSONObject(sb.toString());
+        Student st = new Student(jsonObject.getString("firstName"),
+                jsonObject.getString("secondName"),
+                groupRepository.findById(jsonObject.getString("groupNumber")));
         this.studentRepository.create(st);
-        doGet(req, resp);
     }
 
     @Override

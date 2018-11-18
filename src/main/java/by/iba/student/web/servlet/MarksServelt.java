@@ -9,6 +9,8 @@ import by.iba.student.common.Marks;
 import by.iba.student.common.Professor;
 import by.iba.student.common.Student;
 import by.iba.student.common.Subject;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONObject;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -16,9 +18,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 public class MarksServelt extends HttpServlet {
 
@@ -38,46 +43,47 @@ public class MarksServelt extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
         String sortBySubject = req.getParameter("sortBySubject");
         String sortByStudent = req.getParameter("sortByStudent");
         String sortByProfessor = req.getParameter("sortByProfessor");
         String sortByMark = req.getParameter("sortByMark");
         MarksFilter marksFilter = new MarksFilter();
-        if (sortBySubject != null) {
+        if (sortBySubject != null)
             marksFilter.setSubject(sortBySubject);
-        }
-        if (sortByStudent != null) {
+        if (sortByStudent != null)
             marksFilter.setStudent(sortByStudent);
-        }
-        if (sortByProfessor != null) {
+        if (sortByProfessor != null)
             marksFilter.setProfessor(sortByProfessor);
-        }
-        if (sortByMark != null) {
+        if (sortByMark != null)
             marksFilter.setMark(sortByMark);
-        }
-        req.setAttribute("marks", this.marksRepository.findAll(marksFilter));
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/marks.jsp");
-        dispatcher.forward(req, resp);
+        List<Marks> marks = this.marksRepository.findAll(marksFilter);
+        PrintWriter pw = resp.getWriter();
+        pw.print(mapper.writeValueAsString(marks));
+        pw.flush();
+        pw.close();
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String subjectId = req.getParameter("selectedSubject");
-        String studentId = req.getParameter("selectedStudent");
-        String mark = req.getParameter("mark");
-        String date = req.getParameter("date");
-        String comment = req.getParameter("comment");
-        Subject subject = this.subjectRepository.findById(Integer.valueOf(subjectId));
-        Student student = this.studentRepository.findById(Integer.valueOf(studentId));
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+        StringBuilder sb = new StringBuilder();
+        BufferedReader br = req.getReader();
+        String str;
+        while ((str = br.readLine()) != null) {
+            sb.append(str);
+        }
+        JSONObject jsonObject = new JSONObject(sb.toString());
+        Subject subject = this.subjectRepository.findById(Integer.valueOf(jsonObject.getString("selectedSubject")));
+        Student student = this.studentRepository.findById(Integer.valueOf(jsonObject.getString("selectedStudent")));
         try {
-            this.marksRepository.create(new Marks(subject, student, Double.valueOf(mark),
-                    new SimpleDateFormat("yyyy-MM-dd").parse(date), comment));
+            this.marksRepository.create(new Marks(subject, student, Double.valueOf(jsonObject.getString("mark")),
+                    new SimpleDateFormat("yyyy-MM-dd").parse(jsonObject.getString("date")), jsonObject.getString("comment")));
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        doGet(req, resp);
-
     }
 
     @Override

@@ -58,8 +58,7 @@ public class MarkSQLMapper implements SQLMapper<Integer, Marks, MarksFilter> {
         statement.setString(4, marksFilter.getMark() + "%");
         ResultSet rs = statement.executeQuery();
         while (rs.next()) {
-            Marks mark = null;
-            mark = fillMark(rs);
+            Marks mark  = fillMark(rs);
             marks.add(mark);
         }
         return marks;

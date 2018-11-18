@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script type="text/javascript" src="/js/professors.js"></script>
 </head>
 <body>
 <div class="row content">
@@ -18,19 +19,19 @@
                 <a href="/" class="nav-link nav-link-text">Home</a>
             </li>
             <li class="nav-item">
-                <a href="/groups" class="nav-link nav-link-text">Groups</a>
+                <a href="/groupsPage" class="nav-link nav-link-text">Groups</a>
             </li>
             <li class="nav-item">
-                <a href="/professors" class="nav-link nav-link-text">Professors</a>
+                <a href="/professorsPage" class="nav-link nav-link-text">Professors</a>
             </li>
             <li class="nav-item ">
-                <a href="/students" class="nav-link nav-link-text">Students</a>
+                <a href="/studentsPage" class="nav-link nav-link-text">Students</a>
             </li>
             <li class="nav-item">
-                <a href="/subjects" class="nav-link nav-link-text">Subjects</a>
+                <a href="/subjectsPage" class="nav-link nav-link-text">Subjects</a>
             </li>
             <li class="nav-item">
-                <a href="/marks" class="nav-link nav-link-text">Marks</a>
+                <a href="/marksPage" class="nav-link nav-link-text">Marks</a>
             </li>
         </ul>
     </nav>
@@ -39,13 +40,13 @@
             <div class="title text-center">
                 <h1>Add professor</h1>
             </div>
-            <form action="/professors" method="POST">
+            <form action="/professorsPage">
                 <div class="form-container">
                     <input type="text" class="form-control" id="nameForm" name="firstName" placeholder="First name"
                            required>
                     <input type="text" class="form-control" id="surnameForm" name="secondName" placeholder="Second name"
                            required>
-                    <input class="btn" type="submit" value="OK">
+                    <input class="btn" type="submit" value="OK" onclick="addProfessor()">
                 </div>
             </form>
         </div>

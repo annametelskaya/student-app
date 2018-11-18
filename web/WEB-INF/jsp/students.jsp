@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script type="text/javascript" src="/js/students.js"></script>
 </head>
 <body>
 <div class="row content">
@@ -19,19 +20,19 @@
                 <a href="/" class="nav-link nav-link-text">Home</a>
             </li>
             <li class="nav-item">
-                <a href="/groups" class="nav-link nav-link-text">Groups</a>
+                <a href="/groupsPage" class="nav-link nav-link-text">Groups</a>
             </li>
             <li class="nav-item">
-                <a href="/professors" class="nav-link nav-link-text">Professors</a>
+                <a href="/professorsPage" class="nav-link nav-link-text">Professors</a>
             </li>
             <li class="nav-item ">
-                <a href="/students" class="nav-link nav-link-text">Students</a>
+                <a href="/studentsPage" class="nav-link nav-link-text">Students</a>
             </li>
             <li class="nav-item">
-                <a href="/subjects" class="nav-link nav-link-text">Subjects</a>
+                <a href="/subjectsPage" class="nav-link nav-link-text">Subjects</a>
             </li>
             <li class="nav-item">
-                <a href="/marks" class="nav-link nav-link-text">Marks</a>
+                <a href="/marksPage" class="nav-link nav-link-text">Marks</a>
             </li>
         </ul>
     </nav>
@@ -39,10 +40,10 @@
         <div class="container content py-5">
             <div class="title text-right">
                 <h1>Students</h1>
-                <a href="/students/add" class="btn btn-sm active" role="button">add</a>
+                <a href="/studentsPage/add" class="btn btn-sm active" role="button">add</a>
             </div>
 
-            <form action="/students" method="GET">
+            <form>
                 <div class="row">
                     <div class="col-4">
                         <input type="text" class="form-control" id="sortByName" name="sortByName" placeholder="Name">
@@ -57,7 +58,7 @@
                 </div>
                 <div class="row">
                     <div class="col-2">
-                        <input class="btn" type="submit" value="Search">
+                        <input class="btn" type="button" value="Search" onclick="updateTable()">
                     </div>
                 </div>
             </form>
@@ -68,17 +69,15 @@
                     <div class="col-4 table-header">Second name</div>
                     <div class="col-4 table-header">Group</div>
                 </div>
-                <c:forEach items="${students}" var="student">
-                    <div class="row">
-                        <div class="col-4 table-item">${student.getFirstName() }</div>
-                        <div class="col-4 table-item">${student.getSecondName() }</div>
-                        <div class="col-4 table-item">${student.getGroupNumber()}</div>
-                            <%--<div class="col-4 table-item">${student.getStudentGroupNumber()}</div>--%>
-                    </div>
-                </c:forEach>
+                <div id="studentsTable"></div>
             </div>
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    window.onload = function () {
+        updateTable();
+    }
+</script>
 </body>
 </html>

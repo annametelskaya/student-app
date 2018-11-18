@@ -18,21 +18,11 @@ import java.io.IOException;
 
 public class AddMarkServelt extends HttpServlet {
     private static final long serialVersionUID = 6345194112526801506L;
-    private Repository<Integer, Student, StudentFilter> studentRepository;
-    private Repository<Integer, Subject, SubjectFilter> subjectRepository;
 
-    @Override
-    public void init() {
-        ServletContext sc = getServletContext();
-        this.studentRepository = (Repository<Integer, Student, StudentFilter>) sc.getAttribute("studentRepository");
-        this.subjectRepository = (Repository<Integer, Subject, SubjectFilter>) sc.getAttribute("subjectRepository");
-    }
 
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("students", this.studentRepository.findAll(new StudentFilter()));
-        req.setAttribute("subjects", this.subjectRepository.findAll(new SubjectFilter()));
         RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/addmarks.jsp");
         dispatcher.forward(req, resp);
     }

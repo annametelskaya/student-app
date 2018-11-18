@@ -4,13 +4,13 @@ import by.iba.student.filter.GroupFilter;
 import by.iba.student.repository.Repository;
 import by.iba.student.common.Group;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONObject;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -19,17 +19,15 @@ public class GroupServlet extends HttpServlet {
 
     private static final long serialVersionUID = 6345194112526801506L;
     private Repository<String, Group, GroupFilter> groupRepository;
-    private ObjectMapper mapper;
 
     @Override
     public void init() {
         ServletContext sc = getServletContext();
         this.groupRepository = (Repository<String, Group, GroupFilter>) sc.getAttribute("groupRepository");
-        this.mapper = (ObjectMapper) sc.getAttribute("objectMapper");
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         resp.setContentType("application/json");
         String sortByGroup = req.getParameter("sortByGroup");
@@ -37,25 +35,23 @@ public class GroupServlet extends HttpServlet {
         if (sortByGroup != null)
             groupFilter.setGroupNumber(sortByGroup);
         List<Group> groups = this.groupRepository.findAll(groupFilter);
-//        String json = mapper.writeValueAsString(groups);
-//        resp.setContentType("application/json");
-//        resp.setCharacterEncoding("UTF-8");
-//        resp.getWriter().write(json);
         PrintWriter pw = resp.getWriter();
         pw.print(mapper.writeValueAsString(groups));
         pw.flush();
         pw.close();
-        //req.setAttribute("groups", this.groupRepository.findAll(groupFilter));
-        //RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/groups.jsp");
-        //dispatcher.forward(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String number = req.getParameter("groupNumber");
-//        String group = req.getParameter("groupNumber");
-        this.groupRepository.create(new Group(number));
-        doGet(req, resp);
-
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+        StringBuilder sb = new StringBuilder();
+        BufferedReader br = req.getReader();
+        String str;
+        while ((str = br.readLine()) != null) {
+            sb.append(str);
+        }
+        JSONObject jsonObject = new JSONObject(sb.toString());
+        this.groupRepository.create(new Group(jsonObject.getString("groupNumber")));
     }
 }
