@@ -12,7 +12,7 @@ public class PageServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/JSP/groups.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/jsp/groups.jsp");
         dispatcher.forward(req, resp);
     }
 }

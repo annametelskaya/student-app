@@ -37,8 +37,13 @@ public class GroupServlet extends HttpServlet {
         if (sortByGroup != null)
             groupFilter.setGroupNumber(sortByGroup);
         List<Group> groups = this.groupRepository.findAll(groupFilter);
+//        String json = mapper.writeValueAsString(groups);
+//        resp.setContentType("application/json");
+//        resp.setCharacterEncoding("UTF-8");
+//        resp.getWriter().write(json);
         PrintWriter pw = resp.getWriter();
         pw.print(mapper.writeValueAsString(groups));
+        pw.flush();
         pw.close();
         //req.setAttribute("groups", this.groupRepository.findAll(groupFilter));
         //RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/groups.jsp");

@@ -1,14 +1,15 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1" %>
-<%@ page isELIgnored="false" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%--<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>--%>
+<%--<%@ page language="java" contentType="text/html; charset=ISO-8859-1"--%>
+<%--pageEncoding="ISO-8859-1" %>--%>
+<%--<%@ page isELIgnored="false" %> PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">--%>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Groups</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+
 </head>
 <body>
 <div class="row content">
@@ -52,49 +53,38 @@
                 </div>
             </form>
             <div id="groupsTable"></div>
-            <%--<c:forEach items="${groups}" var="group">--%>
-            <%--<div class="card m-1" style="width: 18em; display: inline-block">--%>
-            <%--<div class="card-body">--%>
-            <%--<h5 class="card-title">Group ${group.getGroupNumber() }</h5>--%>
-            <%--&lt;%&ndash;<a href="#" class="btn btn-primary">Go somewhere</a>&ndash;%&gt;--%>
-            <%--</div>--%>
-            <%--</div>--%>
-            <%--</c:forEach>--%>
         </div>
     </div>
 </div>
 <script type="text/javascript">
-    var data;
-    var xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     xhr.open('GET', '/groups', true);
     xhr.send();
     xhr.onreadystatechange = function () {
-        if (xhr.readyState != 4) return;
-
-        if (xhr.status != 200) {
-            alert("ERROR");
-            alert(xhr.status + ': ' + xhr.statusText);
+        if (xhr.readyState != 4) return
+        clearTimeout(xhrTimeout);
+        if (xhr.status === 200) {
+            let data = JSON.parse(xhr.responseText);
+            let card = document.getElementById('groupsTable');
+            card.insertAdjacentHTML('beforeend', createTable(data));
         } else {
-            data = JSON.parse(xhr.responseText);
-            var table = document.getElementById('groupTable');
-            table.insertAdjacentHTML('beforeend', createTable(data));
+            alert("ERROR\n" + xhr.status + ': ' + xhr.statusText);
         }
     };
 
     function createTable(data) {
-        var rowData;
-        var rowHTML;
-        var tableHTML = "<div>";
-        for (var i = data.length - 1; i >= 0; i--) {
-            rowData = data[i];
-            rowHTML = "<div class='card m-1' style='width: 18em; display: inline-block'><div class=\"card-body\">";
-            rowHTML += "<h5 class='card-title'>Group rowData.GROUP_NUMBER</h5>";
-            //rowHTML += "<td>" + rowData.secondName + "</td>";
-            rowHTML += "</div></div>";
-            tableHTML += rowHTML;
+        let cardBody;
+        let card = "<div>";
+        for (let i = data.length - 1; i >= 0; i--) {
+            cardBody =   "<div class='card m-1' style='width: 18em; display: inline-block'>" +
+                            "<div class='card-body'>" +
+                                "<h5 class='card-title'>Group " + data[i].groupNumber + "</h5>" +
+                            "</div>" +
+                        "</div>";
+            card += cardBody;
         }
-        tableHTML += "</div>";
-        return tableHTML;
+        card += "</div>";
+        return card;
     }
 </script>
 </body>
