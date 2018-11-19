@@ -33,7 +33,6 @@ public class SubjectsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
         String professor = req.getParameter("sortByProf");
         String name = req.getParameter("sortByName");
         String hours = req.getParameter("sortByHours");
@@ -44,11 +43,7 @@ public class SubjectsServlet extends HttpServlet {
             subjectFilter.setName(name);
         if (hours != null)
             subjectFilter.setHours(hours);
-        List<Subject> subjects = this.subjectRepository.findAll(subjectFilter);
-        PrintWriter pw = resp.getWriter();
-        pw.print(mapper.writeValueAsString(subjects));
-        pw.flush();
-        pw.close();
+        req.setAttribute("items", this.subjectRepository.findAll(subjectFilter));
     }
 
     @Override

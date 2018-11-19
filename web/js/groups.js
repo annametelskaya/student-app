@@ -2,8 +2,9 @@ function createCard(data) {
     let cardBody;
     let card = "<div>";
     for (let i = 0; i < data.length; i++) {
-        cardBody = "<div class='card m-1' style='width: 18em; display: inline-block'>" +
+        cardBody = "<div class='card m-1' id='" + data[i].groupNumber + "'style='width: 18em; display: inline-block'>" +
             "<div class='card-body'>" +
+            "<img src='/img/trash.png' id='delete' class='float-right' onclick='deleteCard()' />" +
             "<h5 class='card-title'>Group " + data[i].groupNumber + "</h5>" +
             "</div>" +
             "</div>";
@@ -19,7 +20,7 @@ function updateCards() {
     document.getElementById('sortByGroup').value = group;
     let xhr = new XMLHttpRequest();
     let params = 'sortByGroup=' + group;
-    xhr.open('GET', '/groups' + '?' + params, true);
+    xhr.open('GET', '/res/groups' + '?' + params, true);
     xhr.send();
     xhr.onreadystatechange = function () {
         if (xhr.readyState != 4) return;
@@ -44,7 +45,7 @@ function addGroup() {
     let input = {};
     input.groupNumber = document.getElementById("groupNumberForm").value;
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", '/groups', true);
+    xhr.open("POST", '/res/groups', true);
     xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     // xhr.onreadystatechange = function () {
     //     if (xhr.readyState === 4 && xhr.status === 200) {
@@ -54,4 +55,8 @@ function addGroup() {
     // };
     let data = JSON.stringify(input);
     xhr.send(data);
+}
+
+function deleteCard(elem) {
+    console.log(elem);
 }

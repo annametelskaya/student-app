@@ -44,7 +44,6 @@ public class MarksServelt extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
         String sortBySubject = req.getParameter("sortBySubject");
         String sortByStudent = req.getParameter("sortByStudent");
         String sortByProfessor = req.getParameter("sortByProfessor");
@@ -58,11 +57,7 @@ public class MarksServelt extends HttpServlet {
             marksFilter.setProfessor(sortByProfessor);
         if (sortByMark != null)
             marksFilter.setMark(sortByMark);
-        List<Marks> marks = this.marksRepository.findAll(marksFilter);
-        PrintWriter pw = resp.getWriter();
-        pw.print(mapper.writeValueAsString(marks));
-        pw.flush();
-        pw.close();
+        req.setAttribute("items", this.marksRepository.findAll(marksFilter));
     }
 
     @Override

@@ -28,17 +28,11 @@ public class GroupServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
         resp.setContentType("application/json");
         String sortByGroup = req.getParameter("sortByGroup");
         GroupFilter groupFilter = new GroupFilter();
-        if (sortByGroup != null)
-            groupFilter.setGroupNumber(sortByGroup);
-        List<Group> groups = this.groupRepository.findAll(groupFilter);
-        PrintWriter pw = resp.getWriter();
-        pw.print(mapper.writeValueAsString(groups));
-        pw.flush();
-        pw.close();
+        groupFilter.setGroupNumber(sortByGroup);
+        req.setAttribute("items", this.groupRepository.findAll(groupFilter));
     }
 
     @Override
@@ -53,5 +47,10 @@ public class GroupServlet extends HttpServlet {
         }
         JSONObject jsonObject = new JSONObject(sb.toString());
         this.groupRepository.create(new Group(jsonObject.getString("groupNumber")));
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
     }
 }

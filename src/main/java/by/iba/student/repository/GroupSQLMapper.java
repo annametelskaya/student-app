@@ -22,14 +22,17 @@ public class GroupSQLMapper implements SQLMapper<String, Group, GroupFilter> {
     @Override
     public List<Group> getData(Connection conn, GroupFilter groupFilter) throws SQLException {
         List<Group> groups = new ArrayList<>();
+        List<String> params = new ArrayList<>();
         String sql = "SELECT " +
                 "GROUP_NUMBER, " +
                 "AVG_MARK " +
                 "FROM BEGANSS.GROUP " +
-                "WHERE GROUP_NUMBER LIKE ? AND AVG_MARK LIKE ?;";
+                "WHERE "
+                + SQLHelper.addLike(params, "GROUP_NUMBER", groupFilter.getGroupNumber(), " AND ")
+                + SQLHelper.addLike(params, "AVG_MARK", groupFilter.getAvg_mark(), " AND ")
+                + "1=1";
         PreparedStatement statement = conn.prepareStatement(sql);
-        statement.setString(1, groupFilter.getGroupNumber() + "%");
-        statement.setString(2, groupFilter.getAvg_mark() + "%");
+        SQLHelper.setParams(statement, params);
         ResultSet rs = statement.executeQuery();
         while (rs.next()) {
             Group group = new Group(rs.getString("GROUP_NUMBER"));
@@ -50,13 +53,16 @@ public class GroupSQLMapper implements SQLMapper<String, Group, GroupFilter> {
 
     @Override
     public Group findOne(Connection conn, String id) throws SQLException {
-        String sql = "SELECT " +
-                "GROUP_NUMBER, " +
-                "AVG_MARK " +
-                "FROM BEGANSS.GROUP " +
-                "WHERE GROUP_NUMBER =?;";
+        List<String> params = new ArrayList<>();
+        String sql = "SELECT "
+                + "GROUP_NUMBER, "
+                + "AVG_MARK "
+                + "FROM BEGANSS.GROUP "
+                + "WHERE "
+                + SQLHelper.addLike(params, "GROUP_NUMBER", id, " AND ")
+                + "1=1";
         PreparedStatement statement = conn.prepareStatement(sql);
-        statement.setString(1, id);
+        SQLHelper.setParams(statement, params);
         ResultSet rs = statement.executeQuery();
         Group group = null;
         if (rs.next()) {

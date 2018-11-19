@@ -26,7 +26,7 @@ function updateCards() {
     let params = 'sortByName=' + name +
         '&sortByHours=' + hours +
         '&sortByProf=' + professor;
-    xhr.open('GET', '/subjects' + '?' + params, true);
+    xhr.open('GET', '/res/subjects' + '?' + params, true);
     xhr.send();
     xhr.onreadystatechange = function () {
         if (xhr.readyState != 4) return;
@@ -49,11 +49,11 @@ function clearCards() {
 
 function addSubject() {
     let input = {};
-    input.selectedProfessor=document.getElementById("selectProfessorForm").value;
-    input.hours=document.getElementById("hoursForm").value;
+    input.selectedProfessor = document.getElementById("selectProfessorForm").value;
+    input.hours = document.getElementById("hoursForm").value;
     input.subjectName = document.getElementById("subjectForm").value;
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", '/subjects', true);
+    xhr.open("POST", '/res/subjects', true);
     xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     // xhr.onreadystatechange = function () {
     //     if (xhr.readyState === 4 && xhr.status === 200) {
@@ -77,7 +77,7 @@ function createOptions(data) {
 
 function getProfessors() {
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', '/professors', true);
+    xhr.open('GET', '/res/professors', true);
     xhr.send();
     xhr.onreadystatechange = function () {
         if (xhr.readyState != 4) return;

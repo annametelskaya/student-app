@@ -10,6 +10,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MarkSQLMapper implements SQLMapper<Integer, Marks, MarksFilter> {
+    private String sql = "SELECT M.MARK_ID, " +
+            "M.STUDENT_ID, " +
+            "M.STUDY_ID, " +
+            "M.MARK, " +
+            "M.DATE, " +
+            "M.COMMENTS, " +
+            "P.PROFESS_ID, " +
+            "P.FIRST_NAME AS 'PROFESSOR_NAME', " +
+            "P.SECOND_NAME AS 'PROFESSOR_SURNAME', " +
+            "P.AVG_MARK AS 'PROFESS_AVG', " +
+            "S.FIRST_NAME AS 'STUDENT_NAME', " +
+            "S.SECOND_NAME AS 'STUDENT_SURNAME', " +
+            "S.AVG_MARK AS 'STUDENT_AVG', " +
+            "S.GROUP_NUMBER, " +
+            "ST.NAME, " +
+            "ST.HOURS, " +
+            "ST.AVG_MARK AS 'STUDY_AVG', " +
+            "G.AVG_MARK AS 'GROUP_AVG' " +
+            "FROM BEGANSS.MARK M JOIN BEGANSS.PROFESS P ON M.PROFESS_ID = P.PROFESS_ID " +
+            "JOIN BEGANSS.STUDENT S ON M.STUDENT_ID = S.STUDENT_ID " +
+            "JOIN BEGANSS.STUDY ST ON M.STUDY_ID = ST.STUDY_ID " +
+            "JOIN BEGANSS.GROUP G ON S.GROUP_NUMBER=G.GROUP_NUMBER " +
+            "WHERE ";
+
     @Override
     public Integer getKey(Marks item) {
         return item.getId();
@@ -25,40 +49,18 @@ public class MarkSQLMapper implements SQLMapper<Integer, Marks, MarksFilter> {
     @Override
     public List<Marks> getData(Connection conn, MarksFilter marksFilter) throws SQLException {
         List<Marks> marks = new ArrayList<>();
-        String sql = "SELECT M.MARK_ID, " +
-                "M.STUDENT_ID, " +
-                "M.STUDY_ID, " +
-                "M.MARK, " +
-                "M.DATE, " +
-                "M.COMMENTS, " +
-                "P.PROFESS_ID, " +
-                "P.FIRST_NAME AS 'PROFESSOR_NAME', " +
-                "P.SECOND_NAME AS 'PROFESSOR_SURNAME', " +
-                "P.AVG_MARK AS 'PROFESS_AVG', " +
-                "S.FIRST_NAME AS 'STUDENT_NAME', " +
-                "S.SECOND_NAME AS 'STUDENT_SURNAME', " +
-                "S.AVG_MARK AS 'STUDENT_AVG', " +
-                "S.GROUP_NUMBER, " +
-                "ST.NAME, " +
-                "ST.HOURS, " +
-                "ST.AVG_MARK AS 'STUDY_AVG', " +
-                "G.AVG_MARK AS 'GROUP_AVG' " +
-                "FROM BEGANSS.MARK M JOIN BEGANSS.PROFESS P ON M.PROFESS_ID = P.PROFESS_ID " +
-                "JOIN BEGANSS.STUDENT S ON M.STUDENT_ID = S.STUDENT_ID " +
-                "JOIN BEGANSS.STUDY ST ON M.STUDY_ID = ST.STUDY_ID " +
-                "JOIN BEGANSS.GROUP G ON S.GROUP_NUMBER=G.GROUP_NUMBER " +
-                "WHERE CONCAT(P.FIRST_NAME,' ',P.SECOND_NAME) LIKE ? AND " +
-                "CONCAT(S.FIRST_NAME,' ',S.SECOND_NAME) LIKE ? AND " +
-                "ST.NAME LIKE ? AND " +
-                "M.MARK LIKE ? ;";
-        PreparedStatement statement = conn.prepareStatement(sql);
-        statement.setString(1, marksFilter.getProfessor() + "%");
-        statement.setString(2, marksFilter.getStudent() + "%");
-        statement.setString(3, marksFilter.getSubject() + "%");
-        statement.setString(4, marksFilter.getMark() + "%");
+        List<String> params = new ArrayList<>();
+        String newsql = sql +
+                SQLHelper.addLike(params, "CONCAT(P.FIRST_NAME,' ',P.SECOND_NAME)", marksFilter.getProfessor(), " AND ") +
+                SQLHelper.addLike(params, "CONCAT(S.FIRST_NAME,' ',S.SECOND_NAME)", marksFilter.getStudent(), " AND ") +
+                SQLHelper.addLike(params, "ST.NAME", marksFilter.getSubject(), " AND ") +
+                SQLHelper.addLike(params, "M.MARK", marksFilter.getMark(), " AND ") +
+                " 1=1 ";
+        PreparedStatement statement = conn.prepareStatement(newsql);
+        SQLHelper.setParams(statement, params);
         ResultSet rs = statement.executeQuery();
         while (rs.next()) {
-            Marks mark  = fillMark(rs);
+            Marks mark = fillMark(rs);
             marks.add(mark);
         }
         return marks;
@@ -84,31 +86,10 @@ public class MarkSQLMapper implements SQLMapper<Integer, Marks, MarksFilter> {
 
     @Override
     public Marks findOne(Connection conn, Integer id) throws SQLException {
-        String sql = "SELECT M.MARK_ID, " +
-                "M.STUDENT_ID, " +
-                "M.STUDY_ID, " +
-                "M.MARK, " +
-                "M.DATE, " +
-                "M.COMMENTS, " +
-                "P.PROFESS_ID, " +
-                "P.FIRST_NAME AS 'PROFESSOR_NAME', " +
-                "P.SECOND_NAME AS 'PROFESSOR_SURNAME', " +
-                "P.AVG_MARK AS 'PROFESS_AVG', " +
-                "S.FIRST_NAME AS 'STUDENT_NAME', " +
-                "S.SECOND_NAME AS 'STUDENT_SURNAME', " +
-                "S.AVG_MARK AS 'STUDENT_AVG', " +
-                "S.GROUP_NUMBER, " +
-                "ST.NAME, " +
-                "ST.HOURS, " +
-                "ST.AVG_MARK AS 'STUDY_AVG', " +
-                "G.AVG_MARK AS 'GROUP_AVG' " +
-                "FROM BEGANSS.MARK M JOIN BEGANSS.PROFESS P ON M.PROFESS_ID = P.PROFESS_ID " +
-                "JOIN BEGANSS.STUDENT S ON M.STUDENT_ID = S.STUDENT_ID " +
-                "JOIN BEGANSS.STUDY ST ON M.STUDY_ID = ST.STUDY_ID " +
-                "JOIN BEGANSS.GROUP G ON S.GROUP_NUMBER=G.GROUP_NUMBER " +
-                "WHERE MARK_ID=?;";
-        PreparedStatement statement = conn.prepareStatement(sql);
-        statement.setInt(1, id);
+        List<String> params = new ArrayList<>();
+        String newsql = sql + SQLHelper.addLike(params, "MARK_ID", id.toString(), " AND ");
+        PreparedStatement statement = conn.prepareStatement(newsql);
+        SQLHelper.setParams(statement, params);
         ResultSet rs = statement.executeQuery();
         Marks mark = null;
         if (rs.next()) {
@@ -118,7 +99,7 @@ public class MarkSQLMapper implements SQLMapper<Integer, Marks, MarksFilter> {
     }
 
     private Marks fillMark(ResultSet rs) throws SQLException {
-        Marks mark=null;
+        Marks mark = null;
         try {
             Professor professor = new Professor(rs.getString("PROFESSOR_NAME"), rs.getString("PROFESSOR_SURNAME"));
             professor.setId(rs.getInt("PROFESS_ID"));

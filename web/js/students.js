@@ -25,7 +25,7 @@ function updateTable() {
     let params = 'sortByName=' + name +
         '&sortBySurname=' + surname +
         '&sortByGroup=' + group;
-    xhr.open('GET', '/students' + '?' + params, true);
+    xhr.open('GET', '/res/students' + '?' + params, true);
     xhr.send();
     xhr.onreadystatechange = function () {
         if (xhr.readyState != 4) return;
@@ -52,7 +52,7 @@ function addStudent() {
     input.secondName = document.getElementById("surnameForm").value;
     input.groupNumber = document.getElementById("groupForm").value;
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", '/students', true);
+    xhr.open("POST", '/res/students', true);
     xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     // xhr.onreadystatechange = function () {
     //     if (xhr.readyState === 4 && xhr.status === 200) {
@@ -66,7 +66,7 @@ function addStudent() {
 
 function getGroups() {
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', '/groups', true);
+    xhr.open('GET', '/res/groups', true);
     xhr.send();
     xhr.onreadystatechange = function () {
         if (xhr.readyState != 4) return;

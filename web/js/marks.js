@@ -31,7 +31,7 @@ function updateTable() {
         '&sortByStudent=' + student +
         '&sortByProfessor=' + professor +
         '&sortByMark=' + mark;
-    xhr.open('GET', '/marks' + '?' + params, true);
+    xhr.open('GET', '/res/marks' + '?' + params, true);
     xhr.send();
     xhr.onreadystatechange = function () {
         if (xhr.readyState != 4) return;
@@ -60,7 +60,7 @@ function addMarks() {
     input.mark = document.getElementById("markForm").value;
     input.comment = document.getElementById("commentForm").value;
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", '/marks', true);
+    xhr.open("POST", '/res/marks', true);
     xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     // xhr.onreadystatechange = function () {
     //     if (xhr.readyState === 4 && xhr.status === 200) {
@@ -90,7 +90,7 @@ function createSubjectsOptions(data) {
 
 function getSubjects() {
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', '/subjects', true);
+    xhr.open('GET', '/res/subjects', true);
     xhr.send();
     xhr.onreadystatechange = function () {
         if (xhr.readyState != 4) return;
@@ -117,7 +117,7 @@ function createStudentsOptions(data) {
 
 function getStudents() {
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', '/students', true);
+    xhr.open('GET', '/res/students', true);
     xhr.send();
     xhr.onreadystatechange = function () {
         if (xhr.readyState != 4) return;

@@ -21,7 +21,7 @@ function updateTable() {
     let xhr = new XMLHttpRequest();
     let params = 'sortByName=' + name +
         '&sortBySurname=' + surname;
-    xhr.open('GET', '/professors' + '?' + params, true);
+    xhr.open('GET', '/res/professors' + '?' + params, true);
     xhr.send();
     xhr.onreadystatechange = function () {
         if (xhr.readyState != 4) return;
@@ -47,7 +47,7 @@ function addProfessor() {
     input.nameForm = document.getElementById("nameForm").value;
     input.surnameForm=document.getElementById("surnameForm").value;
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", '/professors', true);
+    xhr.open("POST", '/res/professors', true);
     xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     // xhr.onreadystatechange = function () {
     //     if (xhr.readyState === 4 && xhr.status === 200) {

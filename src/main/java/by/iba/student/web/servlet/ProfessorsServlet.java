@@ -27,7 +27,6 @@ public class ProfessorsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
         String name = req.getParameter("sortByName");
         String surname = req.getParameter("sortBySurname");
         ProfessorFilter professorFilter = new ProfessorFilter();
@@ -35,11 +34,7 @@ public class ProfessorsServlet extends HttpServlet {
             professorFilter.setFirstName(name);
         if (surname != null)
             professorFilter.setSecondName(surname);
-        PrintWriter pw = resp.getWriter();
-        List<Professor> professors = this.professorRepository.findAll(professorFilter);
-        pw.print(mapper.writeValueAsString(professors));
-        pw.flush();
-        pw.close();
+        req.setAttribute("items", this.professorRepository.findAll(professorFilter));
     }
 
     @Override

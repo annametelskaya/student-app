@@ -44,11 +44,7 @@ public class StudentServlet extends HttpServlet {
             studentFilter.setSurname(sortBySurname);
         if (sortByGroup != null)
             studentFilter.setGroupNumber(sortByGroup);
-        List<Student> students = this.studentRepository.findAll(studentFilter);
-        PrintWriter pw = resp.getWriter();
-        pw.print(mapper.writeValueAsString(students));
-        pw.flush();
-        pw.close();
+        req.setAttribute("items", this.studentRepository.findAll(studentFilter));
     }
 
     @Override
