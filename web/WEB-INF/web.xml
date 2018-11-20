@@ -28,8 +28,8 @@
         <servlet-class>by.iba.student.web.servlet.LoginServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>UserServlet</servlet-name>
-        <servlet-class>by.iba.student.web.servlet.UserServlet</servlet-class>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>by.iba.student.web.servlet.LogoutServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>StudentServlet</servlet-name>
@@ -103,8 +103,8 @@
         <url-pattern>/loginPage</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>UserServlet</servlet-name>
-        <url-pattern>/user</url-pattern>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>StudentServlet</servlet-name>

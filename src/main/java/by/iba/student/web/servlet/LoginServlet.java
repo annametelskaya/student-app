@@ -1,8 +1,13 @@
 package by.iba.student.web.servlet;
 
+import by.iba.student.common.Group;
 import by.iba.student.common.User;
+import by.iba.student.filter.GroupFilter;
+import by.iba.student.repository.Repository;
+import by.iba.student.repository.UserRepository;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +17,14 @@ import java.io.IOException;
 
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = -7452966718428268330L;
+
+    UserRepository userRepository;
+
+    @Override
+    public void init() {
+        ServletContext sc = getServletContext();
+        this.userRepository = (UserRepository) sc.getAttribute("userRepository");
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -23,9 +36,10 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String name = req.getParameter("name");
         String pass = req.getParameter("pass");
-        if ("admin".equals(name)) {
+        User user = this.userRepository.logIn(name, pass);
+        if (user != null) {
             HttpSession session = req.getSession();
-            session.setAttribute("user", new User(name, pass, "admin"));
+            session.setAttribute("user", user);
             resp.sendRedirect("/groupsPage");
         } else {
             doGet(req, resp);

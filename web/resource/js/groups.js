@@ -34,6 +34,12 @@ function searchCards() {
     };
 }
 
+function logout() {
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', '/logout', true);
+    xhr.send();
+}
+
 function clearTable() {
     let node = document.getElementById('groupsTable');
     while (node.firstChild) {

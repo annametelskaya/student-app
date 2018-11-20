@@ -22,6 +22,7 @@ public class AppListener implements ServletContextListener {
     private Repository<Integer, Professor, ProfessorFilter> professorRepository;
     private Repository<Integer, Subject, SubjectFilter> subjectRepository;
     private Repository<Integer, Marks, MarksFilter> marksRepository;
+    private UserRepository userRepository;
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
@@ -37,6 +38,8 @@ public class AppListener implements ServletContextListener {
         sc.setAttribute("subjectRepository", subjectRepository);
         this.marksRepository = new Repository<Integer, Marks, MarksFilter>(new MarkSQLMapper(), dataSource);
         sc.setAttribute("marksRepository", marksRepository);
+        this.userRepository = new UserRepository(dataSource);
+        sc.setAttribute("userRepository", userRepository);
         sce.getServletContext().setAttribute("objectMapper", new ObjectMapper());
 
     }
