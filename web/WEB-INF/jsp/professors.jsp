@@ -9,16 +9,13 @@
     <title>Professors</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script type="text/javascript" src="/js/professors.js"></script>
+    <link rel="stylesheet" type="text/css" href="/resource/css/style.css">
+    <script type="text/javascript" src="/resource/js/professors.js"></script>
 </head>
 <body>
 <div class="row content">
     <nav class="col-md-3">
         <ul class="nav flex-column fixed-bottom nav-items-padding col-md-3">
-            <li class="nav-item ">
-                <a href="/" class="nav-link nav-link-text">Home</a>
-            </li>
             <li class="nav-item">
                 <a href="/groupsPage" class="nav-link nav-link-text">Groups</a>
             </li>
@@ -40,7 +37,7 @@
         <div class="container content py-5">
             <div class="title text-right">
                 <h1>Professors</h1>
-                <a href="/professorsPage/add" class="btn btn-sm active" role="button">add</a>
+                <a href="/professorsPage/add" class="btn btn-app-color btn-sm active" role="button">add</a>
             </div>
             <form>
                 <div class="row">
@@ -53,14 +50,15 @@
                                placeholder="Surname">
                     </div>
                     <div class="col-2 table-item">
-                        <input class="btn" type="button" value="Search" onclick="updateTable()">
+                        <input class="btn btn-app-color" type="button" value="Search" onclick="updateTable()">
                     </div>
                 </div>
             </form>
             <div class="table">
                 <div class="row">
-                    <div class="col-6 table-header">First name</div>
+                    <div class="col-5 table-header">First name</div>
                     <div class="col-6 table-header">Second name</div>
+                    <div class="col-1 table-header"></div>
                 </div>
                 <div id="professorsTable"></div>
             </div>

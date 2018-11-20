@@ -8,16 +8,13 @@
     <title>Groups</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script type="text/javascript" src="/js/groups.js"></script>
+    <link rel="stylesheet" type="text/css" href="/resource/css/style.css">
+    <script type="text/javascript" src="/resource/js/groups.js"></script>
 </head>
 <body>
 <div class="row content">
     <nav class="col-md-3">
         <ul class="nav flex-column fixed-bottom nav-items-padding col-md-3">
-            <li class="nav-item ">
-                <a href="/" class="nav-link nav-link-text">Home</a>
-            </li>
             <li class="nav-item">
                 <a href="/groupsPage" class="nav-link nav-link-text">Groups</a>
             </li>
@@ -39,7 +36,7 @@
         <div class="container content py-5">
             <div class="title text-right">
                 <h1>Groups</h1>
-                <a href="/groupsPage/add" class="btn btn-sm active" role="button">add</a>
+                <a href="/groupsPage/add" class="btn  btn-app-color btn-sm active" role="button">add</a>
             </div>
 
             <form >
@@ -48,7 +45,7 @@
                         <input type="text" class="form-control" id="sortByGroup" name="sortByGroup" placeholder="Group">
                     </div>
                     <div class="col-2">
-                        <input class="btn" type="button" value="Search" onclick="updateCards()">
+                        <input id="button" class="btn btn-app-color" type="button" value="Search" onclick="searchCards()">
                     </div>
                 </div>
             </form>
@@ -58,7 +55,7 @@
 </div>
 <script type="text/javascript">
     window.onload = function () {
-        updateCards();
+        searchCards();
     };
 </script>
 </body>

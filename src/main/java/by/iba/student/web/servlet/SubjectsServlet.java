@@ -48,19 +48,19 @@ public class SubjectsServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        req.setCharacterEncoding("UTF-8");
-        resp.setCharacterEncoding("UTF-8");
-        StringBuilder sb = new StringBuilder();
-        BufferedReader br = req.getReader();
-        String str;
-        while ((str = br.readLine()) != null) {
-            sb.append(str);
-        }
+        StringBuilder sb = (StringBuilder) req.getAttribute("strPost");
         JSONObject jsonObject = new JSONObject(sb.toString());
         Professor professor = this.professorRepository.findById(Integer.valueOf(jsonObject.getString("selectedProfessor")));
         this.subjectRepository.create(new Subject(jsonObject.getString("subjectName"),
                 Integer.valueOf(jsonObject.getString("hours")), professor));
     }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String id = req.getParameter("id");
+        this.subjectRepository.delete(Integer.valueOf(id));
+    }
+
 
     @Override
     public void destroy() {

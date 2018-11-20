@@ -22,16 +22,19 @@ public class ProfessorSQLMapper implements SQLMapper<Integer, Professor, Profess
 
     @Override
     public List<Professor> getData(Connection conn, ProfessorFilter professorFilter) throws SQLException {
+        List<String> params = new ArrayList<>();
         List<Professor> professors = new ArrayList<>();
         String sql = "SELECT PROFESS_ID," +
                 "FIRST_NAME," +
                 "SECOND_NAME," +
                 "AVG_MARK " +
                 "FROM BEGANSS.PROFESS " +
-                "WHERE FIRST_NAME LIKE ? AND SECOND_NAME LIKE ?;";
+                "WHERE " +
+                SQLHelper.addLike(params, "FIRST_NAME", professorFilter.getFirstName(), " AND ") +
+                SQLHelper.addLike(params, "SECOND_NAME", professorFilter.getSecondName(), " AND ") +
+                "1=1";
         PreparedStatement statement = conn.prepareStatement(sql);
-        statement.setString(1, professorFilter.getFirstName() + "%");
-        statement.setString(2, professorFilter.getSecondName() + "%");
+        SQLHelper.setParams(statement, params);
         ResultSet rs = statement.executeQuery();
         while (rs.next()) {
             Professor professor = new Professor(rs.getString("FIRST_NAME"), rs.getString("SECOND_NAME"));
@@ -74,5 +77,14 @@ public class ProfessorSQLMapper implements SQLMapper<Integer, Professor, Profess
             professor.setAvgMark(rs.getString("AVG_MARK"));
         }
         return professor;
+    }
+
+    @Override
+    public void delete(Connection connection, Integer id) throws SQLException {
+        String sql = "DELETE FROM BEGANSS.PROFESS "
+                + "WHERE PROFESS_ID =?;";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, id);
+        statement.execute();
     }
 }

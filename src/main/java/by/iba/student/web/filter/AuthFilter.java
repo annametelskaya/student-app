@@ -19,8 +19,9 @@ public class AuthFilter implements Filter {
         HttpSession session = req.getSession();
         HttpServletResponse resp = (HttpServletResponse) response;
         if (session.getAttribute("user") == null
-                && !req.getRequestURI().contains(req.getContextPath() + "/login")) {
-            resp.sendRedirect("/login");
+                && !req.getRequestURI().contains(req.getContextPath() + "/loginPage")
+                && !req.getRequestURI().contains(req.getContextPath() + "/resource/")) {
+            resp.sendRedirect("/loginPage");
         } else {
             chain.doFilter(request, response);
         }

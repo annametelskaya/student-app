@@ -62,14 +62,7 @@ public class MarksServelt extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("UTF-8");
-        resp.setCharacterEncoding("UTF-8");
-        StringBuilder sb = new StringBuilder();
-        BufferedReader br = req.getReader();
-        String str;
-        while ((str = br.readLine()) != null) {
-            sb.append(str);
-        }
+        StringBuilder sb = (StringBuilder) req.getAttribute("strPost");
         JSONObject jsonObject = new JSONObject(sb.toString());
         Subject subject = this.subjectRepository.findById(Integer.valueOf(jsonObject.getString("selectedSubject")));
         Student student = this.studentRepository.findById(Integer.valueOf(jsonObject.getString("selectedStudent")));
@@ -79,6 +72,12 @@ public class MarksServelt extends HttpServlet {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String id = req.getParameter("id");
+        this.marksRepository.delete(Integer.valueOf(id));
     }
 
     @Override

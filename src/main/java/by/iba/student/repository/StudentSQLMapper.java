@@ -23,6 +23,7 @@ public class StudentSQLMapper implements SQLMapper<Integer, Student, StudentFilt
 
     @Override
     public List<Student> getData(Connection conn, StudentFilter studentFilter) throws SQLException {
+        List<String> params = new ArrayList<>();
         List<Student> students = new ArrayList<>();
         String sql = "SELECT ST.STUDENT_ID, " +
                 "ST.FIRST_NAME, " +
@@ -31,12 +32,13 @@ public class StudentSQLMapper implements SQLMapper<Integer, Student, StudentFilt
                 "ST.GROUP_NUMBER, " +
                 "GR.AVG_MARK  AS 'GROUP_AVG' " +
                 "FROM BEGANSS.STUDENT AS ST JOIN BEGANSS.GROUP AS GR ON ST.GROUP_NUMBER = GR.GROUP_NUMBER " +
-                "WHERE ST.FIRST_NAME LIKE ? " +
-                "AND ST.SECOND_NAME LIKE  ? AND GR.GROUP_NUMBER LIKE ?;";
+                "WHERE " +
+                SQLHelper.addLike(params, "ST.FIRST_NAME", studentFilter.getName(), " AND ") +
+                SQLHelper.addLike(params, "ST.SECOND_NAME", studentFilter.getSurname(), " AND ") +
+                SQLHelper.addLike(params, "GR.GROUP_NUMBER", studentFilter.getGroupNumber(), " AND ") +
+                "1=1";
         PreparedStatement statement = conn.prepareStatement(sql);
-        statement.setString(1, studentFilter.getName() + "%");
-        statement.setString(2, studentFilter.getSurname() + "%");
-        statement.setString(3, studentFilter.getGroupNumber() + "%");
+        SQLHelper.setParams(statement,params);
         ResultSet rs = statement.executeQuery();
         while (rs.next()) {
             Student student = fillStudent(rs);
@@ -79,6 +81,15 @@ public class StudentSQLMapper implements SQLMapper<Integer, Student, StudentFilt
             student = fillStudent(rs);
         }
         return student;
+    }
+
+    @Override
+    public void delete(Connection connection, Integer id) throws SQLException {
+        String sql = "DELETE FROM BEGANSS.STUDENT "
+                + "WHERE STUDENT_ID =?;";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, id);
+        statement.execute();
     }
 
     private Student fillStudent(ResultSet rs) throws SQLException {

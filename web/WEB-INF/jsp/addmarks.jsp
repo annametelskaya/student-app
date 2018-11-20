@@ -8,16 +8,13 @@
     <title>Add mark</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script type="text/javascript" src="/js/marks.js"></script>
+    <link rel="stylesheet" type="text/css" href="/resource/css/style.css">
+    <script type="text/javascript" src="/resource/js/marks.js"></script>
 </head>
 <body>
 <div class="row content">
     <nav class="col-md-3">
         <ul class="nav flex-column fixed-bottom nav-items-padding col-md-3">
-            <li class="nav-item ">
-                <a href="/" class="nav-link nav-link-text">Home</a>
-            </li>
             <li class="nav-item">
                 <a href="/groupsPage" class="nav-link nav-link-text">Groups</a>
             </li>
@@ -50,7 +47,7 @@
                            required pattern="[0-9]+">
                     <textarea type="text" class="form-control" id="commentForm" name="comment" rows="3"
                               placeholder="comment" required></textarea>
-                    <input class="btn" type="submit" value="OK" onclick="addMarks()">
+                    <input class="btn btn-app-color" type="submit" value="OK" onclick="addMarks()">
                 </div>
             </form>
         </div>

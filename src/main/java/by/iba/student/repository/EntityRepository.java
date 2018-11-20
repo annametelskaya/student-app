@@ -9,7 +9,7 @@ public interface EntityRepository<C, T, F> {
 
     public void create(T item);
 
-    public void delete(String id);
+    public void delete(C id);
 
     public T update(T item);
 }

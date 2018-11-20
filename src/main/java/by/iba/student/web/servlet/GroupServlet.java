@@ -37,20 +37,14 @@ public class GroupServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        req.setCharacterEncoding("UTF-8");
-        resp.setCharacterEncoding("UTF-8");
-        StringBuilder sb = new StringBuilder();
-        BufferedReader br = req.getReader();
-        String str;
-        while ((str = br.readLine()) != null) {
-            sb.append(str);
-        }
+        StringBuilder sb = (StringBuilder) req.getAttribute("strPost");
         JSONObject jsonObject = new JSONObject(sb.toString());
         this.groupRepository.create(new Group(jsonObject.getString("groupNumber")));
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
+        String id = req.getParameter("id");
+        this.groupRepository.delete(id);
     }
 }

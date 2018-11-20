@@ -8,16 +8,13 @@
     <title>Marks</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script type="text/javascript" src="/js/marks.js"></script>
+    <link rel="stylesheet" type="text/css" href="/resource/css/style.css">
+    <script type="text/javascript" src="/resource/js/marks.js"></script>
 </head>
 <body>
 <div class="row content">
     <nav class="col-md-3">
         <ul class="nav flex-column fixed-bottom nav-items-padding col-md-3">
-            <li class="nav-item ">
-                <a href="/" class="nav-link nav-link-text">Home</a>
-            </li>
             <li class="nav-item">
                 <a href="/groupsPage" class="nav-link nav-link-text">Groups</a>
             </li>
@@ -39,7 +36,7 @@
         <div class="container content py-5">
             <div class="title text-right">
                 <h1>Marks</h1>
-                <a href="/marksPage/add" class="btn btn-sm active" role="button">add</a>
+                <a href="/marksPage/add" class="btn btn-app-color btn-sm active" role="button">add</a>
             </div>
             <form>
                 <div class="row">
@@ -59,7 +56,7 @@
                         <input type="text" class="form-control" id="sortByMark" name="sortByMark" placeholder="Mark">
                     </div>
                     <div class="col-2">
-                        <input class="btn" type="button" value="Search" onclick="updateTable()">
+                        <input class="btn btn-app-color" type="button" value="Search" onclick="updateTable()">
                     </div>
                 </div>
             </form>
@@ -68,9 +65,10 @@
                     <div class="col-2 table-header">Subject</div>
                     <div class="col-2 table-header">Student</div>
                     <div class="col-2 table-header">Professor</div>
-                    <div class="col-2 table-header">Mark</div>
+                    <div class="col-1 table-header">Mark</div>
                     <div class="col-2 table-header">Date</div>
                     <div class="col-2 table-header">Comment</div>
+                    <div class="col-1 table-header"></div>
                 </div>
                 <div id="markTable"></div>
             </div>

@@ -3,13 +3,22 @@ function createTable(data) {
     let row = "<div>";
     for (let i =0; i < data.length ; i++) {
         items = "<div class='row'>";
-        items += "<div class='col-6 table-item'>" + data[i].firstName + "</div>";
+        items += "<div class='col-5 table-item'>" + data[i].firstName + "</div>";
         items += "<div class='col-6 table-item'>" + data[i].secondName + "</div>";
+        items += "<div class='col-1 table-item'><img src='/resource/img/trash.png' onclick='deleteCard(" + data[i].id +")'></div>";
         items += "</div>";
         row += items;
     }
     row += "</div>";
     return row;
+}
+
+
+function deleteCard(id) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("DELETE", '/res/professors?id=' + id, true);
+    xhr.send();
+    updateTable();
 }
 
 function updateTable() {

@@ -46,8 +46,12 @@ public class Repository<C, T, F> implements EntityRepository<C, T, F> {
     }
 
     @Override
-    public void delete(String id) {
-
+    public void delete(C id) {
+        try (Connection conn = dataSource.getConnection()) {
+            mapper.delete(conn, id);
+        } catch (Throwable ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     @Override

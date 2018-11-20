@@ -21,4 +21,10 @@ public class SQLHelper {
             statement.setString(i + 1, params.get(i) + "%");
         }
     }
+
+    static String setId(String str) throws SQLException {
+        if (str == null)
+            return "0";
+        return str;
+    }
 }

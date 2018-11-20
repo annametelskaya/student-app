@@ -4,7 +4,7 @@ function createCard(data) {
     for (let i = 0; i < data.length; i++) {
         cardBody = "<div class='card m-1' id='" + data[i].groupNumber + "'style='width: 18em; display: inline-block'>" +
             "<div class='card-body'>" +
-            "<img src='/img/trash.png' id='delete' class='float-right' onclick='deleteCard()' />" +
+            "<img src='/resource/img/trash.png' id='delete' class='float-right action-item' onclick='deleteCard(" + data[i].groupNumber + ")' />" +
             "<h5 class='card-title'>Group " + data[i].groupNumber + "</h5>" +
             "</div>" +
             "</div>";
@@ -14,7 +14,7 @@ function createCard(data) {
     return card;
 }
 
-function updateCards() {
+function searchCards() {
     clearTable();
     let group = document.getElementById('sortByGroup').value;
     document.getElementById('sortByGroup').value = group;
@@ -57,6 +57,9 @@ function addGroup() {
     xhr.send(data);
 }
 
-function deleteCard(elem) {
-    console.log(elem);
+function deleteCard(id) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("DELETE", '/res/groups?id=' + id, true);
+    xhr.send();
+    searchCards();
 }

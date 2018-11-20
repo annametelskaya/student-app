@@ -4,6 +4,7 @@ function createCard(data) {
     for (let i = 0; i < data.length; i++) {
         cardBody = "<div class='card m-1' style='width: 18em; display: inline-block'>" +
             "<div class='card-body'>" +
+            "<img src='/resource/img/trash.png' id='delete' class='float-right action-item' onclick='deleteCard(" + data[i].id + ")' />" +
             "<h5 class='card-title'>Subject " + data[i].name + "</h5>" +
             "<p class='card-text'>Professor: " + data[i].professor.firstName + " " + data[i].professor.secondName + "<br> Hours:" + data[i].hours + "</p>" +
             "</div>" +
@@ -12,6 +13,14 @@ function createCard(data) {
     }
     card += "</div>";
     return card;
+}
+
+
+function deleteCard(id) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("DELETE", '/res/subjects?id=' + id, true);
+    xhr.send();
+    updateCards();
 }
 
 function updateCards() {

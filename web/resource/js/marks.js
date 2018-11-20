@@ -6,14 +6,23 @@ function createTable(data) {
         items += "<div class='col-2 table-item'>" + data[i].subjectName + "</div>";
         items += "<div class='col-2 table-item'>" + data[i].studentName + "</div>";
         items += "<div class='col-2 table-item'>" + data[i].professorName + "</div>";
-        items += "<div class='col-2 table-item'>" + data[i].mark + "</div>";
+        items += "<div class='col-1 table-item'>" + data[i].mark + "</div>";
         items += "<div class='col-2 table-item'>" + data[i].date + "</div>";
         items += "<div class='col-2 table-item'>" + data[i].comment + "</div>";
+        items += "<div class='col-1 table-item'><img src='/resource/img/trash.png' onclick='deleteCard(" + data[i].id +")'></div>";
         items += "</div>";
         row += items;
     }
     row += "</div>";
     return row;
+}
+
+
+function deleteCard(id) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("DELETE", '/res/marks?id=' + id, true);
+    xhr.send();
+    updateTable();
 }
 
 function updateTable() {

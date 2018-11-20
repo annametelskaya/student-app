@@ -1,24 +1,25 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: anna
-  Date: 19.11.18
-  Time: 10:27
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css"  href="/resource/css/style.css">
 </head>
-<body>
-<form action="/login" method="POST">
-    <div class="form-container">
-        <input type="text" class="form-control" id="name" name="name" placeholder="Login"
-               required>
-        <input type="text" class="form-control" id="pass" name="pass" placeholder="Pass"
-               required>
-        <input class="btn" type="submit" value="OK">
+<body class="login-bg">
+<div class="align-self-center justify-content-center w-100">
+    <div class="text-center text-light">
+        <h1>LOGIN</h1>
     </div>
-</form>
+    <form action="/loginPage" method="POST">
+        <div class="form-container padd">
+            <input type="text" class="form-control" id="name" name="name" placeholder="Login"
+                   required>
+            <input type="text" class="form-control" id="pass" name="pass" placeholder="Pass"
+                   required>
+            <input class="btn btn-login-color" type="submit" value="OK">
+        </div>
+    </form>
+</div>
 </body>
 </html>

@@ -23,6 +23,7 @@ public class SubjectSQLMapper implements SQLMapper<Integer, Subject, SubjectFilt
 
     @Override
     public List<Subject> getData(Connection conn, SubjectFilter subjectFilter) throws SQLException {
+        List<String> params = new ArrayList<>();
         List<Subject> subjects = new ArrayList<>();
         String sql = "SELECT ST.STUDY_ID, " +
                 "ST.NAME, " +
@@ -33,11 +34,13 @@ public class SubjectSQLMapper implements SQLMapper<Integer, Subject, SubjectFilt
                 "PR.SECOND_NAME, " +
                 "PR.AVG_MARK AS 'PROFESS_AVG' " +
                 "FROM BEGANSS.STUDY ST JOIN BEGANSS.PROFESS PR ON ST.PROFESS_ID = PR.PROFESS_ID " +
-                "WHERE ST.NAME LIKE ? AND ST.HOURS LIKE ? AND CONCAT(PR.FIRST_NAME,' ',PR.SECOND_NAME) LIKE ?;";
+                "WHERE " +
+                SQLHelper.addLike(params, "ST.NAME", subjectFilter.getName(), " AND ") +
+                SQLHelper.addLike(params, "ST.HOURS", subjectFilter.getHours(), " AND ") +
+                SQLHelper.addLike(params, "CONCAT(PR.FIRST_NAME,' ',PR.SECOND_NAME)", subjectFilter.getProfessor(), " AND ") +
+                "1=1";
         PreparedStatement statement = conn.prepareStatement(sql);
-        statement.setString(1, subjectFilter.getName() + "%");
-        statement.setString(2, subjectFilter.getHours() + "%");
-        statement.setString(3, subjectFilter.getProfessor() + "%");
+        SQLHelper.setParams(statement, params);
         ResultSet rs = statement.executeQuery();
         while (rs.next()) {
             Subject subject = fillSubject(rs);
@@ -82,6 +85,15 @@ public class SubjectSQLMapper implements SQLMapper<Integer, Subject, SubjectFilt
             subject = fillSubject(rs);
         }
         return subject;
+    }
+
+    @Override
+    public void delete(Connection connection, Integer id) throws SQLException {
+        String sql = "DELETE FROM BEGANSS.STUDY "
+                + "WHERE STUDY_ID =?;";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, id);
+        statement.execute();
     }
 
     private Subject fillSubject(ResultSet rs) throws SQLException {

@@ -86,16 +86,24 @@ public class MarkSQLMapper implements SQLMapper<Integer, Marks, MarksFilter> {
 
     @Override
     public Marks findOne(Connection conn, Integer id) throws SQLException {
-        List<String> params = new ArrayList<>();
-        String newsql = sql + SQLHelper.addLike(params, "MARK_ID", id.toString(), " AND ");
+        String newsql = sql + "MARK_ID=?;";
         PreparedStatement statement = conn.prepareStatement(newsql);
-        SQLHelper.setParams(statement, params);
+        statement.setInt(1, id);
         ResultSet rs = statement.executeQuery();
         Marks mark = null;
         if (rs.next()) {
             mark = fillMark(rs);
         }
         return mark;
+    }
+
+    @Override
+    public void delete(Connection connection, Integer id) throws SQLException {
+        String sql = "DELETE FROM BEGANSS.MARK "
+                + "WHERE MARK_ID=?;";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, id);
+        statement.execute();
     }
 
     private Marks fillMark(ResultSet rs) throws SQLException {

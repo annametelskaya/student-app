@@ -53,16 +53,13 @@ public class GroupSQLMapper implements SQLMapper<String, Group, GroupFilter> {
 
     @Override
     public Group findOne(Connection conn, String id) throws SQLException {
-        List<String> params = new ArrayList<>();
         String sql = "SELECT "
                 + "GROUP_NUMBER, "
                 + "AVG_MARK "
                 + "FROM BEGANSS.GROUP "
-                + "WHERE "
-                + SQLHelper.addLike(params, "GROUP_NUMBER", id, " AND ")
-                + "1=1";
+                + "WHERE GROUP_NUMBER =?;";
         PreparedStatement statement = conn.prepareStatement(sql);
-        SQLHelper.setParams(statement, params);
+        statement.setString(1, id);
         ResultSet rs = statement.executeQuery();
         Group group = null;
         if (rs.next()) {
@@ -70,5 +67,14 @@ public class GroupSQLMapper implements SQLMapper<String, Group, GroupFilter> {
             group.setAvg_mark(rs.getString("AVG_MARK"));
         }
         return group;
+    }
+
+    @Override
+    public void delete(Connection connection, String id) throws SQLException {
+        String sql = "DELETE FROM BEGANSS.GROUP "
+                + "WHERE GROUP_NUMBER =?;";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, id);
+        statement.execute();
     }
 }
