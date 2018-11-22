@@ -9,7 +9,7 @@ function createTable(data) {
         items += "<div class='col-1 table-item'>" + data[i].mark + "</div>";
         items += "<div class='col-2 table-item'>" + data[i].date + "</div>";
         items += "<div class='col-2 table-item'>" + data[i].comment + "</div>";
-        items += "<div class='col-1 table-item'><img src='/resource/img/trash.png' onclick='deleteCard(" + data[i].id +")'></div>";
+        items += "<div class='col-1 table-item'><img src='/resource/img/trash.png' onclick='deleteCard(" + data[i].id + ")'></div>";
         items += "</div>";
         row += items;
     }
@@ -17,6 +17,12 @@ function createTable(data) {
     return row;
 }
 
+function logout() {
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', '/logout', true);
+    xhr.send(null);
+    window.location.replace('/loginPage');
+}
 
 function deleteCard(id) {
     let xhr = new XMLHttpRequest();
@@ -62,9 +68,17 @@ function clearTable() {
 }
 
 function addMarks() {
+    let split = document.getElementById("selectedSubjectForm").value.split(",");
     let input = {};
-    input.selectedSubject = document.getElementById("selectedSubjectForm").value;
-    input.selectedStudent = document.getElementById("selectStudentForm").value;
+    input.subject = {
+        id: split[0]
+    };
+    input.student = {
+        id: document.getElementById("selectStudentForm").value
+    };
+    input.professor = {
+        id: split[1]
+    };
     input.date = document.getElementById("date").value;
     input.mark = document.getElementById("markForm").value;
     input.comment = document.getElementById("commentForm").value;
@@ -91,7 +105,7 @@ function createSubjectsOptions(data) {
     let option;
     let options = "";
     for (let i = 0; i < data.length; i++) {
-        option = "<option value=" + data[i].id + ">" + data[i].name + " - " + data[i].professor.firstName + " " + data[i].professor.secondName + "</option>";
+        option = "<option value=" + data[i].id + "," + data[i].professor.id + ">" + data[i].name + " - " + data[i].professor.firstName + " " + data[i].professor.secondName + "</option>";
         options += option;
     }
     return options;

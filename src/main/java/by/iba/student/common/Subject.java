@@ -7,6 +7,9 @@ public class Subject {
     private Professor professor;
     private double avgMark;
 
+    public Subject() {
+    }
+
     public Subject(String name, int hours, Professor professorId) {
         this.name = name;
         this.hours = hours;
@@ -18,8 +21,8 @@ public class Subject {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(String id) {
+        this.id = Integer.valueOf(id);
     }
 
     public String getName() {

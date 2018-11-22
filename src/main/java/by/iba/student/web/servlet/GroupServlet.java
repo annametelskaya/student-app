@@ -19,11 +19,13 @@ public class GroupServlet extends HttpServlet {
 
     private static final long serialVersionUID = 6345194112526801506L;
     private Repository<String, Group, GroupFilter> groupRepository;
+    private ObjectMapper objectMapper;
 
     @Override
     public void init() {
         ServletContext sc = getServletContext();
         this.groupRepository = (Repository<String, Group, GroupFilter>) sc.getAttribute("groupRepository");
+        this.objectMapper = (ObjectMapper) sc.getAttribute("objectMapper");
     }
 
     @Override
@@ -37,9 +39,16 @@ public class GroupServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        StringBuilder sb = (StringBuilder) req.getAttribute("strPost");
-        JSONObject jsonObject = new JSONObject(sb.toString());
-        this.groupRepository.create(new Group(jsonObject.getString("groupNumber")));
+        Group group = this.objectMapper.readValue(req.getInputStream(), Group.class);
+        this.groupRepository.create(group);
+    }
+
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String id = req.getParameter("id");
+        Group group = this.objectMapper.readValue(req.getInputStream(), Group.class);
+        this.groupRepository.update(id, group );
     }
 
     @Override

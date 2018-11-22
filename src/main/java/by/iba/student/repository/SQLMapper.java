@@ -16,4 +16,6 @@ public interface SQLMapper<C, T, F> {
     public T findOne(Connection conn, C id) throws SQLException;
 
     public void delete(Connection connection, C id) throws SQLException;
+
+    public void update(Connection connection, C id, T newItem) throws SQLException;
 }

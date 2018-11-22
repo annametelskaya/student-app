@@ -8,6 +8,10 @@ public class Student {
     private double avgMark;
 
 
+    public Student() {
+
+    }
+
     public Student(String firstName, String secondName, Group group) {
         super();
         this.firstName = firstName;
@@ -20,8 +24,8 @@ public class Student {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(String id) {
+        this.id = Integer.valueOf(id);
     }
 
     public String getFirstName() {
@@ -44,8 +48,8 @@ public class Student {
         return group.getGroupNumber();
     }
 
-    public void setGroupId(Group groupId) {
-        this.group = groupId;
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     public double getAvgMark() {

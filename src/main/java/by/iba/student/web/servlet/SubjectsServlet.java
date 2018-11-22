@@ -4,6 +4,7 @@ import by.iba.student.filter.ProfessorFilter;
 import by.iba.student.filter.SubjectFilter;
 import by.iba.student.repository.Repository;
 import by.iba.student.common.*;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONObject;
 
@@ -23,12 +24,15 @@ public class SubjectsServlet extends HttpServlet {
 
     private Repository<Integer, Professor, ProfessorFilter> professorRepository;
     private Repository<Integer, Subject, SubjectFilter> subjectRepository;
+    ObjectMapper objectMapper;
 
     @Override
     public void init() {
         ServletContext sc = getServletContext();
         this.subjectRepository = (Repository<Integer, Subject, SubjectFilter>) sc.getAttribute("subjectRepository");
         this.professorRepository = (Repository<Integer, Professor, ProfessorFilter>) sc.getAttribute("professorRepository");
+        this.objectMapper = (ObjectMapper) sc.getAttribute("objectMapper");
+
     }
 
     @Override
@@ -48,11 +52,10 @@ public class SubjectsServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        StringBuilder sb = (StringBuilder) req.getAttribute("strPost");
-        JSONObject jsonObject = new JSONObject(sb.toString());
-        Professor professor = this.professorRepository.findById(Integer.valueOf(jsonObject.getString("selectedProfessor")));
-        this.subjectRepository.create(new Subject(jsonObject.getString("subjectName"),
-                Integer.valueOf(jsonObject.getString("hours")), professor));
+//        JsonNode node = this.objectMapper.readValue(req.getInputStream(), JsonNode.class);
+//        Professor professor = this.professorRepository.findById(node.get("selectedProfessor").asInt());
+        Subject subject = this.objectMapper.readValue(req.getReader(), Subject.class);
+        this.subjectRepository.create(subject);
     }
 
     @Override

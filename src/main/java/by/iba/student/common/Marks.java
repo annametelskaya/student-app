@@ -12,17 +12,21 @@ public class Marks {
     private Date date;
     private String comment;
 
-    public Marks(Subject subject, Student student, double mark, Date date, String comment) {
+    public Marks() {
+
+    }
+
+    public Marks(Subject subject, Student student, Professor professor, double mark, Date date, String comment) {
         super();
         this.subject = subject;
         this.student = student;
-        this.professor = subject.getProfessor();
+        this.professor = professor;
         this.mark = mark;
         this.date = date;
         this.comment = comment;
     }
 
-    public String getSubjectId() {
+    public String getSubject() {
         return subject.getId() + "";
     }
 
@@ -30,8 +34,8 @@ public class Marks {
         return subject.getName();
     }
 
-    public void setSubjectId(Subject subjectId) {
-        this.subject = subjectId;
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
 
     public String getDate() {
@@ -50,7 +54,7 @@ public class Marks {
         this.id = id;
     }
 
-    public String getStudentId() {
+    public String getStudent() {
         return student.getId() + "";
     }
 
@@ -58,11 +62,11 @@ public class Marks {
         return student.getFirstName() + " " + student.getSecondName();
     }
 
-    public void setStudentId(Student studentId) {
-        this.student = studentId;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
-    public String getProfessorId() {
+    public String getProfessor() {
         return professor.getId() + "";
     }
 
@@ -70,7 +74,7 @@ public class Marks {
         return professor.getFirstName() + " " + professor.getSecondName();
     }
 
-    public void setProfessorId(Professor professorId) {
+    public void setProfessor(Professor professorId) {
         this.professor = professorId;
     }
 
@@ -88,5 +92,18 @@ public class Marks {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    @Override
+    public String toString() {
+        return "Marks{" +
+                "id=" + id +
+                ", subject=" + subject +
+                ", student=" + student +
+                ", professor=" + professor +
+                ", mark=" + mark +
+                ", date=" + date +
+                ", comment='" + comment + '\'' +
+                '}';
     }
 }

@@ -6,13 +6,20 @@ function createTable(data) {
         items += "<div class='col-4 table-item'>" + data[i].firstName + "</div>";
         items += "<div class='col-4 table-item'>" + data[i].secondName + "</div>";
         items += "<div class='col-3 table-item'>" + data[i].groupNumber + "</div>";
-        items += "<div class='col-1 table-item'><img src='/resource/img/trash.png' onclick='deleteCard(" + data[i].id +")'></div>";
+        items += "<div class='col-1 table-item'><img src='/resource/img/trash.png' onclick='deleteCard(" + data[i].id + ")'></div>";
 
         items += "</div>";
         row += items;
     }
     row += "</div>";
     return row;
+}
+
+function logout() {
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', '/logout', true);
+    xhr.send(null);
+    window.location.replace('/loginPage');
 }
 
 function deleteCard(id) {
@@ -59,7 +66,9 @@ function addStudent() {
     let input = {};
     input.firstName = document.getElementById("nameForm").value;
     input.secondName = document.getElementById("surnameForm").value;
-    input.groupNumber = document.getElementById("groupForm").value;
+    input.group = {
+        groupNumber: document.getElementById("groupForm").value
+    };
     let xhr = new XMLHttpRequest();
     xhr.open("POST", '/res/students', true);
     xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');

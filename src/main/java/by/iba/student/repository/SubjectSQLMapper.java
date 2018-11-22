@@ -17,7 +17,7 @@ public class SubjectSQLMapper implements SQLMapper<Integer, Subject, SubjectFilt
     @Override
     public Integer setKey(Subject item, int size) {
         int id = size + 1;
-        item.setId(id);
+        item.setId(""+id+"");
         return id;
     }
 
@@ -61,7 +61,7 @@ public class SubjectSQLMapper implements SQLMapper<Integer, Subject, SubjectFilt
         sql = "SELECT MAX(STUDY_ID) AS 'STUDY_ID' FROM BEGANSS.STUDY;";
         ResultSet rs = statement.executeQuery(sql);
         if (rs.next()) {
-            item.setId(rs.getInt("STUDY_ID"));
+            item.setId(rs.getString("STUDY_ID"));
         }
     }
 
@@ -96,15 +96,20 @@ public class SubjectSQLMapper implements SQLMapper<Integer, Subject, SubjectFilt
         statement.execute();
     }
 
+    @Override
+    public void update(Connection connection, Integer id, Subject newItem) throws SQLException {
+
+    }
+
     private Subject fillSubject(ResultSet rs) throws SQLException {
         Subject subject = null;
         Professor professor = new Professor(rs.getString("FIRST_NAME"), rs.getString("SECOND_NAME"));
-        professor.setId(rs.getInt("PROFESS_ID"));
+        professor.setId(rs.getString("PROFESS_ID"));
         professor.setAvgMark(rs.getString("PROFESS_AVG"));
         subject = new Subject(rs.getString("NAME"),
                 Integer.valueOf(rs.getString("HOURS")), professor);
         subject.setAvgMark(rs.getString("STUDY_AVG"));
-        subject.setId(rs.getInt("STUDY_ID"));
+        subject.setId(rs.getString("STUDY_ID"));
         return subject;
     }
 }

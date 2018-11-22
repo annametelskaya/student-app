@@ -16,7 +16,7 @@ public class ProfessorSQLMapper implements SQLMapper<Integer, Professor, Profess
     @Override
     public Integer setKey(Professor item, int size) {
         int id = size + 1;
-        item.setId(id);
+        item.setId(""+id+"");
         return id;
     }
 
@@ -38,7 +38,7 @@ public class ProfessorSQLMapper implements SQLMapper<Integer, Professor, Profess
         ResultSet rs = statement.executeQuery();
         while (rs.next()) {
             Professor professor = new Professor(rs.getString("FIRST_NAME"), rs.getString("SECOND_NAME"));
-            professor.setId(rs.getInt("PROFESS_ID"));
+            professor.setId(rs.getString("PROFESS_ID"));
             professor.setAvgMark(rs.getString("AVG_MARK"));
             professors.add(professor);
         }
@@ -56,7 +56,7 @@ public class ProfessorSQLMapper implements SQLMapper<Integer, Professor, Profess
         sql = "SELECT MAX(PROFESS_ID) AS 'PROFESS_ID' FROM BEGANSS.PROFESS;";
         ResultSet rs = statement.executeQuery(sql);
         if (rs.next()) {
-            item.setId(rs.getInt("PROFESS_ID"));
+            item.setId(rs.getString("PROFESS_ID"));
         }
     }
 
@@ -73,7 +73,7 @@ public class ProfessorSQLMapper implements SQLMapper<Integer, Professor, Profess
         Professor professor = null;
         if (rs.next()) {
             professor = new Professor(rs.getString("FIRST_NAME"), rs.getString("SECOND_NAME"));
-            professor.setId(rs.getInt("PROFESS_ID"));
+            professor.setId(rs.getString("PROFESS_ID"));
             professor.setAvgMark(rs.getString("AVG_MARK"));
         }
         return professor;
@@ -86,5 +86,10 @@ public class ProfessorSQLMapper implements SQLMapper<Integer, Professor, Profess
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, id);
         statement.execute();
+    }
+
+    @Override
+    public void update(Connection connection, Integer id, Professor newItem) throws SQLException {
+
     }
 }

@@ -55,7 +55,10 @@ public class Repository<C, T, F> implements EntityRepository<C, T, F> {
     }
 
     @Override
-    public T update(T item) {
-        return null;
-    }
+    public void update(C id, T newItem) {
+        try (Connection conn = dataSource.getConnection()) {
+            mapper.update(conn, id, newItem);
+        } catch (Throwable ex) {
+            throw new RuntimeException(ex);
+        }    }
 }

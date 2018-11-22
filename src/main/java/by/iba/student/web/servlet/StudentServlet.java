@@ -1,9 +1,6 @@
 package by.iba.student.web.servlet;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServlet;
@@ -15,25 +12,26 @@ import by.iba.student.filter.StudentFilter;
 import by.iba.student.repository.Repository;
 import by.iba.student.common.Group;
 import by.iba.student.common.Student;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.JSONObject;
 
 public class StudentServlet extends HttpServlet {
 
     private static final long serialVersionUID = 6345194112526801506L;
     private Repository<Integer, Student, StudentFilter> studentRepository;
     private Repository<String, Group, GroupFilter> groupRepository;
+    private ObjectMapper objectMapper;
 
     @Override
     public void init() {
         ServletContext sc = getServletContext();
         this.studentRepository = (Repository<Integer, Student, StudentFilter>) sc.getAttribute("studentRepository");
         this.groupRepository = (Repository<String, Group, GroupFilter>) sc.getAttribute("groupRepository");
+        this.objectMapper = (ObjectMapper) sc.getAttribute("objectMapper");
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
         String sortByName = req.getParameter("sortByName");
         String sortBySurname = req.getParameter("sortBySurname");
         String sortByGroup = req.getParameter("sortByGroup");
@@ -49,12 +47,8 @@ public class StudentServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        StringBuilder sb = (StringBuilder) req.getAttribute("strPost");
-        JSONObject jsonObject = new JSONObject(sb.toString());
-        Student st = new Student(jsonObject.getString("firstName"),
-                jsonObject.getString("secondName"),
-                groupRepository.findById(jsonObject.getString("groupNumber")));
-        this.studentRepository.create(st);
+        Student student = this.objectMapper.readValue(req.getReader(), Student.class);
+        this.studentRepository.create(student);
     }
 
 

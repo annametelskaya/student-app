@@ -9,6 +9,7 @@ import by.iba.student.common.Marks;
 import by.iba.student.common.Professor;
 import by.iba.student.common.Student;
 import by.iba.student.common.Subject;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONObject;
 
@@ -32,6 +33,7 @@ public class MarksServelt extends HttpServlet {
     private Repository<Integer, Professor, ProfessorFilter> professorRepository;
     private Repository<Integer, Marks, MarksFilter> marksRepository;
     private Repository<Integer, Subject, SubjectFilter> subjectRepository;
+    private ObjectMapper objectMapper;
 
     @Override
     public void init() {
@@ -40,6 +42,8 @@ public class MarksServelt extends HttpServlet {
         this.studentRepository = (Repository<Integer, Student, StudentFilter>) sc.getAttribute("studentRepository");
         this.professorRepository = (Repository<Integer, Professor, ProfessorFilter>) sc.getAttribute("professorRepository");
         this.subjectRepository = (Repository<Integer, Subject, SubjectFilter>) sc.getAttribute("subjectRepository");
+        this.objectMapper = (ObjectMapper) sc.getAttribute("objectMapper");
+
     }
 
     @Override
@@ -62,16 +66,21 @@ public class MarksServelt extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        StringBuilder sb = (StringBuilder) req.getAttribute("strPost");
-        JSONObject jsonObject = new JSONObject(sb.toString());
-        Subject subject = this.subjectRepository.findById(Integer.valueOf(jsonObject.getString("selectedSubject")));
-        Student student = this.studentRepository.findById(Integer.valueOf(jsonObject.getString("selectedStudent")));
-        try {
-            this.marksRepository.create(new Marks(subject, student, Double.valueOf(jsonObject.getString("mark")),
-                    new SimpleDateFormat("yyyy-MM-dd").parse(jsonObject.getString("date")), jsonObject.getString("comment")));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        Marks marks = this.objectMapper.readValue(req.getInputStream(), Marks.class);
+        System.out.println(marks + " \n" + marks.getProfessor());
+//        req.setCharacterEncoding("UTF-8");
+//        resp.setCharacterEncoding("UTF-8");
+//        StringBuilder sb = new StringBuilder();
+//        BufferedReader br = req.getReader();
+//        String str;
+//        while ((str = br.readLine()) != null) {
+//            sb.append(str);
+//        }
+//        req.setAttribute("strPost", sb);
+//     //   String str = this.objectMapper.readValue(req.getInputStream(), String.class);
+//        System.out.println(sb.toString());
+        this.marksRepository.create(marks);
+
     }
 
     @Override

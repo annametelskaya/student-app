@@ -77,4 +77,13 @@ public class GroupSQLMapper implements SQLMapper<String, Group, GroupFilter> {
         statement.setString(1, id);
         statement.execute();
     }
+
+    @Override
+    public void update(Connection connection, String id, Group newItem) throws SQLException {
+        String sql = "UPDATE BEGANSS.GROUP SET GROUP_NUMBER=? WHERE GROUP_NUMBER=?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, newItem.getGroupNumber());
+        statement.setString(2, id);
+        statement.execute();
+    }
 }

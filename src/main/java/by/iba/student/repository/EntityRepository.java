@@ -11,5 +11,5 @@ public interface EntityRepository<C, T, F> {
 
     public void delete(C id);
 
-    public T update(T item);
+    public void update(C id, T newItem);
 }

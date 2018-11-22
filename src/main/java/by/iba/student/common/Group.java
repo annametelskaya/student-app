@@ -4,6 +4,10 @@ public class Group {
     private String groupNumber;
     private double avg_mark;
 
+    public Group() {
+
+    }
+
     public Group(String n) {
         super();
         this.groupNumber = n;

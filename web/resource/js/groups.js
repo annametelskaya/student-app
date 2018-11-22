@@ -36,8 +36,9 @@ function searchCards() {
 
 function logout() {
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', '/logout', true);
-    xhr.send();
+    xhr.open('POST', '/logout', true);
+    xhr.send(null);
+    window.location.replace('/loginPage');
 }
 
 function clearTable() {
@@ -61,6 +62,7 @@ function addGroup() {
     // };
     let data = JSON.stringify(input);
     xhr.send(data);
+
 }
 
 function deleteCard(id) {

@@ -70,9 +70,10 @@ public class MarkSQLMapper implements SQLMapper<Integer, Marks, MarksFilter> {
     public void createData(Connection conn, Marks item) throws SQLException {
         String sql = "INSERT INTO BEGANSS.MARK(STUDY_ID, STUDENT_ID, PROFESS_ID, DATE, MARK, COMMENTS) VALUES (?,?,?,?,?,?);";
         PreparedStatement statement = conn.prepareStatement(sql);
-        statement.setString(1, item.getSubjectId());
-        statement.setString(2, item.getStudentId());
-        statement.setString(3, item.getProfessorId());
+//        System.out.println(item.getStudent() + " " + item.getProfessor() + item.getSubject());
+        statement.setString(1, item.getSubject());
+        statement.setString(2, item.getStudent());
+        statement.setString(3, item.getProfessor());
         statement.setString(4, item.getDate());
         statement.setDouble(5, item.getMark());
         statement.setString(6, item.getComment());
@@ -106,21 +107,26 @@ public class MarkSQLMapper implements SQLMapper<Integer, Marks, MarksFilter> {
         statement.execute();
     }
 
+    @Override
+    public void update(Connection connection, Integer id, Marks newItem) throws SQLException {
+
+    }
+
     private Marks fillMark(ResultSet rs) throws SQLException {
         Marks mark = null;
         try {
             Professor professor = new Professor(rs.getString("PROFESSOR_NAME"), rs.getString("PROFESSOR_SURNAME"));
-            professor.setId(rs.getInt("PROFESS_ID"));
+            professor.setId(rs.getString("PROFESS_ID"));
             professor.setAvgMark(rs.getString("PROFESS_AVG"));
             Subject subject = new Subject(rs.getString("NAME"), rs.getInt("HOURS"), professor);
-            subject.setId(rs.getInt("STUDY_ID"));
+            subject.setId(rs.getString("STUDY_ID"));
             subject.setAvgMark(rs.getString("STUDY_AVG"));
             Group group = new Group(rs.getString("GROUP_NUMBER"));
             group.setAvg_mark(rs.getString("GROUP_AVG"));
             Student student = new Student(rs.getString("STUDENT_NAME"), rs.getString("STUDENT_SURNAME"), group);
-            student.setId(rs.getInt("STUDENT_ID"));
+            student.setId(rs.getString("STUDENT_ID"));
             student.setAvgMark(rs.getString("STUDENT_AVG"));
-            mark = new Marks(subject, student, Double.valueOf(rs.getString("MARK")),
+            mark = new Marks(subject, student, professor,Double.valueOf(rs.getString("MARK")),
                     new SimpleDateFormat("yyyy-MM-dd").parse(rs.getString("DATE")),
                     rs.getString("COMMENTS"));
             mark.setId(rs.getInt("MARK_ID"));

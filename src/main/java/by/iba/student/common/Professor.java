@@ -6,6 +6,9 @@ public class Professor {
     private String secondName;
     private double avgMark;
 
+    public Professor() {
+    }
+
     public Professor(String firstName, String secondName) {
         super();
         this.firstName = firstName;
@@ -17,8 +20,8 @@ public class Professor {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(String  id) {
+        this.id = Integer.valueOf(id);
     }
 
     public String getFirstName() {

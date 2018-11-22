@@ -31,7 +31,7 @@
                 <a href="/marksPage" class="nav-link nav-link-text">Marks</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link nav-link-text" onclick="logout()">Log out</a>
+                <a class="nav-link nav-link-text action-item" onclick="logout()">Log out</a>
             </li>
         </ul>
     </nav>

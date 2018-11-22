@@ -5,6 +5,9 @@ public class User {
     private String pass;
     private String role;
 
+    public User() {
+
+    }
 
     public User(String userName, String pass, String role) {
         this.userName = userName;

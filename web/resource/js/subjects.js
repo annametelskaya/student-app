@@ -15,6 +15,12 @@ function createCard(data) {
     return card;
 }
 
+function logout() {
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', '/logout', true);
+    xhr.send(null);
+    window.location.replace('/loginPage');
+}
 
 function deleteCard(id) {
     let xhr = new XMLHttpRequest();
@@ -58,9 +64,12 @@ function clearCards() {
 
 function addSubject() {
     let input = {};
-    input.selectedProfessor = document.getElementById("selectProfessorForm").value;
+ //    input.selectedProfessor = document.getElementById("selectProfessorForm").value;
+    input.professor={
+        id: document.getElementById("selectProfessorForm").value
+    };
     input.hours = document.getElementById("hoursForm").value;
-    input.subjectName = document.getElementById("subjectForm").value;
+    input.name = document.getElementById("subjectForm").value;
     let xhr = new XMLHttpRequest();
     xhr.open("POST", '/res/subjects', true);
     xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');

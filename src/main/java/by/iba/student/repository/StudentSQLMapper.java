@@ -17,7 +17,7 @@ public class StudentSQLMapper implements SQLMapper<Integer, Student, StudentFilt
     @Override
     public Integer setKey(Student item, int size) {
         int id = size + 1;
-        item.setId(id);
+        item.setId(""+id+"");
         return id;
     }
 
@@ -38,7 +38,7 @@ public class StudentSQLMapper implements SQLMapper<Integer, Student, StudentFilt
                 SQLHelper.addLike(params, "GR.GROUP_NUMBER", studentFilter.getGroupNumber(), " AND ") +
                 "1=1";
         PreparedStatement statement = conn.prepareStatement(sql);
-        SQLHelper.setParams(statement,params);
+        SQLHelper.setParams(statement, params);
         ResultSet rs = statement.executeQuery();
         while (rs.next()) {
             Student student = fillStudent(rs);
@@ -59,7 +59,7 @@ public class StudentSQLMapper implements SQLMapper<Integer, Student, StudentFilt
         sql = "SELECT MAX(STUDENT_ID) AS 'STUDENT_ID' FROM BEGANSS.STUDENT;";
         ResultSet rs = statement.executeQuery(sql);
         if (rs.next()) {
-            item.setId(rs.getInt("STUDENT_ID"));
+            item.setId(rs.getString("STUDENT_ID"));
         }
     }
 
@@ -92,6 +92,11 @@ public class StudentSQLMapper implements SQLMapper<Integer, Student, StudentFilt
         statement.execute();
     }
 
+    @Override
+    public void update(Connection connection, Integer id, Student newItem) throws SQLException {
+
+    }
+
     private Student fillStudent(ResultSet rs) throws SQLException {
         Student student = null;
         Group group = new Group(rs.getString("GROUP_NUMBER"));
@@ -99,7 +104,7 @@ public class StudentSQLMapper implements SQLMapper<Integer, Student, StudentFilt
         student = new Student(rs.getString("FIRST_NAME"), rs.getString("SECOND_NAME"),
                 group);
         student.setAvgMark(rs.getString("STUDENT_AVG"));
-        student.setId(rs.getInt("STUDENT_ID"));
+        student.setId(rs.getString("STUDENT_ID"));
         return student;
     }
 }

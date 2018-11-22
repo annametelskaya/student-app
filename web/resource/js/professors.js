@@ -1,11 +1,12 @@
 function createTable(data) {
     let items;
     let row = "<div>";
-    for (let i =0; i < data.length ; i++) {
+    for (let i = 0; i < data.length; i++) {
         items = "<div class='row'>";
         items += "<div class='col-5 table-item'>" + data[i].firstName + "</div>";
         items += "<div class='col-6 table-item'>" + data[i].secondName + "</div>";
-        items += "<div class='col-1 table-item'><img src='/resource/img/trash.png' onclick='deleteCard(" + data[i].id +")'></div>";
+        items += "<div class='col-1 table-item'>";
+        items += "<img src='/resource/img/trash.png' onclick='deleteCard(" + data[i].id + ")'></div>";
         items += "</div>";
         row += items;
     }
@@ -13,6 +14,12 @@ function createTable(data) {
     return row;
 }
 
+function logout() {
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', '/logout', true);
+    xhr.send(null);
+    window.location.replace('/loginPage');
+}
 
 function deleteCard(id) {
     let xhr = new XMLHttpRequest();
@@ -53,8 +60,8 @@ function clearTable() {
 
 function addProfessor() {
     let input = {};
-    input.nameForm = document.getElementById("nameForm").value;
-    input.surnameForm=document.getElementById("surnameForm").value;
+    input.firstName = document.getElementById("nameForm").value;
+    input.secondName = document.getElementById("surnameForm").value;
     let xhr = new XMLHttpRequest();
     xhr.open("POST", '/res/professors', true);
     xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
